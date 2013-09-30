@@ -1,0 +1,65 @@
+#!/bin/sh
+
+# This thing will start the java implementation of roscore 
+# The default ROS_MASTER_URI is set to: http://localhost:11311 , the same as for ROS 
+# You can specify the ROS_MASTER_URI by:
+#   - passing the URI as parameter
+#   - or ssetting variable $ROS_MASTER_URI (as is made by the ROS installation)
+#
+#
+
+# by Jaroslav Vitku
+
+
+# this is where I am (and all things to copy)
+BASEDIR=$(dirname $0)
+
+
+# print usage
+pu()
+{
+	echo " "
+	echo "====================== Usage ====================x"
+	echo "Script 'jrsocore' launches the roscore with URI specified in $ROS_MASTER_URI variable"
+	echo "Which has currently this value: "$ROS_MASTER_URI
+	echo " "
+	echo "Or e.g. script 'run http://localhost:11311' starts the master with a valid URI" 
+	echo "================================================="
+	echo " "
+}
+
+HELP="help"
+
+# specify the name of the roscore project
+NAME=jroscore
+
+# determine the absollute path to the java roscore isntallation 
+PTH=$BASEDIR"/build/install/jroscore/bin/"
+cd $PTH
+
+#define defailt URI:
+DEFAULTURI="http://localhost:11311/"
+
+# if no argument specified, try to run based on the environment variable
+if [ "$#" -eq "0" ]; then
+    
+    # check whether ROS_MASTER_URI variable is set (if ROS is installed...)
+    if [[ "$ROS_MASTER_URI" -eq "" ]]; then
+        echo "ROS probably not installed and you did not specify your URI, so setting the default one."
+        ROS_MASTER_URI=$DEFAULTURI
+    fi
+	./$NAME $DEFAULTURI
+	
+elif [ "$#" -eq "1" ]; then
+	# want some help?
+	if [ "$1" = "$HELP" ]; then
+		pu
+	else
+		# run roscore with the manually specified uri  
+		./$NAME $1
+	fi
+else
+	pu
+fi
+
+
