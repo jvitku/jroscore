@@ -3,7 +3,7 @@ Export-Package: org.ros;uses:="org.junit";version="0.0.0.SNAPSHOT"
 Bundle-Version: 0.0.0.SNAPSHOT
 Tool: Bnd-1.50.0
 Bundle-Name: jroscore
-Bnd-LastModified: 1380559211000
+Bnd-LastModified: 1380561202000
 Created-By: 1.6.0_51 (Apple Inc.)
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: nengoros.jroscore

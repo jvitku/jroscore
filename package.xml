@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package>
+  <name>jroscore</name>
+  <version>0.0.0</version>
+  <description>
+    A simple helper for launching the java implementation of ROS core.
+  </description>
+  <url>http://nengoros.wordpress.com/</url>
+  <author email="vitkujar@fel.cvut.cz">Jaroslav Vitku</author>
+  <license>Apache 2.0</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>rosjava_core</build_depend>
+  <run_depend>rosjava_core</run_depend>
+</package>
+
