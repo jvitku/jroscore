@@ -44,7 +44,7 @@ DEFAULTURI="http://localhost:11311/"
 if [ "$#" -eq "0" ]; then
     
     # check whether ROS_MASTER_URI variable is set (if ROS is installed...)
-    if [[ "$ROS_MASTER_URI" -eq "" ]]; then
+    if [ -z "$ROS_PACKAGE_PATH" ]; then
         echo "ROS probably not installed and you did not specify your URI, so setting the default one."
         ROS_MASTER_URI=$DEFAULTURI
     fi

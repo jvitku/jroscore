@@ -6,25 +6,20 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- * I did not find any ros_core launcher, so I made this one
+ * Did not find any java ros_core launcher, so I made this one.
  * 
  * Default master server uri (address) is different from the variable:
  * $ROS_MASTER_URI (see: http://www.ros.org/wiki/ROS/EnvironmentVariables )
  * 
  * This means that nodes launched without explicitly given uri will not find roscore
- *
- * So I will try to solve this by reading this variable and setting the correct uri
  * 
- * Note: there are still some problems (e.g. rosout is not visible in rxgraph)
+ * TODO: there are still some problems (e.g. rosout is not visible in rxgraph)
  * 
- * @author j
+ * @author Jaroslav Vitku [vitkujar@fel.cvut.cz]
  *
  */
 public class Jroscore {
-	/*
-	protected NodeConfiguration nodeConfiguration;
-	protected NodeMainExecutor nodeMainExecutor;
-	*/
+	
 	private static final String s = "http://localhost:11311/";
 	private static RosCore rosCore;
 	private static URI u;
@@ -125,26 +120,13 @@ public class Jroscore {
 			return null;
 		}
 		running=true;
-		/*
-		// some potentially interesting example of rosCore use?
-		nodeMainExecutor = DefaultNodeMainExecutor.newDefault();
-		nodeConfiguration = NodeConfiguration.newPublic(rosCore.getUri().getHost(), rosCore.getUri());
-		 */
-
-		/*
-		// here looking for possibility of listing of all nodes and their communication...
-		// topic
-		// getSubscribers
-		rosCore.getMasterServer().getPublishedTopics(arg0, arg1)
-		*/
 		return rosCore.getUri();
 	}
 	
 	/**
-	 * should be used for shutting down the server.. but is not
+	 * should be used for shutting down the server.. but probably is not
 	 */
 	private static void tearDown() {
-		//nodeMainExecutor.shutdown();
 		running = false;
 		rosCore.shutdown();
 	}
