@@ -8,3 +8,8 @@
 
 # linux
 *~
+
+
+### 
+.settings/org.eclipse.jdt.core.prefs
+build/tmp/jar/MANIFEST.MF
