@@ -9,6 +9,9 @@
 # linux
 *~
 
+### ignore reinstallation
+build/install/*
+build/scripts/*
 
 ### 
 .settings/org.eclipse.jdt.core.prefs
