@@ -8,6 +8,12 @@ import java.util.concurrent.TimeUnit;
 
 import org.ros.RosCore;
 
+/**
+ * Launcher for RosCore, a Java-based implementation of [roscore](http://wiki.ros.org/roscore).
+ * 
+ * @author Jaroslav Vitku
+ *
+ */
 public class Jroscore implements Application {
 
 	private static final String defaultUri = "http://localhost:11311/";
@@ -21,29 +27,31 @@ public class Jroscore implements Application {
 	public static void main(String[] args) {
 
 		Jroscore jr = new Jroscore();
-
-		String uri;
-
-		if(args.length > 1){
-			jr.printUsage();
-			return;
-		}else if(args.length < 1){
-			uri=defaultUri;
-			jr.warn();
-			//jr.printUsage();
-		}else{
-			uri=args[0];
-		}
-
-		jr.myUri = jr.getUri(uri);
 		
 		// add the shutdown hook
 		ShutDownInterceptor shutdownInterceptor = new ShutDownInterceptor(jr);
 		Runtime.getRuntime().addShutdownHook(shutdownInterceptor);
+
+		if(args.length > 1){
+			jr.printUsage();
+			return;
+		} 
 		
+		jr.parseURI(args);
 		jr.start();
 	}
 
+	public void parseURI(String[] args){
+		String uri;
+		if(args.length < 1){
+			uri=defaultUri;
+			warn();
+		}else{
+			uri=args[0];
+		}
+		this.myUri = this.getUri(uri);
+	}
+	
 	/**
 	 * Try to parse URI given by String
 	 * @param st String uri
