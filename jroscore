@@ -10,6 +10,14 @@
 
 DEFAULTURI="http://localhost:11311/"
 BASEDIR=$(dirname $0)
+cd $BASEDIR     # go to the home folder of this script
+
+
+#################################################### Handle the SIGTERM
+cleanup(){
+    echo " Sending SIGTERM further.."
+    kill -s TERM $PID1
+}
 
 ##################################################### Help
 usage()
@@ -22,7 +30,6 @@ usage()
 }
 
 ##################################################### Parse command line
-BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )" # we are here
 URI=0
 
 OPTIND=1        # Reset in case getopts has been used previously in the shell.
@@ -58,16 +65,12 @@ if [ "$URI" != "1" ]; then
     PID1="$!"
     
 else
+    echo $PWD
     # Launch java core, remember its PID and continue this script
     java -cp "build/install/jroscore/lib/*" ctu.nengoros.Jroscore $1 &
     PID1="$!"
 fi
 
-#################################################### Handle the SIGTERM
-cleanup(){
-    echo " Sending SIGTERM further.."
-    kill -s TERM $PID1
-}
 
 # set the trap for SIGTERM signal (CTRL+C)
 trap "cleanup" 15 2 18
