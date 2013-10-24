@@ -26,19 +26,26 @@ public class Jroscore implements Application {
 
 	public static void main(String[] args) {
 
-		Jroscore jr = new Jroscore();
+		if(args.length > 1){
+			usage();
+			return;
+		}
 		
+		Jroscore jr = new Jroscore(args);
+
 		// add the shutdown hook
 		ShutDownInterceptor shutdownInterceptor = new ShutDownInterceptor(jr);
 		Runtime.getRuntime().addShutdownHook(shutdownInterceptor);
-
-		if(args.length > 1){
-			jr.printUsage();
-			return;
-		} 
 		
-		jr.parseURI(args);
 		jr.start();
+	}
+	
+	public Jroscore(String[] args){
+		this.parseURI(args);
+	}
+	
+	public Jroscore(){
+		this.myUri = this.getUri(defaultUri);
 	}
 
 	public void parseURI(String[] args){
@@ -75,12 +82,16 @@ public class Jroscore implements Application {
 		}
 	}
 
+	
+	public static void usage(){
+		System.out.println("=============== Usage ===============");
+		System.out.println("Run the main method. One optinal argument specifying "+
+				"an URI address of the RosCore, e.g.: "+defaultUri+"\n");
+	}
 
 	@Override
 	public void printUsage() {
-		System.out.println("=============== Usage ===============");
-		System.out.println("run this Class with one argument, which specifies "+
-				"the URI address of the roscore, e.g.: "+defaultUri+"\n");
+		usage();
 	}
 	
 	@Override

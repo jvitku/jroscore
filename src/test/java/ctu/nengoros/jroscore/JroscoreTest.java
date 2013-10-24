@@ -8,6 +8,12 @@ import org.junit.Test;
 
 import ctu.nengoros.Jroscore;
 
+/**
+ * Just test if it is runing.
+ * 
+ * @author Jaroslav Vitku
+ *
+ */
 public class JroscoreTest {
 
 	Jroscore jr;
@@ -15,8 +21,6 @@ public class JroscoreTest {
 	@Before
 	public void startCore(){
 		jr = new Jroscore();
-		jr.parseURI(new String[]{});
-		
 		jr.start();
 		assertTrue(jr.isRunning());
 	}
