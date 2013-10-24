@@ -1,9 +1,11 @@
-package org.ros;
+package ctu.nengoros;
 
 import static org.junit.Assert.assertTrue;
 import java.util.concurrent.TimeUnit;
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import org.ros.RosCore;
 
 /**
  * Did not find any java ros_core launcher, so I made this one.
@@ -23,7 +25,7 @@ public class Jroscore {
 	private static final String s = "http://localhost:11311/";
 	private static RosCore rosCore;
 	private static URI u;
-	private static final String me = "jroscore: ";
+	private static final String me = "[Jroscore]: ";
 	private static boolean running=false;
 	/**
 	 * Tries to read the URI address of the roscore from command line
@@ -77,9 +79,8 @@ public class Jroscore {
 	}
 	
 	private static void warn(){
-		System.err.println(me+"warning: could not parse URI, " +
-		"will use default one, other nodes may not see the master\n" +
-		"Correct format of URI is e.g.: "+s);
+		System.out.println(me+"warning: could not parse URI, " +
+		"will use default one; this: "+s);
 	}
 
 	/**

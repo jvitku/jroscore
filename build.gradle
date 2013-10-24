@@ -2,8 +2,10 @@
 
 // Create the runnable application from this project into build/lib/bin.. ? [./gradlew installApp]
 apply plugin: 'application'
-mainClassName = 'org.ros.Jroscore'
+mainClassName = 'ctu.nengoros.Jroscore'
 
+version             = '0.0.1-SNAPSHOT'
+group               = 'ctu.nengoros'
 
 // This project depends on compilation of rosjava_core
 dependencies {
