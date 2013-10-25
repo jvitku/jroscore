@@ -25,7 +25,7 @@ public class JroscoreRosRunner {
 	static Jroscore jr;
 	
 	// run each node for ?ms
-	final int nodeTimeRun = 1000;
+	final int nodeTimeRun = 500;
 	
 	@BeforeClass
 	public static void startCore(){
@@ -37,6 +37,15 @@ public class JroscoreRosRunner {
 		assertTrue(jr.isRunning());
 	}
 
+	private void sleep(int howlong){
+		try {
+			Thread.sleep(howlong);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			fail("could not sleep");
+		}
+	}
+	
 	@Test
 	public void test() {
 		RosRunner rr = null;
@@ -45,14 +54,16 @@ public class JroscoreRosRunner {
 		} catch (Exception e1) {
 			fail("No node name declared");
 		}
+		assertFalse(rr.isRunning());
 		rr.start();
+		assertTrue(rr.isRunning());
 		
-		try {
-			Thread.sleep(nodeTimeRun);
-		} catch (InterruptedException e) {
-			fail("could not sleep");
-		}
+		sleep(nodeTimeRun);
+		
+		assertTrue(rr.isRunning());
 		rr.stop();
+		assertFalse(rr.isRunning());
+
 	}
 
 	@Test
@@ -63,15 +74,15 @@ public class JroscoreRosRunner {
 		} catch (Exception e1) {
 			fail("No node name declared");
 		}
+		assertFalse(rr.isRunning());
 		rr.start();
+		assertTrue(rr.isRunning());
 		
-		try {
-			Thread.sleep(nodeTimeRun);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			fail("could not sleep");
-		}
+		sleep(nodeTimeRun);
+	
+		assertTrue(rr.isRunning());
 		rr.stop();
+		assertFalse(rr.isRunning());
 	}
 
 	@AfterClass

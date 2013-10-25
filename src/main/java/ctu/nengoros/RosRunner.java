@@ -26,6 +26,12 @@ public class RosRunner {
 	
 	private final String me = "[RosRunner]: ";
 	private final String name;
+	private volatile boolean running = false;
+	
+	public RosRunner() throws Exception{
+		System.err.println(me+"Call the constructor with a name of node!");
+		throw new Exception("Incorrect instantiation of RosRunner!");
+	}
 	
 	public RosRunner(String[] argv) throws Exception{
 		if(argv.length <1){
@@ -62,6 +68,7 @@ public class RosRunner {
 	    } catch (IllegalAccessException e) {
 	      throw new RosRuntimeException("Unable to instantiate node: " + nodeClassName, e);
 	    }
+	    running = false;
 	    System.out.println(me+"the node named: "+name+" successfully launched");
 	}
 	
@@ -70,11 +77,15 @@ public class RosRunner {
 		Preconditions.checkState(nodeMain != null);
 	    nodeMainExecutor = DefaultNodeMainExecutor.newDefault();
 	    nodeMainExecutor.execute(nodeMain, nodeConfiguration);
+	    running = true;
 	}
+	
+	public boolean isRunning(){ return running; }
 	
 	public void stop(){
 		System.out.println(me+"stopping the node named: "+name);
 		nodeMainExecutor.shutdown();
+		running = false;
 		System.out.println(me+"node named "+name+" successfully down");
 	}
 	

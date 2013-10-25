@@ -10,6 +10,8 @@ import ctu.nengoros.Jroscore;
 import ctu.nengoros.RosRunner;
 
 /**
+ * The same test as the JroscoreRosRunner.
+ * 
  * To show that two JUnit Tests Classes are executed by Gradle sequentially. 
  * Each JUnit launches own Jroscore with the default URI, so these two identical 
  * test Classes are not interfering <= serial execution. 
@@ -22,7 +24,7 @@ public class AnotherTest {
 	static Jroscore jr;
 
 	// run each node for ?ms
-	final int nodeTimeRun = 1000;
+	final int nodeTimeRun = 500;
 
 	@BeforeClass
 	public static void startCore(){
@@ -34,6 +36,15 @@ public class AnotherTest {
 		assertTrue(jr.isRunning());
 	}
 
+	private void sleep(int howlong){
+		try {
+			Thread.sleep(howlong);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			fail("could not sleep");
+		}
+	}
+	
 	@Test
 	public void test() {
 		RosRunner rr = null;
@@ -42,14 +53,16 @@ public class AnotherTest {
 		} catch (Exception e1) {
 			fail("No node name declared");
 		}
+		
+		assertFalse(rr.isRunning());
 		rr.start();
-
-		try {
-			Thread.sleep(nodeTimeRun);
-		} catch (InterruptedException e) {
-			fail("could not sleep");
-		}
+		assertTrue(rr.isRunning());
+		
+		sleep(nodeTimeRun);
+		
+		assertTrue(rr.isRunning());
 		rr.stop();
+		assertFalse(rr.isRunning());
 	}
 
 	@Test
@@ -60,15 +73,15 @@ public class AnotherTest {
 		} catch (Exception e1) {
 			fail("No node name declared");
 		}
+		assertFalse(rr.isRunning());
 		rr.start();
-
-		try {
-			Thread.sleep(nodeTimeRun);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			fail("could not sleep");
-		}
+		assertTrue(rr.isRunning());
+		
+		sleep(nodeTimeRun);
+	
+		assertTrue(rr.isRunning());
 		rr.stop();
+		assertFalse(rr.isRunning());
 	}
 
 	@AfterClass
