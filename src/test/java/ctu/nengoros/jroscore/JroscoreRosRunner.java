@@ -20,7 +20,7 @@ import ctu.nengoros.RosRunner;
  * @author Jaroslav Vitku
  *
  */
-public class JroscoreAndStartStop {
+public class JroscoreRosRunner {
 
 	static Jroscore jr;
 	

@@ -114,8 +114,8 @@ public class Jroscore implements Application {
 					myUri.getHost()+" "+myUri.getPort()+" exiting..");
 			return;
 		}
-		running=true;
 		myUri = rosCore.getUri();
+		running=true;
 		
 		System.out.println(me+"Server successfully launched on address: "+
 					myUri.getHost()+" "+myUri.getPort()+".");
