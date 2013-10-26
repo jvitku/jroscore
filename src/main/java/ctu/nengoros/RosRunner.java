@@ -1,5 +1,7 @@
 package ctu.nengoros;
 
+import java.io.File;
+
 import org.ros.exception.RosRuntimeException;
 import org.ros.internal.loader.CommandLineLoader;
 import org.ros.node.DefaultNodeMainExecutor;
@@ -9,6 +11,7 @@ import org.ros.node.NodeMainExecutor;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+
 
 /**
  *	Small Class for running and stopping the ROS java nodes, based on org.ros.RosRun class.
@@ -58,6 +61,8 @@ public class RosRunner {
 	    System.out.println("Loading node class: " + loader.getNodeClassName());
 	    nodeConfiguration = loader.build();
 
+	    //this.printClaspath();
+	    
 	    nodeMain = null;
 	    try {
 	      nodeMain = loader.loadClass(nodeClassName);
@@ -89,5 +94,17 @@ public class RosRunner {
 		System.out.println(me+"node named "+name+" successfully down");
 	}
 	
+	protected void printClaspath(){
+		String s = System.getProperty("java.class.path", ".");
+	    String[] files = s.split(File.pathSeparator);
+	    
+	    System.out.println("--------------------------------------------------"+
+	    		" Java classpath now includes:");
+	    for( int i=0; i<files.length; i++)
+	    	System.out.println(files[i]);
+	    System.out.println("--------------------------------------------------"+
+	    		"----------------------------");
+		
+	}
 	
 }
