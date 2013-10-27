@@ -54,6 +54,14 @@ public class RosRunner {
 		this.initNode(new String[]{name});
 	}
 	
+	public NodeMain getNode(){
+		if(running){
+			return nodeMain;
+		}
+		System.err.println(me+"my node is not running!");
+		return null;
+	}
+	
 	private void initNode(String[]argv){
 		System.out.println(me+"starting the node named: "+name);
 	    CommandLineLoader loader = new CommandLineLoader(Lists.newArrayList(argv));
