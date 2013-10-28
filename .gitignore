@@ -23,3 +23,5 @@ build/test-results/*
 
 build/tmp/*
 build/classes/test/*
+
+build/classes/*
