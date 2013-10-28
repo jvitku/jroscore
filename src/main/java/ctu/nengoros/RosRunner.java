@@ -1,11 +1,13 @@
 package ctu.nengoros;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import org.ros.exception.RosRuntimeException;
 import org.ros.internal.loader.CommandLineLoader;
 import org.ros.node.DefaultNodeMainExecutor;
 import org.ros.node.NodeConfiguration;
+import org.ros.node.NodeListener;
 import org.ros.node.NodeMain;
 import org.ros.node.NodeMainExecutor;
 
@@ -27,9 +29,10 @@ public class RosRunner {
 	NodeConfiguration nodeConfiguration;
 	NodeMainExecutor nodeMainExecutor;
 	
+	RosRunnerNodeListener nodeListener;
+	
 	private final String me = "[RosRunner]: ";
 	private final String name;
-	private volatile boolean running = false;
 	
 	public RosRunner() throws Exception{
 		System.err.println(me+"Call the constructor with a name of node!");
@@ -55,7 +58,8 @@ public class RosRunner {
 	}
 	
 	public NodeMain getNode(){
-		if(running){
+		
+		if(nodeListener !=null && nodeListener.isRunning()){
 			return nodeMain;
 		}
 		System.err.println(me+"my node is not running!");
@@ -66,7 +70,7 @@ public class RosRunner {
 		System.out.println(me+"starting the node named: "+name);
 	    CommandLineLoader loader = new CommandLineLoader(Lists.newArrayList(argv));
 	    String nodeClassName = loader.getNodeClassName();
-	    System.out.println("Loading node class: " + loader.getNodeClassName());
+	    
 	    nodeConfiguration = loader.build();
 
 	    //this.printClaspath();
@@ -81,25 +85,30 @@ public class RosRunner {
 	    } catch (IllegalAccessException e) {
 	      throw new RosRuntimeException("Unable to instantiate node: " + nodeClassName, e);
 	    }
-	    running = false;
-	    System.out.println(me+"the node named: "+name+" successfully launched");
+	    nodeListener = new RosRunnerNodeListener();
 	}
 	
 	
 	public void start(){
 		Preconditions.checkState(nodeMain != null);
 	    nodeMainExecutor = DefaultNodeMainExecutor.newDefault();
-	    nodeMainExecutor.execute(nodeMain, nodeConfiguration);
-	    running = true;
+	    
+	    // add a custom listener for checking if the node is running/down etc..
+	    ArrayList<NodeListener> l = new ArrayList<NodeListener>();
+	    l.add(nodeListener);
+	    
+	    nodeMainExecutor.execute(nodeMain, nodeConfiguration, l);
+	    
+	    nodeListener.awaitstart();
 	}
 	
-	public boolean isRunning(){ return running; }
+	public boolean isRunning(){
+		return nodeListener.isRunning();
+	}
 	
 	public void stop(){
-		System.out.println(me+"stopping the node named: "+name);
 		nodeMainExecutor.shutdown();
-		running = false;
-		System.out.println(me+"node named "+name+" successfully down");
+		nodeListener.awaitshutdown();
 	}
 	
 	protected void printClaspath(){
