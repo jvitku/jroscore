@@ -114,7 +114,15 @@ public class Jroscore implements Application {
 					myUri.getHost()+" "+myUri.getPort()+" exiting..");
 			return;
 		}
+		// just wait some time before start using it
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 		myUri = rosCore.getUri();
+		
 		running=true;
 		
 		System.out.println(me+"Server successfully launched on address: "+
