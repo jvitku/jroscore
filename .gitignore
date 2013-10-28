@@ -25,3 +25,5 @@ build/tmp/*
 build/classes/test/*
 
 build/classes/*
+
+bin/ctu/*
