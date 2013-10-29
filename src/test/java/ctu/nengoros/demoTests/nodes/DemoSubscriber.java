@@ -1,4 +1,4 @@
-package ctu.nengoros.demoTest.nodes;
+package ctu.nengoros.demoTests.nodes;
 
 import org.apache.commons.logging.Log;
 import org.ros.message.MessageListener;

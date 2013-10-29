@@ -50,7 +50,7 @@ public class JroscoreRosRunner {
 	public void test() {
 		RosRunner rr = null;
 		try {
-			rr = new RosRunner("ctu.nengoros.jroscore.DemoPublisher");
+			rr = new RosRunner("ctu.nengoros.demoTests.nodes.DemoPublisher");
 		} catch (Exception e1) {
 			fail("No node name declared");
 		}
@@ -70,7 +70,7 @@ public class JroscoreRosRunner {
 	public void anotherTest() {
 		RosRunner rr = null;
 		try {
-			rr = new RosRunner("ctu.nengoros.jroscore.DemoPublisher");
+			rr = new RosRunner("ctu.nengoros.demoTests.nodes.DemoPublisher");
 		} catch (Exception e1) {
 			fail("No node name declared");
 		}

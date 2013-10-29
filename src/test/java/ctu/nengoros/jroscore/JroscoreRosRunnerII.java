@@ -19,7 +19,7 @@ import ctu.nengoros.RosRunner;
  * @author Jaroslav Vitku
  *
  */
-public class AnotherTest {
+public class JroscoreRosRunnerII {
 
 	static Jroscore jr;
 
@@ -49,7 +49,7 @@ public class AnotherTest {
 	public void test() {
 		RosRunner rr = null;
 		try {
-			rr = new RosRunner("ctu.nengoros.jroscore.DemoPublisher");
+			rr = new RosRunner("ctu.nengoros.demoTests.nodes.DemoPublisher");
 		} catch (Exception e1) {
 			fail("No node name declared");
 		}
@@ -69,7 +69,7 @@ public class AnotherTest {
 	public void anotherTest() {
 		RosRunner rr = null;
 		try {
-			rr = new RosRunner("ctu.nengoros.jroscore.DemoPublisher");
+			rr = new RosRunner("ctu.nengoros.demoTests.nodes.DemoPublisher");
 		} catch (Exception e1) {
 			fail("No node name declared");
 		}

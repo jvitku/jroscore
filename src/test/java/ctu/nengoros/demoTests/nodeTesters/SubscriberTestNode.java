@@ -1,4 +1,4 @@
-package ctu.nengoros.demoTest.nodeTesters;
+package ctu.nengoros.demoTests.nodeTesters;
 
 import java.util.Random;
 

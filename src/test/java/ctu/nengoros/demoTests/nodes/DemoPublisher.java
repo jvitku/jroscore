@@ -1,4 +1,4 @@
-package ctu.nengoros.jroscore;
+package ctu.nengoros.demoTests.nodes;
 
 import java.util.Random;
 import org.apache.commons.logging.Log;
@@ -9,9 +9,9 @@ import org.ros.node.ConnectedNode;
 import org.ros.node.topic.Publisher;
 
 /**
- * Just a simple ROS node for testing purposes here (copied from demonodes:pubsub).
+ * Demo ROS node: publish array of integers on the given topic.
  * 
- * @author Jaroslav Vitku
+ * @author Jaroslav Vitku, based on original rosjava_core tutorials
  *
  */
 public class DemoPublisher extends AbstractNodeMain {
@@ -62,7 +62,7 @@ public class DemoPublisher extends AbstractNodeMain {
 		        mess.setData(data);									// set message data
 		        publisher.publish(mess);							// send message
 		        log.info("Sending message no.:"+poc+", and sending these vals "+toAr(data));
-		        poc++;
+		        poc=poc++;
 		        Thread.sleep(100);
 		      }
 		    });
