@@ -1,4 +1,4 @@
-package ctu.nengoros;
+package ctu.nengoros.util;
 
 import org.ros.node.ConnectedNode;
 import org.ros.node.Node;

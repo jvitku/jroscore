@@ -1,4 +1,4 @@
-package ctu.nengoros;
+package ctu.nengoros.util;
 /**
  * This interface is used by the ShutDownInterceptor
  * 

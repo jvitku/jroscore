@@ -1,4 +1,5 @@
-package ctu.nengoros;
+package ctu.nengoros.util;
+
 
 /**
  * This catches SIGTERM signals and shut-downs the application gracefully.   

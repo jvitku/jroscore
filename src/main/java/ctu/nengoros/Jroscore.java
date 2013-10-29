@@ -8,6 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.ros.RosCore;
 
+import ctu.nengoros.util.Application;
+import ctu.nengoros.util.ShutDownInterceptor;
+
 /**
  * Launcher for RosCore, a Java-based implementation of [roscore](http://wiki.ros.org/roscore).
  * 

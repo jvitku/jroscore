@@ -14,6 +14,8 @@ import org.ros.node.NodeMainExecutor;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 
+import ctu.nengoros.util.RosRunnerNodeListener;
+
 
 /**
  *	Small Class for running and stopping the ROS java nodes, based on org.ros.RosRun class.

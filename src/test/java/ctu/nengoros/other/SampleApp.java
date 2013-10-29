@@ -1,7 +1,7 @@
 package ctu.nengoros.other;
 
-import ctu.nengoros.Application;
-import ctu.nengoros.ShutDownInterceptor;
+import ctu.nengoros.util.Application;
+import ctu.nengoros.util.ShutDownInterceptor;
 
 /**
  * Testing how to gracefully shutdown application.
