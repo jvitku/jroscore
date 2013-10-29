@@ -16,7 +16,7 @@ import ctu.nengoros.RosRunner;
  * @author Jaroslav Vitku
  *
  */
-public abstract class RosCommunicationTester {
+public abstract class RosCommunicationTest {
 	
 	static Jroscore jr;
 	

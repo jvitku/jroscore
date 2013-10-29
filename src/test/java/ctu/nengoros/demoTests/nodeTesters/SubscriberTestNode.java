@@ -10,7 +10,7 @@ import org.ros.node.topic.Publisher;
 
 import std_msgs.Float32MultiArray;
 
-import ctu.nengoros.testsuit.NodeCommunicationTester;
+import ctu.nengoros.testsuit.CommunicationTesterNode;
 import ctu.nengoros.testsuit.topicParticipant.ConnectedParticipantPublisher;
 import ctu.nengoros.testsuit.topicParticipant.TopicParticipantInterface;
 
@@ -21,7 +21,7 @@ import ctu.nengoros.testsuit.topicParticipant.TopicParticipantInterface;
  * @author Jaroslav Vitku
  *
  */
-public class SubscriberTestNode extends NodeCommunicationTester {
+public class SubscriberTestNode extends CommunicationTesterNode {
 	
 	// data taken from DemoSubscriber node
 	protected final java.lang.String topicIn = "hanns/demonodes/A";

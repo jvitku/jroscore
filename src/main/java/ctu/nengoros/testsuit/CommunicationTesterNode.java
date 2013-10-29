@@ -12,7 +12,7 @@ import ctu.nengoros.testsuit.topicParticipant.TopicParticipants;
  * @author Jaroslav Vitku
  *
  */
-public abstract class NodeCommunicationTester extends AbstractNodeMain{
+public abstract class CommunicationTesterNode extends AbstractNodeMain{
 
 	/**
 	 * Add here all publishers/subscribers you want to check.

@@ -8,9 +8,9 @@ import org.junit.Test;
 
 import ctu.nengoros.RosRunner;
 import ctu.nengoros.demoTests.nodeTesters.PublisherTestNode;
-import ctu.nengoros.testsuit.RosCommunicationTester;
+import ctu.nengoros.testsuit.RosCommunicationTest;
 
-public class PublisherTests extends RosCommunicationTester {
+public class PublisherTests extends RosCommunicationTest {
 	
 	/**
 	 * Testing the subscriber:
