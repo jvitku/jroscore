@@ -12,7 +12,6 @@ import std_msgs.Float32MultiArray;
 
 import ctu.nengoros.testsuit.CommunicationTesterNode;
 import ctu.nengoros.testsuit.topicParticipant.ConnectedParticipantPublisher;
-import ctu.nengoros.testsuit.topicParticipant.TopicParticipantInterface;
 
 /**
  * This demo shows how to test DemoSubscriber node. This means that we should create
@@ -55,8 +54,12 @@ public class SubscriberTestNode extends CommunicationTesterNode {
 				connectedNode.newPublisher(topicIn, std_msgs.Float32MultiArray._TYPE);
 		
 		// this thing ensures that at least one subscriber is registered
-		super.participants.registerParticipant((TopicParticipantInterface)
+		super.participants.registerParticipant(
 				new ConnectedParticipantPublisher<Float32MultiArray>(publisher));
+		
+		// in case of checking only whether the participant is registered by the ROS core, use this instead:
+		//super.participants.registerParticipant(
+		//		new ParticipantPublisher<Float32MultiArray>(publisher));
 		
 		// wait for preconditions: registered to master and some subscriber connected 
 		super.waitForCommunicationReady();
