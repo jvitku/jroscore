@@ -1,4 +1,4 @@
-package ctu.nengoros.testsuit.topicParticipant;
+package ctu.nengoros.nodes.topicParticipant;
 
 import static org.junit.Assert.fail;
 
@@ -12,7 +12,7 @@ import org.ros.node.topic.Publisher;
  *
  * @param <T>
  */
-public class ParticipantPublisher <T> extends TopicParticipant {
+public class ParticipantPublisher <T> extends RegisteredTopicParticipant {
 
 		private Publisher<T> pub;
 		private CountDownPublisherListener<T> listener;

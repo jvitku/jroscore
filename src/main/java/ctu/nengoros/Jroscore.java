@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.ros.RosCore;
 
 import ctu.nengoros.util.Application;
+import ctu.nengoros.util.Log;
 import ctu.nengoros.util.ShutDownInterceptor;
 
 /**
@@ -75,11 +76,11 @@ public class Jroscore implements Application {
 		} catch (URISyntaxException e) {
 			// default uri failed?
 			if(st.equalsIgnoreCase(defaultUri)){
-				System.err.println(me+"Could not parse default URI: "+defaultUri);
+				Log.err(me+"Could not parse default URI: "+defaultUri);
 				return null;
 				// will try the default one
 			}else{
-				System.err.println(me+"Could not parse your URI: "+st);
+				Log.warn(me+"Could not parse your URI: "+st);
 				return this.getUri(defaultUri);
 			}
 		}
@@ -109,43 +110,44 @@ public class Jroscore implements Application {
 
 		// wait for start..
 		try {
-			assertTrue(rosCore.awaitStart(1, TimeUnit.SECONDS));
+			assertTrue(rosCore.awaitStart(2, TimeUnit.SECONDS));
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 			this.running = false;
-			System.err.println(me+"Could not start ros core on address: "+
+			Log.err(me+"Could not start ros core on address: "+
 					myUri.getHost()+" "+myUri.getPort()+" exiting..");
 			return;
 		}
+		/*
 		// just wait some time before start using it
 		try {
 			Thread.sleep(10);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		myUri = rosCore.getUri();
 		
 		running=true;
 		
-		System.out.println(me+"Server successfully launched on address: "+
+		Log.info(me+"Server successfully launched on address: "+
 					myUri.getHost()+" "+myUri.getPort()+".");
 	}
 
 	@Override
 	public void shutDown() {
 		if(isRunning()){
-			System.out.println(me+"OK, shutting down the server");
+			Log.info(me+"OK, shutting down the server");
 			rosCore.shutdown();
 			running = false;
-			System.out.println(me+"Shutdown complete, exiting.");	
+			Log.info(me+"Shutdown complete, exiting.");	
 		}else{
-			System.err.println(me+"Core not launched, exiting");
+			Log.info(me+"Core not launched, exiting");
 		}
 	}
 
 	private void warn(){
-		System.out.println(me+"warning: could not parse URI, " +
+		Log.warn(me+"warning: could not parse URI, " +
 				"will use default one; this: "+defaultUri);
 	}
 

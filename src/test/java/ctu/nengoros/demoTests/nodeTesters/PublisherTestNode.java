@@ -9,8 +9,9 @@ import org.ros.node.ConnectedNode;
 import org.ros.node.topic.Subscriber;
 
 import std_msgs.Float32MultiArray;
-import ctu.nengoros.testsuit.CommunicationTesterNode;
-import ctu.nengoros.testsuit.topicParticipant.ConnectedParticipantSubscriber;
+import ctu.nengoros.nodes.CommunicationAwareNode;
+import ctu.nengoros.nodes.topicParticipant.RegisteredTopicParticipant;
+import ctu.nengoros.nodes.topicParticipant.ConnectedParticipantSubscriber;
 
 
 /**
@@ -20,7 +21,7 @@ import ctu.nengoros.testsuit.topicParticipant.ConnectedParticipantSubscriber;
  * @author Jaroslav Vitku
  *
  */
-public class PublisherTestNode extends CommunicationTesterNode {
+public class PublisherTestNode extends CommunicationAwareNode {
 
 	protected final java.lang.String topicIn = "hanns/demonodes/A";
 	private final int dataLength = 7;
@@ -41,7 +42,6 @@ public class PublisherTestNode extends CommunicationTesterNode {
 		// subscribe to given topic
 		Subscriber<std_msgs.Float32MultiArray> subscriber = 
 				connectedNode.newSubscriber(topicIn, std_msgs.Float32MultiArray._TYPE);
-
 		// create listener
 		subscriber.addMessageListener(new MessageListener<std_msgs.Float32MultiArray>() {
 			@Override
@@ -60,14 +60,14 @@ public class PublisherTestNode extends CommunicationTesterNode {
 
 		// this thing ensures that at least one subscriber is registered
 		super.participants.registerParticipant(
-				new ConnectedParticipantSubscriber<Float32MultiArray>(subscriber));
+				(RegisteredTopicParticipant)new ConnectedParticipantSubscriber<Float32MultiArray>(subscriber));
 
 		// in case of checking only whether the participant is registered by the ROS core, use this instead:
 		//super.participants.registerParticipant(
 		//		new ParticipantSubscriber<Float32MultiArray>(subscriber));
-		
-		// wait for preconditions: registered to master and some subscriber connected 
-		super.waitForCommunicationReady();
+	
+		// wait for preconditions: registered to master and some subscriber connected
+		super.nodeIsPrepared();
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package ctu.nengoros.testsuit.topicParticipant;
+package ctu.nengoros.nodes.topicParticipant;
 
 /**
  * Components of ROS Java nodes which are meant to communicate across the ROS network.

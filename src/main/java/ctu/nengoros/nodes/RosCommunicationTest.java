@@ -1,4 +1,4 @@
-package ctu.nengoros.testsuit;
+package ctu.nengoros.nodes;
 
 import static org.junit.Assert.*;
 
@@ -17,20 +17,23 @@ import ctu.nengoros.RosRunner;
  *
  */
 public abstract class RosCommunicationTest {
-	
+
+	public static final boolean coreAutorun = true;
 	static Jroscore jr;
-	
+
 	/**
 	 * Called before any unit @Test
 	 */
 	@BeforeClass
 	public static void startCore(){
 		//System.out.println("=============== Starting the Core to run the network tests!");
-		jr = new Jroscore();
+		if(coreAutorun){
+			jr = new Jroscore();
 
-		assertFalse(jr.isRunning());
-		jr.start();
-		assertTrue(jr.isRunning());
+			assertFalse(jr.isRunning());
+			jr.start();
+			assertTrue(jr.isRunning());
+		}
 	}
 
 	/**
@@ -38,12 +41,14 @@ public abstract class RosCommunicationTest {
 	 */
 	@AfterClass
 	public static void stopCore(){
-		//System.out.println("=============== Stopping the Core after tests!");
-		assertTrue(jr.isRunning());
-		jr.shutDown();
-		assertFalse(jr.isRunning());
+		if(coreAutorun){
+			//System.out.println("=============== Stopping the Core after tests!");
+			assertTrue(jr.isRunning());
+			jr.shutDown();
+			assertFalse(jr.isRunning());
+		}
 	}
-	
+
 	/**
 	 * Run a given node and check if it is running.
 	 * 
@@ -51,7 +56,6 @@ public abstract class RosCommunicationTest {
 	 * @return RosRunner instance with running node
 	 */
 	public RosRunner runNode(String which){
-		assertTrue(jr.isRunning());
 		RosRunner rr = null;
 
 		try {
@@ -65,7 +69,7 @@ public abstract class RosCommunicationTest {
 		assertTrue(rr.isRunning());
 		return rr;
 	}
-	
+
 	public void sleep(int howlong){
 		try {
 			Thread.sleep(howlong);

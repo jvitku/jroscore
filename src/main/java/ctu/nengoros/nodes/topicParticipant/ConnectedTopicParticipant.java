@@ -1,4 +1,4 @@
-package ctu.nengoros.testsuit.topicParticipant;
+package ctu.nengoros.nodes.topicParticipant;
 
 /**
  * This Participant has to be connected somewhere (e.g. in case of publisher, 
@@ -7,7 +7,7 @@ package ctu.nengoros.testsuit.topicParticipant;
  * @author Jaroslav Vitku
  *
  */
-public abstract class ConnectedTopicParticipant extends TopicParticipant {
+public abstract class ConnectedTopicParticipant extends RegisteredTopicParticipant {
 	
 	protected boolean isConnectedSomewhere = false;
 	

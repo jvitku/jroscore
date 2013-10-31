@@ -10,8 +10,8 @@ import org.ros.node.topic.Publisher;
 
 import std_msgs.Float32MultiArray;
 
-import ctu.nengoros.testsuit.CommunicationTesterNode;
-import ctu.nengoros.testsuit.topicParticipant.ConnectedParticipantPublisher;
+import ctu.nengoros.nodes.CommunicationAwareNode;
+import ctu.nengoros.nodes.topicParticipant.ConnectedParticipantPublisher;
 
 /**
  * This demo shows how to test DemoSubscriber node. This means that we should create
@@ -20,7 +20,7 @@ import ctu.nengoros.testsuit.topicParticipant.ConnectedParticipantPublisher;
  * @author Jaroslav Vitku
  *
  */
-public class SubscriberTestNode extends CommunicationTesterNode {
+public class SubscriberTestNode extends CommunicationAwareNode {
 	
 	// data taken from DemoSubscriber node
 	protected final java.lang.String topicIn = "hanns/demonodes/A";
@@ -40,7 +40,7 @@ public class SubscriberTestNode extends CommunicationTesterNode {
 	 */
 	public boolean isReady(){
 		if(!super.communicationReady()){
-			this.waitForCommunicationReady();
+			this.awaitCommunicationReady();
 		}
 		return true;
 	}
@@ -61,8 +61,8 @@ public class SubscriberTestNode extends CommunicationTesterNode {
 		//super.participants.registerParticipant(
 		//		new ParticipantPublisher<Float32MultiArray>(publisher));
 		
-		// wait for preconditions: registered to master and some subscriber connected 
-		super.waitForCommunicationReady();
+		super.nodeIsPrepared();
+		super.awaitCommunicationReady();	// wait for all connections before sending any data
 		
 		// periodically publish random data of dimension 7
 		connectedNode.executeCancellableLoop(new CancellableLoop() {
@@ -75,7 +75,7 @@ public class SubscriberTestNode extends CommunicationTesterNode {
 				
 				Thread.sleep(ms);
 			}
-		});		
+		});
 	}
 
 	@Override

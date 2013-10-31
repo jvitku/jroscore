@@ -2,12 +2,10 @@ package ctu.nengoros.jroscore;
 
 import static org.junit.Assert.*;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import ctu.nengoros.Jroscore;
 import ctu.nengoros.RosRunner;
+import ctu.nengoros.nodes.RosCommunicationTest;
 
 /**
  * The same test as the JroscoreRosRunner.
@@ -19,31 +17,10 @@ import ctu.nengoros.RosRunner;
  * @author Jaroslav Vitku
  *
  */
-public class JroscoreRosRunnerII {
-
-	static Jroscore jr;
+public class JroscoreRosRunnerII extends RosCommunicationTest{
 
 	// run each node for ?ms
-	final int nodeTimeRun = 500;
-
-	@BeforeClass
-	public static void startCore(){
-		System.out.println("=============== Starting the core to run the network testing!!!!");
-		jr = new Jroscore();
-
-		assertFalse(jr.isRunning());
-		jr.start();
-		assertTrue(jr.isRunning());
-	}
-
-	private void sleep(int howlong){
-		try {
-			Thread.sleep(howlong);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			fail("could not sleep");
-		}
-	}
+	final int nodeTimeRun = 200;
 	
 	@Test
 	public void test() {
@@ -84,11 +61,4 @@ public class JroscoreRosRunnerII {
 		assertFalse(rr.isRunning());
 	}
 
-	@AfterClass
-	public static void stopCore(){
-		System.out.println("=============== Stopping the core after tests!!!!");
-		assertTrue(jr.isRunning());
-		jr.shutDown();
-		assertFalse(jr.isRunning());
-	}
 }

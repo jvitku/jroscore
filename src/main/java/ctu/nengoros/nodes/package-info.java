@@ -5,4 +5,4 @@
  * @author Jaroslav Vitku
  *
  */
-package ctu.nengoros.testsuit;
+package ctu.nengoros.nodes;

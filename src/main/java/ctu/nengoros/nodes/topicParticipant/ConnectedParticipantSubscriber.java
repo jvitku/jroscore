@@ -1,9 +1,9 @@
-package ctu.nengoros.testsuit.topicParticipant;
+package ctu.nengoros.nodes.topicParticipant;
 
 import static org.junit.Assert.fail;
 
-import org.ros.node.topic.CountDownPublisherListener;
-import org.ros.node.topic.Publisher;
+import org.ros.node.topic.CountDownSubscriberListener;
+import org.ros.node.topic.Subscriber;
 
 
 /**
@@ -14,22 +14,22 @@ import org.ros.node.topic.Publisher;
  *
  * @param <T>
  */
-public class ConnectedParticipantPublisher<T> extends ConnectedTopicParticipant {
+public class ConnectedParticipantSubscriber<T> extends ConnectedTopicParticipant {
 
-	private Publisher<T> pub;
-	private CountDownPublisherListener<T> listener;
+	private Subscriber<T> sub;
+	private CountDownSubscriberListener<T> listener;
 	
-	public ConnectedParticipantPublisher(Publisher<T> publisher){
-		pub = publisher;
+	public ConnectedParticipantSubscriber(Subscriber<T> subscriber){
+		sub = subscriber;
 		
-		listener = CountDownPublisherListener.newDefault();
-		pub.addListener(listener);
+		listener = CountDownSubscriberListener.newDefault();
+		sub.addSubscriberListener(listener);
 	}
 	
 	@Override
 	public void awaitConnection() {
 		try {
-			listener.awaitNewSubscriber(waittime, units);
+			listener.awaitNewPublisher(waittime, units);
 			this.isConnectedSomewhere = true;
 		} catch (InterruptedException e) {
 			fail("Could not find any subsscriber for this publisher");

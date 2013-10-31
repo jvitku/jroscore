@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import ctu.nengoros.RosRunner;
 import ctu.nengoros.demoTests.nodeTesters.SubscriberTestNode;
-import ctu.nengoros.testsuit.RosCommunicationTest;
+import ctu.nengoros.nodes.RosCommunicationTest;
 
 public class SubscriberTests extends RosCommunicationTest{
 
@@ -36,11 +36,10 @@ public class SubscriberTests extends RosCommunicationTest{
 		if(st==null)
 			fail("Could not load DemoSubscriberTester node");
 		
-		
-		st.waitForCommunicationReady();
+		st.awaitCommunicationReady();
 		System.out.println("Nodes registered, communication between nodes established.");
 		
-		super.sleep(500);//ms
+		super.sleep(500);	// communicate
 		
 		subscriberRunner.stop();
 		subscriberTestRunner.stop();

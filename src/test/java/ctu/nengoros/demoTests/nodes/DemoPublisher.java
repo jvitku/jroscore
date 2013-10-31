@@ -21,7 +21,7 @@ public class DemoPublisher extends AbstractNodeMain {
 	private final int dataLength = 7;
 	private final Random r = new Random();
 
-
+	private final int waittime = 100;
 	/**
 	 * Default name of the ROS node
 	 */
@@ -62,8 +62,8 @@ public class DemoPublisher extends AbstractNodeMain {
 		        mess.setData(data);									// set message data
 		        publisher.publish(mess);							// send message
 		        log.info("Sending message no.:"+poc+", and sending these vals "+toAr(data));
-		        poc=poc++;
-		        Thread.sleep(100);
+		        poc++;
+		        Thread.sleep(waittime);
 		      }
 		    });
 	}

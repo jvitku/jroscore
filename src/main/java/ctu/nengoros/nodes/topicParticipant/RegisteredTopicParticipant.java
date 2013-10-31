@@ -1,4 +1,4 @@
-package ctu.nengoros.testsuit.topicParticipant;
+package ctu.nengoros.nodes.topicParticipant;
 
 import java.util.concurrent.TimeUnit;
 
@@ -8,9 +8,9 @@ import java.util.concurrent.TimeUnit;
  * @author Jaroslav Vitku
  *
  */
-public abstract class TopicParticipant implements TopicParticipantInterface{
+public abstract class RegisteredTopicParticipant implements TopicParticipantInterface{
 	
-	public final int waittime = 15000;	// 10 seconds
+	public final int waittime = 15000;
 	public final TimeUnit units = TimeUnit.MILLISECONDS;
 	
 	protected boolean isRegistered = false;
