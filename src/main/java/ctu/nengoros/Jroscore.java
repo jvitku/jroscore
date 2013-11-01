@@ -85,7 +85,6 @@ public class Jroscore implements Application {
 			}
 		}
 	}
-
 	
 	public static void usage(){
 		System.out.println("=============== Usage ===============");
@@ -118,13 +117,6 @@ public class Jroscore implements Application {
 					myUri.getHost()+" "+myUri.getPort()+" exiting..");
 			return;
 		}
-		/*
-		// just wait some time before start using it
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
 		
 		myUri = rosCore.getUri();
 		

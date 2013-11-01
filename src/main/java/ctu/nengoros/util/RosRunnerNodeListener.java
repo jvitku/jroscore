@@ -12,6 +12,9 @@ import org.ros.node.NodeListener;
  */
 public class RosRunnerNodeListener implements NodeListener{
 
+	private final int waittime = 5;
+	private final int maxwait = 5000;
+	
 	private volatile boolean isRunning = false;
 	private volatile boolean shutdownComplete = false;
 	
@@ -44,10 +47,7 @@ public class RosRunnerNodeListener implements NodeListener{
 		System.out.println(me+"Node "+arg0.getName()+" is being started!");
 		this.isRunning = true;
 	}
-	
-	private int waittime = 10;
-	private int maxwait = 5000;
-	
+		
 	public void awaitshutdown(){
 		int poc = 0;
 		while(!this.isShutdowncomplete()){
