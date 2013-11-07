@@ -1,0 +1,42 @@
+#!/bin/sh
+#
+# The same as jroscore script, but this is for debug: starts everything from source (rosjava, jroscore) either produced by eclipse or Gradle.
+#
+# Requirements:
+#   -relative path to rosjava_core is: ../ so script can be launched only from here for now
+#   -run ./gradlew installApp from here
+#       this ensures that all required jar files (other than rosjava and this project) will be in build/install..... directory
+# 
+# author Jaroslav Vitku [vitkujar@fel.cvut.cz]
+#
+# choose between gradle:0 and eclipse:1
+
+
+#################################################### Handle the SIGTERM
+cleanup(){
+	echo " Sending SIGTERM further.."
+	kill -s TERM $PID1
+}
+
+E=1
+
+RJ=../rosjava_core/
+
+JAR=build/install/jroscore/lib/*
+
+if [ $E = "1" ]; then
+	CL=bin
+else
+	CL=build/classes
+fi
+
+ROSJAVA=$RJ/rosjava/$CL/:$RJ/apache_xmlrpc_client/$CL/:$RJ/apache_xmlrpc_common/$CL/:$RJ/apache_xmlrpc_server/$CL/:$RJ/rosjava_bootstrap/$CL/:$RJ/rosjava_geometry/$CL/:$RJ/rosjava_messages/$CL/
+
+java -cp $CL:$ROSJAVA:$JAR ctu.nengoros.Jroscore $1 &
+PID1="$!"
+
+# set the trap for SIGTERM signal (CTRL+C)
+trap "cleanup" 15 2 18
+
+# wait for java to finish
+wait
