@@ -27,11 +27,11 @@ public class RosRunnerNodeListener implements NodeListener{
 	
 	private boolean connectionRefused = false;
 	
-	public final NodeMainExecutor executor;
-	public final NodeMain myNode;
+	public NodeMainExecutor executor;
+	public NodeMain myNode;
 	
-	public RosRunnerNodeListener(NodeMainExecutor executor, NodeMain myNode){
-		this.executor = executor;
+	public RosRunnerNodeListener(NodeMainExecutor exec, NodeMain myNode){
+		this.executor = exec;
 		this.myNode = myNode;
 	}
 	
@@ -46,6 +46,7 @@ public class RosRunnerNodeListener implements NodeListener{
 			this.connectionRefused = true;
 			
 		System.err.println(me+"Node "+arg0.getName()+" encountered error, shutdown will start now!");
+		executor.shutdown();
 	}
 
 	@Override
@@ -74,7 +75,7 @@ public class RosRunnerNodeListener implements NodeListener{
 			if(poc++*waittime > maxwait){
 				System.err.println(me+"Giving up waiting for the node to shut down! ");
 				//executor.shutdown();
-				//executor.shutdownNodeMain(myNode);
+				executor.shutdownNodeMain(myNode);
 				return;
 			}
 			try {
@@ -92,8 +93,10 @@ public class RosRunnerNodeListener implements NodeListener{
 			if(poc++*waittime > maxwait){
 				// TODO: after failing communicating with master, the process is still there, kill it..
 				System.err.println(me+"Giving up waiting for the node to start!");
+				System.out.println("\n\n "+(executor ==null));
+				
 				//executor.shutdown();
-				//executor.shutdownNodeMain(myNode);
+				executor.shutdownNodeMain(myNode); // this does not seem to work
 				return;
 			}
 			try {

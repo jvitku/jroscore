@@ -87,13 +87,13 @@ public class RosRunner {
 	    } catch (IllegalAccessException e) {
 	      throw new RosRuntimeException("Unable to instantiate node: " + nodeClassName, e);
 	    }
-	    nodeListener = new RosRunnerNodeListener(nodeMainExecutor,nodeMain);
+	    nodeMainExecutor = DefaultNodeMainExecutor.newDefault();
+	    nodeListener = new RosRunnerNodeListener(nodeMainExecutor, nodeMain);
 	}
 	
 	
 	public void start(){
 		Preconditions.checkState(nodeMain != null);
-	    nodeMainExecutor = DefaultNodeMainExecutor.newDefault();
 	    
 	    // add a custom listener for checking if the node is running/down etc..
 	    ArrayList<NodeListener> l = new ArrayList<NodeListener>();
@@ -123,6 +123,12 @@ public class RosRunner {
 	    	System.out.println(files[i]);
 	    System.out.println("--------------------------------------------------"+
 	    		"----------------------------");
+	}
+	
+	public void stopAll(){
+		nodeMainExecutor.shutdown();
+		
+		//nodeMainExecutor.
 		
 	}
 	
