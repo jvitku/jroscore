@@ -87,7 +87,7 @@ public class RosRunner {
 	    } catch (IllegalAccessException e) {
 	      throw new RosRuntimeException("Unable to instantiate node: " + nodeClassName, e);
 	    }
-	    nodeListener = new RosRunnerNodeListener();
+	    nodeListener = new RosRunnerNodeListener(nodeMainExecutor,nodeMain);
 	}
 	
 	

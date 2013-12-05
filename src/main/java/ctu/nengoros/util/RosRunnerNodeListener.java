@@ -3,6 +3,8 @@ package ctu.nengoros.util;
 import org.ros.node.ConnectedNode;
 import org.ros.node.Node;
 import org.ros.node.NodeListener;
+import org.ros.node.NodeMain;
+import org.ros.node.NodeMainExecutor;
 
 /**
  * This listener helps the RosRunner to handle launching and killing ROSJava nodes.
@@ -23,9 +25,26 @@ public class RosRunnerNodeListener implements NodeListener{
 	public boolean isRunning(){ return this.isRunning; }
 	public boolean isShutdowncomplete(){ return this.shutdownComplete; }
 	
+	private boolean connectionRefused = false;
+	
+	public final NodeMainExecutor executor;
+	public final NodeMain myNode;
+	
+	public RosRunnerNodeListener(NodeMainExecutor executor, NodeMain myNode){
+		this.executor = executor;
+		this.myNode = myNode;
+	}
+	
+	public boolean getConnectionRefused(){
+		return this.connectionRefused;
+	}
+	
 	@Override
 	public void onError(Node arg0, Throwable arg1) {
 		this.isRunning = false;
+		if(arg1.getMessage().contains("Connection refused"))
+			this.connectionRefused = true;
+			
 		System.err.println(me+"Node "+arg0.getName()+" encountered error, shutdown will start now!");
 	}
 
@@ -46,6 +65,7 @@ public class RosRunnerNodeListener implements NodeListener{
 	public void onStart(ConnectedNode arg0) {
 		System.out.println(me+"Node "+arg0.getName()+" is being started!");
 		this.isRunning = true;
+		this.connectionRefused = false;
 	}
 		
 	public void awaitshutdown(){
@@ -53,6 +73,8 @@ public class RosRunnerNodeListener implements NodeListener{
 		while(!this.isShutdowncomplete()){
 			if(poc++*waittime > maxwait){
 				System.err.println(me+"Giving up waiting for the node to shut down! ");
+				//executor.shutdown();
+				//executor.shutdownNodeMain(myNode);
 				return;
 			}
 			try {
@@ -68,7 +90,10 @@ public class RosRunnerNodeListener implements NodeListener{
 		int poc = 0;
 		while(!this.isRunning()){
 			if(poc++*waittime > maxwait){
+				// TODO: after failing communicating with master, the process is still there, kill it..
 				System.err.println(me+"Giving up waiting for the node to start!");
+				//executor.shutdown();
+				//executor.shutdownNodeMain(myNode);
 				return;
 			}
 			try {
