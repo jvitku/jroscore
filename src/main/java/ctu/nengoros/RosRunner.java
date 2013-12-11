@@ -31,7 +31,7 @@ public class RosRunner {
 	NodeConfiguration nodeConfiguration;
 	NodeMainExecutor nodeMainExecutor;
 	
-	RosRunnerNodeListener nodeListener;
+	public RosRunnerNodeListener nodeListener;
 	
 	private final String me = "[RosRunner]: ";
 	private final String name;
