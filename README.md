@@ -1,10 +1,12 @@
-Part of the NengoROS project - Launcher for Java RosCore
-================================================
+Part of the NengoROS project - Launcher for RosCore and Rosparam Java implementations
+===================================================================================
 
 Author Jaroslav Vitku [vitkujar@fel.cvut.cz]
 
 
-Helper for launching Java-based implementation of [ROS core](http://wiki.ros.org/roscore) from [rosjava_core](https://github.com/rosjava/rosjava_core) on Unix-based systems. 
+**Jroscore** is a helper for launching Java-based implementation of [ROS core](http://wiki.ros.org/roscore) from [rosjava_core](https://github.com/rosjava/rosjava_core) on Unix-based systems. 
+
+**Jrospara** is a java implementation of [Rosparam](http://wiki.ros.org/rosparam).
 
 
 About Nengoros
@@ -12,11 +14,11 @@ About Nengoros
 
 This repository is a part of Hybrid Artificial Neural Network Systems (HANNS) project (see: [Nengoros pages](http://nengoros.wordpress.com) or [our research](http://artificiallife.co.nf/) ). 
 
-Each node can be connected into a potentially heterogeneous network of nodes communicating via the [ROS](http://wiki.ros.org/), potentially [Nengoros](http://nengoros.wordpress.com). 
+Each node can be connected into a potentially heterogeneous network of nodes communicating via the [ROS](http://wiki.ros.org/), potentially [Nengoros](http://nengoros.wordpress.com). Jrosparam does not support all functions of the original rosparam (mainly handling files) so far.
 
 
-Usage
---------
+Jroscore Usage 
+--------------
 
 1. To compile and install the project, run the script:
 	
@@ -30,7 +32,23 @@ Usage
 
 It is recommended to add this script to the `$PATH`.
 
- 
+
+Jrosparam Usage
+---------------
+
+1. To compile and install the project, run the script:
+	
+		./gradlew installApp
+	
+	which builds the project and copies all libraries into the `build/install/jrosparam/lib/` directory. 
+
+2. To run the Jrosparam, run the script:
+		
+		./jrosparam
+
+It is recommended to add this script to the `$PATH`.
+
+
 Requirements
 ------------------
 

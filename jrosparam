@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# Java implementation of rosparam, a ROS tool for settings and readings parameters from the ros master: http://wiki.ros.org/rosparam
+# 
+# Requirements
+#   -run ./gradlew installApp from here
+#       this ensures that all required jar files (other than rosjava and this project) will be in build/install..... directory
+#   -pass max 5 command line arguments, where the first one is name of your ROS node
+#   
+# author Jaroslav Vitku [vitkujar@fel.cvut.cz]
+#
+# E: choose between gradle:0, eclipse:1 and installedApp:2
+
+BASEDIR=$(dirname $0)
+cd $BASEDIR     # go to the home folder of this script
+
+E=2
+RJ=../../rosjava_core/
+JAR=build/install/jrosparam/lib/*
+
+if [ $E = "1" ]; then
+	CL=bin
+elif [ $E = "2" ]; then
+	CL=""
+else
+	CL=build/classes
+fi
+
+java -cp $CL:$JAR ctu.nengoros.rosparam.Jrosparam $1 $2 $3 $4 $5
