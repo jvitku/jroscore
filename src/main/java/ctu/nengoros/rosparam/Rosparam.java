@@ -105,7 +105,7 @@ public abstract class Rosparam extends AbstractNodeMain implements RosparamInt{
 	@Override
 	public String printTree() {
 		awaitParamsReady();
-		return ptc.getAll();
+		return ptc.getAllS();
 	}
 
 	@Override

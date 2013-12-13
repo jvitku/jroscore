@@ -20,14 +20,22 @@ public class ParameterTreeCrawler {
 	}
 	
 	public String getAll(){
+		return me+getAllS();
+	}
+	
+	/**
+	 * Get all silent
+	 * @return
+	 */
+	public String getAllS(){
 
 		if(isEmpty())
-			return me+"No params!";
+			return "No params!";
 
 		Collection<GraphName> l = t.getNames();
 		GraphName[] g = l.toArray(new GraphName[0]);
 
-		String out = me+"------------------------- parameters are:";
+		String out = "------------------------- parameters are:";
 		for(int i=0; i<g.length; i++){
 			try {
 				out = out +"\nParam: "+g[i]+"  \tval: "+this.getParam(g[i]);
@@ -83,18 +91,22 @@ public class ParameterTreeCrawler {
 	}
 	
 
-	public void printNames(){
+	public String printNames(){
+		return me + this.printNamesS();
+	}
+	
+	public String printNamesS(){
 		if(isEmpty())
-			return;
+			return "Param tree empty";
 
 		Collection<GraphName> l = t.getNames();
 		GraphName[] g = l.toArray(new GraphName[0]);
 
-		System.out.println(me+"------------------------- names:");
+		String out = "------------------------- names:\n";
 		for(int i=0; i<g.length; i++){
-			System.out.print(" "+g[i]);
+			out = out + " "+g[i]+" || ";
 		}
-		System.out.println("\n-------------------------------");
+		return out +"\n-------------------------------";
 	}
 
 	private boolean isEmpty(){
@@ -105,13 +117,16 @@ public class ParameterTreeCrawler {
 	}
 	
 	public String getAllRemapps(Map<GraphName,GraphName> remaps){
+		return me+this.getAllRemappsS(remaps);
+	}
+	
+	public String getAllRemappsS(Map<GraphName,GraphName> remaps){
 		if(remaps.isEmpty()){
-			return me+"No remappings!";
+			return "No remappings!";
 		}
-			
 		//GraphName[] names = null;
 		GraphName []names = remaps.keySet().toArray(new GraphName[0]);
-		String out = me+"Remappings:\n";
+		String out = "Remappings:\n";
 		for(int i=0; i<names.length; i++){
 			out = out + i+"name: "+names[i]+" -> "+remaps.get(names[i])+"\n";
 		}

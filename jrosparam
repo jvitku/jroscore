@@ -14,9 +14,9 @@
 BASEDIR=$(dirname $0)
 cd $BASEDIR     # go to the home folder of this script
 
-E=2
+E=1
 RJ=../../rosjava_core/
-JAR=build/install/jrosparam/lib/*
+JAR=build/install/jroscore/lib/*
 
 if [ $E = "1" ]; then
 	CL=bin

@@ -8,6 +8,7 @@ import org.ros.node.NodeMain;
 
 import ctu.nengoros.RosRunner;
 
+
 /**
  * This is runnable application which implements subset of 
  * functionalities of the original rosparam application
@@ -56,9 +57,10 @@ public class Jrosparam {
 	}
 
 	public static void main(String[] args){
+		
 		if(!argsOK(args))
 			return;
-
+		
 		RosRunner r;
 		try {
 			r = new RosRunner(new String[]{"ctu.nengoros.rosparam.RosparamNode","/use_sim_time:=false"});
