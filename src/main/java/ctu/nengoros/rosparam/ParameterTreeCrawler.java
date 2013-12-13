@@ -48,7 +48,7 @@ public class ParameterTreeCrawler {
 	}
 
 	/**
-	 * SInce we do not know the type of the parameter, 
+	 * Since we do not know the type of the parameter, 
 	 * test the most common ones, 
 	 * @see http://docs.rosjava.googlecode.com/hg/rosjava_core/html/getting_started.html
 	 * 
