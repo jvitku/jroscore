@@ -40,7 +40,8 @@ public class Jrosparam {
 			"\tjrosparam load\t load parameters from file\t[NOT SUPPORTED]\n"+
 			"\tjrosparam dump\t dump parameters to file\t[NOT SUPPORTED]\n"+
 			"\tjrosparam delete <key>\n"+
-			"\tjrosparam list\t list parameter names";
+			"\tjrosparam list\t list parameter names\n"+
+			"\tjrosparam numparams\t number of parameters";
 
 	static final String footnote
 	= "\n Note: after launching the app, use shorter commands, e.g.:\n\tset <key> <val>";
@@ -48,7 +49,8 @@ public class Jrosparam {
 	private final RosparamInt par;
 
 	public static final String listEmpty= "No params!";
-	public static final String notFound = "Parameter not found!";
+	//public static final String notFound = "Parameter not found!";
+	public static final String notFound = Rosparam.notFound;
 	public static final String unsupported= "Unsupported command!";
 	public static final String tooLong = "Error: Command too long!";
 	
@@ -110,6 +112,10 @@ public class Jrosparam {
 		if(result.length()>0)
 			System.out.println(processCommand(list));
 	}
+	
+	public String processCommand(String command){
+		return this.processCommand(new String[]{command});
+	}
 
 	public String processCommand(String[] list){
 		if(list.length == 0)
@@ -126,6 +132,12 @@ public class Jrosparam {
 				out = out + getUsage();
 				out = out+ "-------------------------\n";
 				return out;
+			}
+			if(list[0].equalsIgnoreCase("numparams")){
+				int spl = par.printTree().split("\n").length -2;
+				if(spl<0)
+					return "0";
+				return Integer.toString(spl);
 			}
 			return unsupported;
 		}

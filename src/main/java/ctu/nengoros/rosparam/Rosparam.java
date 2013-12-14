@@ -17,6 +17,8 @@ import org.ros.node.parameter.ParameterTree;
  */
 public abstract class Rosparam extends AbstractNodeMain implements RosparamInt{
 
+	public static final String notFound = "Parameter not found";
+	
 	public Log l;
 	public ParameterTree pt;
 	public ParameterTreeCrawler ptc;
@@ -112,9 +114,8 @@ public abstract class Rosparam extends AbstractNodeMain implements RosparamInt{
 	public String getStringValofParam(String key) throws Exception {
 		String val = ptc.getParam(GraphName.of(key));
 		
-		if(val==null){
-			return "Not found";
-		}
+		if(val==null)
+			return notFound;
 		return val;
 	}
 	

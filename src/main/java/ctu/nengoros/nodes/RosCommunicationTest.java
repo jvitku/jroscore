@@ -49,25 +49,30 @@ public abstract class RosCommunicationTest {
 		}
 	}
 
+
 	/**
 	 * Run a given node and check if it is running.
 	 * 
-	 * @param which name of the node
+	 * @param launch command: complete node name and command line parameters
 	 * @return RosRunner instance with running node
 	 */
-	public RosRunner runNode(String which){
+	public RosRunner runNode(String[] command){
 		RosRunner rr = null;
 
 		try {
-			rr = new RosRunner(which);
+			rr = new RosRunner(command);
 		} catch (Exception e) {
 			e.printStackTrace();
-			fail("Node named: "+which+" could not be launched..");
+			fail("Node named: "+command[0]+" could not be launched..");
 		}
 		assertFalse(rr.isRunning());
 		rr.start();
 		assertTrue(rr.isRunning());
 		return rr;
+	}
+	
+	public RosRunner runNode(String which){
+		return runNode(new String[]{which});
 	}
 
 	public void sleep(int howlong){

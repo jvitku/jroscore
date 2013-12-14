@@ -1,4 +1,4 @@
-package ctu.nengoros.rosparam.test;
+package ctu.nengoros.rosparam;
 
 import static org.junit.Assert.*;
 
@@ -25,7 +25,6 @@ public class SetGet extends RosCommunicationTest{
 	 * @return running instance, or the test failed already
 	 */
 	private Jrosparam startJrosparam(){
-		
 
 		try {
 			r = new RosRunner(new String[]{"ctu.nengoros.rosparam.RosparamNode","/use_sim_time:=false"});

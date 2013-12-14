@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.ros.exception.RosRuntimeException;
-import org.ros.internal.loader.CommandLineLoader;
+import org.ros.internal.loader.CommandLineLoaderII;
 import org.ros.node.DefaultNodeMainExecutor;
 import org.ros.node.NodeConfiguration;
 import org.ros.node.NodeListener;
@@ -70,7 +70,7 @@ public class RosRunner {
 	
 	private void initNode(String[]argv){
 		System.out.println(me+"starting the node named: "+name);
-	    CommandLineLoader loader = new CommandLineLoader(Lists.newArrayList(argv));
+	    CommandLineLoaderII loader = new CommandLineLoaderII(Lists.newArrayList(argv));
 	    String nodeClassName = loader.getNodeClassName();
 	    
 	    nodeConfiguration = loader.build();
