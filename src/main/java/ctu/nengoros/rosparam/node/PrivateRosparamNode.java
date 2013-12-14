@@ -6,6 +6,12 @@ import org.ros.node.ConnectedNode;
 import ctu.nengoros.rosparam.PrivateRosparamInt;
 import ctu.nengoros.rosparam.impl.PrivateRosparam;
 
+/**
+ * Node with simple access to private parameters, uses ProvateRosparam and RosParam classes for this.
+ * 
+ * @author Jaroslav Vitku
+ *
+ */
 public class PrivateRosparamNode extends RosparamNode implements PrivateRosparamInt{
 
 	public static final String DEFNAME = "PrivateRosparamNode";

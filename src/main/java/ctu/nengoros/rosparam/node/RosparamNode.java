@@ -11,8 +11,7 @@ import ctu.nengoros.rosparam.RosparamInt;
 import ctu.nengoros.rosparam.impl.Rosparam;
 
 /**
- * Implementation (actual ROS node) which is able to privde Rosparam 
- * functionality
+ * Implementation (actual ROS node) which is able to provide Rosparam functionality
  * 
  * @author Jaroslav Vitku
  *

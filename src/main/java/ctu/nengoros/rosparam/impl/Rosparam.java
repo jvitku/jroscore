@@ -8,10 +8,8 @@ import ctu.nengoros.rosparam.ParameterTreeCrawler;
 import ctu.nengoros.rosparam.RosparamInt;
 
 /**
- * First, basic implementation of rosparam (@see RosparamNode). The RosparamNode just starts and 
- * waits for commands.
- * Assumed that the RosRunner is used, the RosRunner.start() uses awaitStart method, so 
- * we can start node and immediately call set, get().. methods.
+ * 
+ * Class for simple reading parameters of a connected node.
  *  
  * @author Jaroslav Vitku
  *

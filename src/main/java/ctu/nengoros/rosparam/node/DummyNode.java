@@ -11,8 +11,7 @@ import org.ros.node.parameter.ParameterTree;
 import ctu.nengoros.rosparam.impl.PrivateRosparam;
 
 /**
- * Now it is replaced by the class PrivateRosparamNode, which implements
- * PrivateRosparamInt interface, so all methods are available. 
+ * Just a dymmy node for testing.
  * 
  * @author Jaroslav Vitku
  *

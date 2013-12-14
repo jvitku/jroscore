@@ -4,6 +4,12 @@ import org.ros.node.ConnectedNode;
 
 import ctu.nengoros.rosparam.PrivateRosparamInt;
 
+/**
+ * Class for easy access to private parameters of particular node (connectedNode).
+ * 
+ * @author Jaroslav Vitku
+ *
+ */
 public class PrivateRosparam extends Rosparam implements PrivateRosparamInt{
 
 	public final String me = "[PrivateRosparam] ";

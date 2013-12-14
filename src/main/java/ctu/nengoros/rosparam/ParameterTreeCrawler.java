@@ -6,6 +6,12 @@ import java.util.Map;
 import org.ros.namespace.GraphName;
 import org.ros.node.parameter.ParameterTree;
 
+/**
+ * Helper class for printing out parameterTree contents. 
+ * 
+ * @author Jaroslav Vitku
+ *
+ */
 public class ParameterTreeCrawler {
 
 	public final String me="[ParameterTreeCrawler] ";

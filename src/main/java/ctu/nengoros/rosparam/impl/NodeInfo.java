@@ -7,6 +7,9 @@ import org.ros.node.ConnectedNode;
 import ctu.nengoros.rosparam.NodeInfoInt;
 
 /**
+ * 
+ * Basic information about connectedNode.
+ * 
  * Note that dynamic remapping of parameters may be unsupported here.
  * 
  * @author Jaroslav Vitku
