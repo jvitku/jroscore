@@ -7,11 +7,13 @@ import org.ros.node.NodeMain;
 
 import ctu.nengoros.RosRunner;
 import ctu.nengoros.nodes.RosCommunicationTest;
+import ctu.nengoros.rosparam.node.DummyNode;
 
 public class PrivateCommandLineParams extends RosCommunicationTest{
 
 	RosRunner r;
-	public static String dummy = "ctu.nengoros.rosparam.DummyNode";
+	public static String dummy = "ctu.nengoros.rosparam.node.DummyNode";
+	public static String rp = "ctu.nengoros.rosparam.node.RosparamNode";
 
 	/**
 	 * Starts new instance of Jrosparam - commandline version 
@@ -20,7 +22,7 @@ public class PrivateCommandLineParams extends RosCommunicationTest{
 	private Jrosparam startJrosparam(){
 
 		try {
-			r = new RosRunner(new String[]{"ctu.nengoros.rosparam.RosparamNode"});
+			r = new RosRunner(new String[]{rp});
 			r.start();
 			assertTrue(r.isRunning());
 
@@ -181,7 +183,6 @@ public class PrivateCommandLineParams extends RosCommunicationTest{
 		assertTrue(d.getNumPrivateParams() == 4);
 		assertTrue(d.getAbsoluteName().toString().equalsIgnoreCase("/namespace/ns/fffffff/testName"));
 		assertTrue(d.getBaseName().toString().equalsIgnoreCase("testName"));
-		// not sure whether this should work like this, but it does:
 		assertTrue(d.getNamespace().toString().equalsIgnoreCase("/namespace/ns/fffffff"));
 
 		// check parameter server
@@ -196,7 +197,53 @@ public class PrivateCommandLineParams extends RosCommunicationTest{
 		assertTrue(j.processCommand(new String[]{"get","booleanD"}).equalsIgnoreCase(Jrosparam.notFound));
 
 		j.processCommand(new String[]{"set","/namespace/xyz","10"});
-		
+
+		// also, all parameters from the namespace can be deleted!
+		j.processCommand(new String[]{"delete","/namespace/"});
+		assertTrue(j.processCommand("list").equalsIgnoreCase(Jrosparam.listEmpty));
+
+		rr.stop();
+		assertFalse(rr.isRunning());
+		r.stop();
+		assertFalse(r.isRunning());
+	}
+
+	@Test
+	public void getParamsByNode(){
+		Jrosparam j = startJrosparam();
+		assertTrue(r.isRunning());
+
+		RosRunner rr = super.runNode(
+				new String[]{dummy, 
+						"__name:=namespace/ns/testName",
+						"_integerA:=10",
+						"_stringB:=hello",
+						"_floatC:=10.0357",
+				"_booleanD:=false"});
+
+		assertTrue(rr.isRunning());
+
+		DummyNode d = (DummyNode)rr.getNode();
+
+		// no params, default name, no namespace
+		assertTrue(d.getNumPrivateParams() == 4);
+		assertTrue(d.getAbsoluteName().toString().equalsIgnoreCase("/namespace/ns/testName"));
+		assertTrue(d.getBaseName().toString().equalsIgnoreCase("testName"));
+		assertTrue(d.getNamespace().toString().equalsIgnoreCase("/namespace/ns"));
+
+		// check parameter server
+		assertTrue(j.processCommand("numparams").equalsIgnoreCase("4"));
+
+		assertTrue(j.processCommand(new String[]{"get","/namespace/ns/testName/integerA"}).equalsIgnoreCase("10"));
+		assertTrue(j.processCommand(new String[]{"get","/namespace/ns/testName/stringB"}).equalsIgnoreCase("hello"));
+		assertTrue(j.processCommand(new String[]{"get","/namespace/ns/testName/floatC"}).equalsIgnoreCase("10.0357"));
+		assertTrue(j.processCommand(new String[]{"get","/namespace/ns/testName/booleanD"}).equalsIgnoreCase("false"));
+
+		// cannot find them like this:
+		assertTrue(j.processCommand(new String[]{"get","booleanD"}).equalsIgnoreCase(Jrosparam.notFound));
+
+		j.processCommand(new String[]{"set","/namespace/xyz","10"});
+
 		// also, all parameters from the namespace can be deleted!
 		j.processCommand(new String[]{"delete","/namespace/"});
 		assertTrue(j.processCommand("list").equalsIgnoreCase(Jrosparam.listEmpty));

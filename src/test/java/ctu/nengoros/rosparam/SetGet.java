@@ -19,7 +19,7 @@ import ctu.nengoros.rosparam.RosparamInt;
 public class SetGet extends RosCommunicationTest{
 
 	RosRunner r;
-	
+	public static final String rp = "ctu.nengoros.rosparam.node.RosparamNode";
 	/**
 	 * Starts new instance of Jrosparam - commandline version 
 	 * @return running instance, or the test failed already
@@ -27,7 +27,7 @@ public class SetGet extends RosCommunicationTest{
 	private Jrosparam startJrosparam(){
 
 		try {
-			r = new RosRunner(new String[]{"ctu.nengoros.rosparam.RosparamNode","/use_sim_time:=false"});
+			r = new RosRunner(new String[]{rp,"/use_sim_time:=false"});
 			r.start();
 			assertTrue(r.isRunning());
 

@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import org.ros.node.NodeMain;
 
 import ctu.nengoros.RosRunner;
+import ctu.nengoros.rosparam.impl.Rosparam;
 
 
 /**
@@ -148,7 +149,7 @@ public class Jrosparam {
 			}
 			if(list[0].equalsIgnoreCase("get")){
 				try {
-					return par.getStringValofParam(list[1]);
+					return par.getStringValueofParam(list[1]);
 				} catch (Exception e) {
 					return notFound;
 				}

@@ -12,9 +12,9 @@ package ctu.nengoros.rosparam;
  * @author Jaroslav Vitku
  *
  */
-public interface RosparamInt {
+public interface RosparamInt extends NodeInfoInt{
 	
-	public boolean coreRunning();
+	//public boolean coreRunning();
 	
 	public void set(String key, String value);
 	public void set(String key, Integer value);
@@ -26,13 +26,23 @@ public interface RosparamInt {
 	public Double getDouble(String key) throws Exception;
 	public Boolean getBoolean(String key) throws Exception;
 	
+	// the same as above, bout catch exception and return default value
+	public String getString(String key, String def);
+	public Integer getInteger(String key, int def);
+	public Double getDouble(String key, double def);
+	public Boolean getBoolean(String key, boolean def);
+	
+	
+	public boolean hasParam(String key);
+
+	
 	/**
 	 * Try to get String, Integer, Double, Boolean and then throw Exception
 	 * @param key key
 	 * @return String value of the value, null if key not found
 	 * @throws Exception if non of that worked (unsupported format) 
 	 */
-	public String getStringValofParam(String key) throws Exception;
+	public String getStringValueofParam(String key) throws Exception;
 	
 	public void delete(String key);
 	
