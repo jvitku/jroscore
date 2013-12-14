@@ -20,7 +20,7 @@ import ctu.nengoros.rosparam.impl.Rosparam;
 public class RosparamNode extends AbstractNodeMain implements RosparamInt{
 
 	private Rosparam r; // my private parameter handler
-	Log l;
+	protected Log l;
 
 	@Override
 	public GraphName getDefaultNodeName() { return GraphName.of("RosparamNode"); }
