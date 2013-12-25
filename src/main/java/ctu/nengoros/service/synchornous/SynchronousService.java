@@ -24,7 +24,7 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 	private final int w = 50;
 
 	public volatile boolean responseReceived;
-	public int waitTime = 2000;
+	public int waitTime = 4000;
 	int waited;
 
 	public final int maxNumRecalls = 3;
@@ -62,6 +62,7 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 
 			// response not processed in a given time, re-send the request
 			numRecalls++;
+			waited = 0;
 		}
 		System.err.println(me+"Reqest not processed (no response) in any " +
 				"of "+maxNumRecalls+", giving up!!");
