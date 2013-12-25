@@ -20,18 +20,21 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 
 	public static final String me = "[SynchronousService] ";
 	private Log l = new Log(false);
-	
+
 	private final int w = 50;
-	
+
 	public volatile boolean responseReceived;
 	public int waitTime = 2000;
 	int waited;
-	
+
+	public final int maxNumRecalls = 3;
+	public int numRecalls = 0;
+
 	private R request;
 	private E response;
-	
+
 	ServiceClient<R,E> sc;
-	
+
 	public SynchronousService(ServiceClient<R,E> sc){
 		responseReceived = false;
 		waited = 0;
@@ -42,8 +45,38 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 		this(sc);
 		waitTime = waitMax;
 	}
-	
+
 	private E waitForResponse(){
+
+		this.numRecalls = 0;
+
+		while(numRecalls < maxNumRecalls){
+
+			E response = this.oneWaitForResponse();
+
+			// response returned OK?
+			if(response != null)
+				return response;
+
+			this.resendRequest();
+
+			// response not processed in a given time, re-send the request
+			numRecalls++;
+		}
+		System.err.println(me+"Reqest not processed (no response) in any " +
+				"of "+maxNumRecalls+", giving up!!");
+		return null;
+	}
+
+	private void resendRequest(){
+
+		// call service with this listener
+		sc.call(this.request, this);
+		this.responseReceived = false;
+	}
+
+	private E oneWaitForResponse(){
+
 		while(true){
 			if(responseReceived){
 				l.log(me+"Response received, returning it");
@@ -58,22 +91,22 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 			waited += w;
 			if(waited>waitTime){
 				System.err.println(me+"Reqest not processed (no response) in a given time of" +waitTime+
-						"ms, giving up!");
+						"ms, RESENDING the request!!");
 				return null;
 			}
 		}
 	}
-	
+
 	public E callService(R request){
 		this.request = request;
-		
+
 		// call service with this listener
 		sc.call(this.request, this);
-		
+
 		// wait for response
 		return waitForResponse();
 	}
-	
+
 	public R getRequest(){
 		return sc.newMessage();
 	}
@@ -96,10 +129,10 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 		response = (E)resp;
 		responseReceived =true;
 	}
-	
+
 	private class Log{
 		private boolean shouldLog = false;
-		
+
 		public Log(boolean shouldLog){ 
 			this.shouldLog = shouldLog;
 		}
