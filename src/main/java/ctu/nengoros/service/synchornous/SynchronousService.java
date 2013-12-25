@@ -116,7 +116,6 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 	 */
 	@Override
 	public void onFailure(RemoteException e) {
-		System.out.println("faaaaaaaaaaaaaaaaaaaaaDEFFRDDEFFRDDEFFRDDEFFRDDEFFRD");
 		responseReceived = true;
 	}
 
