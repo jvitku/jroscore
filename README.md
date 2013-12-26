@@ -57,6 +57,15 @@ The best way how to install the Jroscore is to use them as a part of the [Nengor
 But, since this package depends only on **OUR VERSION** of [rosjava_core](https://github.com/jvitku/rosjava_core), it can be used without Nengoros.
 
 
+Changelog
+------------------
+
+
+### V0.0.4
+
+* Adds to the SynchronousService the support of resending the request if not processed in a given time. This can be turned on, but it is unused by default, as the Vivae simulator tends to load map several times on some computers.
+
+
 Troubleshooting
 ------------------
 
