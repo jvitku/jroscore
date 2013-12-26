@@ -36,7 +36,7 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 	private E response;
 
 	ServiceClient<R,E> sc;
-	
+
 	private boolean resend = false;	// whether to resend the request
 
 	public SynchronousService(ServiceClient<R,E> sc){
@@ -64,7 +64,7 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 
 			if(!this.getResend())
 				return response;
-			
+
 			this.resendRequest();
 
 		}
@@ -78,7 +78,7 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 		// call service with this listener
 		sc.call(this.request, this);
 		//this.responseReceived = false;
-		
+
 		numRecalls++;
 		waited = 0;
 	}
@@ -99,8 +99,12 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 			}
 			waited += w;
 			if(waited>waitTime){
-				System.err.println(me+"Reqest not processed (no response) in a given time of "+waitTime+
-						"ms, RESENDING the request!!");
+				if(this.getResend())
+					System.err.println(me+"Reqest not processed (no response) in a given time of "+waitTime+
+							"ms, RESENDING the request!!");
+				else
+					System.err.println(me+"Reqest not processed (no response) in a given time of "+waitTime+
+							"ms, giving up the request!!");
 				return null;
 			}
 		}
@@ -149,7 +153,7 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 				System.out.println(s);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * Resending requests turns out to be bad habit, because
