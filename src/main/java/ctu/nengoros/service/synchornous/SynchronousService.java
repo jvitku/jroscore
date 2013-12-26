@@ -5,9 +5,11 @@ import org.ros.node.service.ServiceClient;
 import org.ros.node.service.ServiceResponseListener;
 
 /**
- * This class should generically define the synchronous ROS service. 
- * You call service and method will return response if received in 
- * predefined time or null if request did not make it, or exception triggered. 
+ * This class should generically define the synchronous ROS service.
+ *  
+ * Calling synchronous service means that the request is sent, the thread 
+ * waits for response (if no response received, the request is resent), if no
+ * response received after several tries, the null is returned.   
  * 
  * For example of usage, @see the vivae simulator. 
  * 
@@ -24,16 +26,18 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 	private final int w = 50;
 
 	public volatile boolean responseReceived;
-	public int waitTime = 4000;
+	public int waitTime = 3000;
 	int waited;
 
-	public final int maxNumRecalls = 3;
+	public final int maxNumRecalls = 2;
 	public int numRecalls = 0;
 
 	private R request;
 	private E response;
 
 	ServiceClient<R,E> sc;
+	
+	private boolean resend = false;	// whether to resend the request
 
 	public SynchronousService(ServiceClient<R,E> sc){
 		responseReceived = false;
@@ -58,11 +62,11 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 			if(response != null)
 				return response;
 
+			if(!this.getResend())
+				return response;
+			
 			this.resendRequest();
 
-			// response not processed in a given time, re-send the request
-			numRecalls++;
-			waited = 0;
 		}
 		System.err.println(me+"Reqest not processed (no response) in any " +
 				"of "+maxNumRecalls+", giving up!!");
@@ -73,9 +77,13 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 
 		// call service with this listener
 		sc.call(this.request, this);
-		this.responseReceived = false;
+		//this.responseReceived = false;
+		
+		numRecalls++;
+		waited = 0;
 	}
 
+	// releasing all resources
 	private E oneWaitForResponse(){
 
 		while(true){
@@ -91,7 +99,7 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 			}
 			waited += w;
 			if(waited>waitTime){
-				System.err.println(me+"Reqest not processed (no response) in a given time of" +waitTime+
+				System.err.println(me+"Reqest not processed (no response) in a given time of "+waitTime+
 						"ms, RESENDING the request!!");
 				return null;
 			}
@@ -140,5 +148,20 @@ public class SynchronousService<R,E> implements ServiceResponseListener<E>{
 			if(this.shouldLog)
 				System.out.println(s);
 		}
+	}
+	
+	/**
+	 * 
+	 * Resending requests turns out to be bad habit, because
+	 * the simulator can load two maps, can try to start the simulaiton 
+	 * twice etc.. 
+	 *
+	 * @param shouldResend
+	 */
+	public void setResend(boolean shouldResend){
+		this.resend = shouldResend;
+	}
+	public boolean getResend(){
+		return this.resend;
 	}
 }
