@@ -17,13 +17,14 @@ build/scripts/*
 .settings/org.eclipse.jdt.core.prefs
 build/tmp/jar/MANIFEST.MF
 
+# no complete build
+build/
+
 ## no build
-build/reports/*
-build/test-results/*
-
-build/tmp/*
-build/classes/test/*
-
-build/classes/*
+#build/reports/*
+#build/test-results/*
+#build/tmp/*
+#build/classes/test/*
+#build/classes/*
 
 bin/ctu/*
