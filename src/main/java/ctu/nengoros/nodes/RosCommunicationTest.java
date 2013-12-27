@@ -53,7 +53,7 @@ public abstract class RosCommunicationTest {
 	/**
 	 * Run a given node and check if it is running.
 	 * 
-	 * @param launch command: complete node name and command line parameters
+	 * @param command complete node name and command line parameters
 	 * @return RosRunner instance with running node
 	 */
 	public RosRunner runNode(String[] command){

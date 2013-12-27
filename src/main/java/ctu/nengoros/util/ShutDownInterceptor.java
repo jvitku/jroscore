@@ -3,7 +3,8 @@ package ctu.nengoros.util;
 
 /**
  * This catches SIGTERM signals and shut-downs the application gracefully.   
- * @see http://twit88.com/blog/2007/09/27/do-a-graceful-shutdown-of-your-java-application-when-ctr-c-kill/
+ * 
+ * @see <a href="http://twit88.com/blog/2007/09/27/do-a-graceful-shutdown-of-your-java-application-when-ctr-c-kill/">source</a>
  * 
  * @author Jaroslav Vitku
  *

@@ -30,8 +30,8 @@ public class ParameterTreeCrawler {
 	}
 	
 	/**
-	 * Get all silent
-	 * @return
+	 * Get all parameters without printing to console
+	 * @return list of all parameters 
 	 */
 	public String getAllS(){
 
@@ -56,7 +56,7 @@ public class ParameterTreeCrawler {
 	/**
 	 * Since we do not know the type of the parameter, 
 	 * test the most common ones, 
-	 * @see http://docs.rosjava.googlecode.com/hg/rosjava_core/html/getting_started.html
+	 * @see <a href="http://docs.rosjava.googlecode.com/hg/rosjava_core/html/getting_started.html">rosjava_core docs</a>
 	 * 
 	 * @param name name of the parameter
 	 * @return value of the parameter casted to string, null if no key found

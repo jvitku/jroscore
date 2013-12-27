@@ -11,27 +11,31 @@ import ctu.nengoros.rosparam.impl.Rosparam;
 
 
 /**
- * This is runnable application which implements subset of 
- * functionalities of the original rosparam application
- * @see http://wiki.ros.org/rosparam
+ * This is runnable application which implements subset of functionalities of 
+ * the original rosparam application.
+ * @see <a href="http://wiki.ros.org/rosparam">rosparam</a>
  * 
  * 
  * For the first time, it can be used as normal rosparam, so, e.g.:
- * -rosparam set <key> <val>
- * -rosparam get <key>
- * -rosparam list
- * -rosparam delete <key>
+ * <ul>
+ * 	<li>rosparam set [key] [val]</li>
+ * 	<li>rosparam get [key]</li>
+ * 	<li>rosparam list</li>
+ * 	<li>rosparam delete [key]</li>
+ * </ul>
  * 
  * but the application stays on and accepts further commands without "jrospram" string, e.g.
- *  set <ket> <val>
- *  list  ..etc
+ * <ul>
+ *  <li>set [ket] [val]</li>
+ *  <li>list  ..etc</li>
+ * </ul>
  *  
  * 
  * @author Jaroslav Vitku
  *
  */
 public class Jrosparam {
-	
+
 	static final String note = "Jrosparam, a Java implementation of rosparam is a command-line tool" +
 			"for getting, setting and deleting parameters from the ROS master (par.server)";
 
@@ -54,16 +58,16 @@ public class Jrosparam {
 	public static final String notFound = Rosparam.notFound;
 	public static final String unsupported= "Unsupported command!";
 	public static final String tooLong = "Error: Command too long!";
-	
+
 	public Jrosparam(RosparamInt p){
 		this.par = p;
 	}
 
 	public static void main(String[] args){
-		
+
 		if(!argsOK(args))
 			return;
-		
+
 		RosRunner r;
 		try {
 			r = new RosRunner(new String[]{"ctu.nengoros.rosparam.node.RosparamNode","/use_sim_time:=false"});
@@ -113,7 +117,7 @@ public class Jrosparam {
 		if(result.length()>0)
 			System.out.println(processCommand(list));
 	}
-	
+
 	public String processCommand(String command){
 		return this.processCommand(new String[]{command});
 	}
@@ -121,7 +125,7 @@ public class Jrosparam {
 	public String processCommand(String[] list){
 		if(list.length == 0)
 			return "";
-		
+
 		this.awaitParameterTreeObtained();
 
 		if(list.length == 1){
@@ -217,7 +221,7 @@ public class Jrosparam {
 	private static void printUsage(){
 		System.out.println(getUsage());
 	}
-	
+
 	public static String getUsage(){
 		String out = note+"\n"+cmds+"\n"+footnote+"\n";
 		return out;
