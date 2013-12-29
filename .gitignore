@@ -27,4 +27,5 @@ build/
 #build/classes/test/*
 #build/classes/*
 
-bin/ctu/*
+#bin/ctu/*
+
