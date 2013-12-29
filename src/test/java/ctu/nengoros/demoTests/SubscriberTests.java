@@ -10,14 +10,15 @@ import ctu.nengoros.nodes.RosCommunicationTest;
 
 public class SubscriberTests extends RosCommunicationTest{
 
-
 	/**
 	 * Testing the subscriber:
-	 * 	-start tested subscriber and tester node
-	 * 	-obtain the tester node
-	 * 	-wait for tester to be registered and to establish the communication between nodes
-	 * 	-give them 500ms for communication
-	 * 	-shutdown nodes
+	 * <ul>
+	 * 	<li>start tested subscriber and tester node</li>
+	 * 	<li>obtain the tester node<li>
+	 * 	<li>wait for tester to be registered and to establish the communication between nodes</li>
+	 * 	<li>give them 500ms for communication</li>
+	 * 	<li>shutdown nodes</li>
+	 * </ul>
 	 */
 	@Test
 	public void testDemoSubscriberConnections() {
