@@ -60,6 +60,13 @@ But, since this package depends only on **OUR VERSION** of [rosjava_core](https:
 Changelog
 ------------------
 
+### V0.0.6
+
+* Started to integrate RL algorithms from DT, e.g. temporarily adding MyLogger here.
+
+### V0.0.5
+
+* Compatibility with Nengoros v0.0.5, several minor changes.
 
 ### V0.0.4
 
