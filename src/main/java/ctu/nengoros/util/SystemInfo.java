@@ -5,6 +5,38 @@ import java.text.NumberFormat;
 
 public class SystemInfo {
 
+	public static void infoMb() {
+		/* Total number of processors or cores available to the JVM */
+		System.out.println("Available processors (cores): " + 
+				Runtime.getRuntime().availableProcessors());
+
+		long g = 10000000L;
+		
+		/* Total amount of free memory available to the JVM */
+		System.out.println("Free memory (Mbytes): " + 
+				(Runtime.getRuntime().freeMemory())/g);
+
+		/* This will return Long.MAX_VALUE if there is no preset limit */
+		long maxMemory = Runtime.getRuntime().maxMemory();
+		/* Maximum amount of memory the JVM will attempt to use */
+		System.out.println("Maximum memory (bytes): " + 
+				(maxMemory == Long.MAX_VALUE ? "no limit" : maxMemory));
+
+		/* Total memory currently in use by the JVM */
+		System.out.println("Total memory (Mbytes): " + 
+				Runtime.getRuntime().totalMemory()/g);
+
+		/* Get a list of all filesystem roots on this system */
+		File[] roots = File.listRoots();
+
+		/* For each filesystem root, print some info */
+		for (File root : roots) {
+			System.out.println("File system root: " + root.getAbsolutePath());
+			System.out.println("Total space (Mbytes): " + root.getTotalSpace()/g);
+			System.out.println("Free space (Mbytes): " + root.getFreeSpace()/g);
+			System.out.println("Usable space (Mbytes): " + root.getUsableSpace()/g);
+		}
+	}
 
 	public static void info() {
 		/* Total number of processors or cores available to the JVM */

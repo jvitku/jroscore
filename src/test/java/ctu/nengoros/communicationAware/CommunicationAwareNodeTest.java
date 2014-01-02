@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import ctu.nengoros.RosRunner;
 import ctu.nengoros.nodes.RosCommunicationTest;
-import ctu.nengoros.util.Log;
 
 public class CommunicationAwareNodeTest extends RosCommunicationTest{
 
@@ -46,8 +45,6 @@ public class CommunicationAwareNodeTest extends RosCommunicationTest{
 	@Test
 	public void testOnePublisher() {
 
-			Log.level = 5;
-
 			RosRunner rr = super.runNode("ctu.nengoros.communicationAware.CANb");
 			assertTrue(rr.isRunning());
 
@@ -67,7 +64,6 @@ public class CommunicationAwareNodeTest extends RosCommunicationTest{
 	public void runMultipleNodesSequentially() {
 
 		for(int i=0; i<10; i++){
-			Log.level = 5;
 
 			RosRunner rr = super.runNode("ctu.nengoros.communicationAware.CANb");
 			assertTrue(rr.isRunning());
@@ -86,8 +82,6 @@ public class CommunicationAwareNodeTest extends RosCommunicationTest{
 	/**/
 	@Test
 	public void testPublisherSubscriber() {
-
-		Log.level = 5;
 
 		RosRunner rr = super.runNode("ctu.nengoros.communicationAware.CANc");
 		assertTrue(rr.isRunning());

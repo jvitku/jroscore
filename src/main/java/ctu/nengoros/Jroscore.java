@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.ros.RosCore;
 
 import ctu.nengoros.util.Application;
-import ctu.nengoros.util.Log;
+import ctu.nengoros.util.SL;
 import ctu.nengoros.util.ShutDownInterceptor;
 
 /**
@@ -76,11 +76,11 @@ public class Jroscore implements Application {
 		} catch (URISyntaxException e) {
 			// default uri failed?
 			if(st.equalsIgnoreCase(defaultUri)){
-				Log.err(me+"Could not parse default URI: "+defaultUri);
+				SL.serrl(me+"Could not parse default URI: "+defaultUri);
 				return null;
 				// will try the default one
 			}else{
-				Log.warn(me+"Could not parse your URI: "+st);
+				SL.swarnl(me+"Could not parse your URI: "+st);
 				return this.getUri(defaultUri);
 			}
 		}
@@ -113,7 +113,7 @@ public class Jroscore implements Application {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 			this.running = false;
-			Log.err(me+"Could not start ros core on address: "+
+			SL.serrl(me+"Could not start ros core on address: "+
 					myUri.getHost()+" "+myUri.getPort()+" exiting..");
 			return;
 		}
@@ -122,24 +122,24 @@ public class Jroscore implements Application {
 		
 		running=true;
 		
-		Log.info(me+"Server successfully launched on address: "+
+		SL.sinfol(me+"Server successfully launched on address: "+
 					myUri.getHost()+" "+myUri.getPort()+".");
 	}
 
 	@Override
 	public void shutDown() {
 		if(isRunning()){
-			Log.info(me+"OK, shutting down the server");
+			SL.sinfol(me+"OK, shutting down the server");
 			rosCore.shutdown();
 			running = false;
-			Log.info(me+"Shutdown complete, exiting.");	
+			SL.sinfol(me+"Shutdown complete, exiting.");	
 		}else{
-			Log.info(me+"Core not launched, exiting");
+			SL.sinfol(me+"Core not launched, exiting");
 		}
 	}
 
 	private void warn(){
-		Log.warn(me+"warning: could not parse URI, " +
+		SL.swarnl(me+"warning: could not parse URI, " +
 				"will use default one; this: "+defaultUri);
 	}
 
