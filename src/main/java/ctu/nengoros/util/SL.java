@@ -122,7 +122,7 @@ public class SL {
 	/**
 	 * Creates instance of the logger where writing to console/file can be chosen.
 	 * @param name name of the logger or file that stores the log (of writeFile is true)
-	 * @param useConsole if false, the log will bu dumpled into the file of given name 
+	 * @param useConsole if false, the log will be dumped into the file of given name 
 	 */
 	public SL(String name, boolean useConsole){
 		this.init(name, useConsole, DEFLEVEL);
@@ -130,7 +130,7 @@ public class SL {
 
 	/**
 	 * Create instance of the logger, with where writing into the console/file
-	 * can be selected and where default level of loggig can be chosen.
+	 * can be selected and where default level of logging can be chosen.
 	 * @param name name of file/logger
 	 * @param useConsole whether to use console (or file)
 	 * @param defLevel default level used by the methods 
@@ -334,7 +334,6 @@ public class SL {
 				flog.flush();
 				flog.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
