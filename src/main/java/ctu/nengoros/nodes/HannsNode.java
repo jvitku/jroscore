@@ -19,13 +19,12 @@ public interface HannsNode {
 
 	/**
 	 * Return the average value of prosperity of the algorithm
-	 * in the current architecture. This is value in the interval
-	 * [0,1] defining how successful the algorithm is (according to
-	 * some chosen measure). 
-	 * @return value in the interval [0,1] defining how successful 
-	 * the algorithm is
+	 * in the current architecture. This value defines how successful 
+	 * the algorithm is (according to some chosen measure). 
+	 * @return value defining how successful the algorithm is
+	 * according to some selected measure
 	 */
-	public double getProsperity();
+	public float getProsperity();
 
 	/**
 	 * Defines how important is the solution found by the 
@@ -36,6 +35,6 @@ public interface HannsNode {
 	 *  
 	 * @param importance how important is the algorithms solution now
 	 */
-	public void setImportance(double importance);
+	public void setImportance(float importance);
 }
 
