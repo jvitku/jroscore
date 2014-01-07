@@ -8,7 +8,8 @@ package ctu.nengoros.nodes;
  * architecture.</li>
  * <li>Accept the importance parameter, this defines how important
  * is the solution found by the algorithm in the current situation. 
- * That is: 1~now compute, 2~now can learn e.g. by exploration.</li>
+ * That is: 1~now compute, 0~now there is room for learning e.g. 
+ * by exploration.</li>
  * </ul>
  * 
  * @author Jaroslav Vitku
@@ -35,6 +36,6 @@ public interface HannsNode {
 	 *  
 	 * @param importance how important is the algorithms solution now
 	 */
-	public void setImportance(double importace);
+	public void setImportance(double importance);
 }
 
