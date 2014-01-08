@@ -2,6 +2,8 @@ package ctu.nengoros.nodes;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
@@ -20,6 +22,10 @@ public abstract class RosCommunicationTest {
 
 	public static final boolean coreAutorun = true;
 	static Jroscore jr;
+	
+	// if the user forgot to stop all runners after the unit test, many ugly exceptions
+	// were thrown after exiting the test case, so this is attempt to auto-stop all runners 
+	private static ArrayList<RosRunner> runners;
 
 	/**
 	 * Called before any unit @Test
@@ -33,6 +39,8 @@ public abstract class RosCommunicationTest {
 			assertFalse(jr.isRunning());
 			jr.start();
 			assertTrue(jr.isRunning());
+			
+			runners = new ArrayList<RosRunner>(5);
 		}
 	}
 
@@ -41,6 +49,14 @@ public abstract class RosCommunicationTest {
 	 */
 	@AfterClass
 	public static void stopCore(){
+		
+		// try to stop all running "runners"
+		while(runners.size()>0){
+			RosRunner rr = runners.remove(0);
+			if(rr.isRunning())
+				rr.stop();
+		}
+		
 		if(coreAutorun){
 			//System.out.println("=============== Stopping the Core after tests!");
 			assertTrue(jr.isRunning());
@@ -68,6 +84,7 @@ public abstract class RosCommunicationTest {
 		assertFalse(rr.isRunning());
 		rr.start();
 		assertTrue(rr.isRunning());
+		runners.add(rr);			// add runner to the list of runners
 		return rr;
 	}
 	
