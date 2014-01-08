@@ -1,5 +1,7 @@
 package ctu.nengoros.nodes;
 
+import ctu.nengoros.rosparam.manager.ParamDescription;
+
 /**
  * Each HANNS node should be equipped with the following functionalities:
  * <ul>
@@ -16,6 +18,15 @@ package ctu.nengoros.nodes;
  *
  */
 public interface HannsNode {
+	
+	/**
+	 * Get array of parameter descriptions, each HANNS Node should be able
+	 * to return this in order to simplify its usage.
+	 * 
+	 * @return list of parameter descriptions
+	 * @see ctu.nengoros.rosparam.manager.ParamDescription
+	 */
+	public ParamDescription[] getParams();
 
 	/**
 	 * Return the average value of prosperity of the algorithm

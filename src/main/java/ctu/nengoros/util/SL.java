@@ -89,7 +89,18 @@ public class SL {
 		return out+"]";
 	}
 
-
+	public static String toStr(String[] array){
+		String out = "[";
+		for(int i=0; i<array.length; i++){
+			if(i==0){
+				out = out +array[i];
+			}else{
+				out = out + ", "+array[i];	
+			}
+		}
+		return out+"]";
+	}
+	
 	// default level to be used for logging if not changed
 	public static final int DEFLEVEL = 10; 	// default level used for logging
 
