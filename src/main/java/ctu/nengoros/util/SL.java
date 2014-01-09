@@ -30,76 +30,7 @@ import java.io.IOException;
  * @author Jaroslav Vitku
  */
 public class SL {
-
-	/**
-	 * Convert array of integers to readable format
-	 * @param array input array to be returned
-	 * @return human readable string representation of the array 
-	 */
-	public static String toStr(int[] array){
-		String out = "[";
-		for(int i=0; i<array.length; i++){
-			if(i==0){
-				out = out +array[i];
-			}else{
-				out = out + ", "+array[i];	
-			}
-		}
-		return out+"]";
-	}
-
-	/**
-	 * Convert array of Doubles to readable format
-	 * @param array input array to be returned
-	 * @return human readable String representation of the array 
-	 */
-	public static String toStr(Double[] array){
-		String out = "[";
-		for(int i=0; i<array.length; i++){
-			if(i==0){
-				out = out +array[i];
-			}else{
-				out = out + ", "+array[i];	
-			}
-		}
-		return out+"]";
-	}
 	
-	public static String toStr(float[] array){
-		String out = "[";
-		for(int i=0; i<array.length; i++){
-			if(i==0){
-				out = out +array[i];
-			}else{
-				out = out + ", "+array[i];	
-			}
-		}
-		return out+"]";
-	}
-	
-	public static String toStr(double[] array){
-		String out = "[";
-		for(int i=0; i<array.length; i++){
-			if(i==0){
-				out = out +array[i];
-			}else{
-				out = out + ", "+array[i];	
-			}
-		}
-		return out+"]";
-	}
-
-	public static String toStr(String[] array){
-		String out = "[";
-		for(int i=0; i<array.length; i++){
-			if(i==0){
-				out = out +array[i];
-			}else{
-				out = out + ", "+array[i];	
-			}
-		}
-		return out+"]";
-	}
 	
 	// default level to be used for logging if not changed
 	public static final int DEFLEVEL = 10; 	// default level used for logging
@@ -151,8 +82,21 @@ public class SL {
 	}
 
 
+	/**
+	 * Actual initialization. 
+	 * @param name name of the logger, or/and name of the file to write
+	 * @param useConsole use console? if false, the file will be written
+	 * @param defaultLevel default logging level
+	 */
 	private void init(String name, boolean useConsole, int defaultLevel){
-		this.init(name, useConsole, defaultLevel);
+		this.name = name;
+		this.useConsole = useConsole;
+		this.level = defaultLevel;
+		this.write = true;
+		
+		if(!this.useConsole){
+			this.initFile();
+		}
 	}
 
 	private void initFile(){
@@ -349,5 +293,83 @@ public class SL {
 			}
 		}
 	}
+	
+	
+	/**
+	 * Helper stuff goes here -----------------------------
+	 */
+	
+
+	/**
+	 * Convert array of integers to readable format
+	 * @param array input array to be returned
+	 * @return human readable string representation of the array 
+	 */
+	public static String toStr(int[] array){
+		String out = "[";
+		for(int i=0; i<array.length; i++){
+			if(i==0){
+				out = out +array[i];
+			}else{
+				out = out + ", "+array[i];	
+			}
+		}
+		return out+"]";
+	}
+
+	/**
+	 * Convert array of Doubles to readable format
+	 * @param array input array to be returned
+	 * @return human readable String representation of the array 
+	 */
+	public static String toStr(Double[] array){
+		String out = "[";
+		for(int i=0; i<array.length; i++){
+			if(i==0){
+				out = out +array[i];
+			}else{
+				out = out + ", "+array[i];	
+			}
+		}
+		return out+"]";
+	}
+	
+	public static String toStr(float[] array){
+		String out = "[";
+		for(int i=0; i<array.length; i++){
+			if(i==0){
+				out = out +array[i];
+			}else{
+				out = out + ", "+array[i];	
+			}
+		}
+		return out+"]";
+	}
+	
+	public static String toStr(double[] array){
+		String out = "[";
+		for(int i=0; i<array.length; i++){
+			if(i==0){
+				out = out +array[i];
+			}else{
+				out = out + ", "+array[i];	
+			}
+		}
+		return out+"]";
+	}
+
+	public static String toStr(String[] array){
+		String out = "[";
+		for(int i=0; i<array.length; i++){
+			if(i==0){
+				out = out +array[i];
+			}else{
+				out = out + ", "+array[i];	
+			}
+		}
+		return out+"]";
+	}
+	
+	
 }
 
