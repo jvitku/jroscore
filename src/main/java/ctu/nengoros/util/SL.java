@@ -15,8 +15,10 @@ import java.io.IOException;
  * <li>Call {@link #end()} when done</li>
  * </ul>
  * 
+ * The method {@link #printToFile(boolean)} can enable/disable logging into the file with the same
+ * name as the logger. Data in the former file will be overwritten.
  * The method {@link #setLogEnabled(boolean)} can disable logging globally, 
- * the method {@link #setLevel(int)} sets the default level for logging. 
+ * The method {@link #setLevel(int)} sets the default level for logging. 
  * Logging levels are defined as follows:  
  * <ul>
  * <li>0: errors</li>

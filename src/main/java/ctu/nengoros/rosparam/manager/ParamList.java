@@ -2,7 +2,7 @@ package ctu.nengoros.rosparam.manager;
 
 
 /**
- * This class holds and provides access to the list of {@link ctu.nengoros.nodes.ParameterDescription}s.
+ * This class holds and provides access to the list of {@link ctu.nengoros.rosparam.manager.ParamDescription}s.
  * These should be provided by any {@link  ctu.nengoros.nodes.HannsNode}.
  * 
  * @author Jaroslav Vitku
