@@ -56,7 +56,6 @@ public abstract class AbsProsperityObserver implements ProsperityObserver{
 	
 	@Override
 	public ProsperityObserver[] getChilds() {
-		System.err.println("ERROR: no childs available");
 		return null;
 	}
 
