@@ -29,7 +29,7 @@ public abstract class AbstractHannsNode extends AbstractNodeMain {
 	public static final String io = "io"+s;
 
 	protected Log log;
-	protected Publisher<std_msgs.Float32MultiArray> actionPublisher;
+	protected Publisher<std_msgs.Float32MultiArray> dataPublisher;
 	
 	// actions
 	public static final String actionPrefix = "a";	// action names: a0, a1,a2,..
