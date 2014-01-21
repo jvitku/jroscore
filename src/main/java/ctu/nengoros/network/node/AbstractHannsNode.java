@@ -19,6 +19,7 @@ import ctu.nengoros.rosparam.manager.ParamList;
  */
 public abstract class AbstractHannsNode extends AbstractNodeMain {
 	
+		
 	/**
 	 * ROS node configuration
 	 */
@@ -42,6 +43,9 @@ public abstract class AbstractHannsNode extends AbstractNodeMain {
 	// ROS node configurable parameters
 	protected PrivateRosparam r;			// parameter (command-line) reader
 	protected ParamList paramList;			// parameter storage
+
+	// waiting for the node to be ready
+	public static final int maxWait = 7000, waitTime=10;
 	
 	/**
 	 * Logging
@@ -172,6 +176,30 @@ public abstract class AbstractHannsNode extends AbstractNodeMain {
 	 * try to use a ROS communication (publisher/subscriber) which is not initialized
 	 * yet. This method should ensure that all parts of the node are initializes.
 	 */
-	public abstract void awaitInited();
+	public void awaitInited(){
+		int slept = 0;
+		while(!this.isReady()){
+			
+			try {
+				Thread.sleep(waitTime);
+			} catch (InterruptedException e) { e.printStackTrace(); }
+			
+			slept += waitTime;
+			if(slept>maxWait){
+				System.err.println("AbstractHannsNode: Error: waited too long "+(maxWait)
+						+ "to node to be initialized, exiting!");
+				return;
+			}
+		}
+	}
+	
+	/**
+	 * Should indicate whether the node is prepared for use. Typically, all
+	 * components (probably initialized in the {@link #onStart(ConnectedNode)} method)
+	 * are non-null. This is used by the method {@link #awaitInited()}, which should be 
+	 * called externally before attempting to use of the node.
+	 * @return true in case that the node is ready
+	 */
+	protected abstract boolean isReady();
 	
 }
