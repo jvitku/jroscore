@@ -166,4 +166,12 @@ public abstract class AbstractHannsNode extends AbstractNodeMain {
 	 */
 	protected abstract void publishProsperity();
 	
+	/**
+	 * This method should be called before direct usage of any method of the node.
+	 * Methods are directly used typically in tests. Direct call of method can 
+	 * try to use a ROS communication (publisher/subscriber) which is not initialized
+	 * yet. This method should ensure that all parts of the node are initializes.
+	 */
+	public abstract void awaitInited();
+	
 }
