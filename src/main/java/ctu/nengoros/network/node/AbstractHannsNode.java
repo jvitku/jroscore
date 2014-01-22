@@ -6,9 +6,9 @@ import org.ros.node.ConnectedNode;
 import org.ros.node.topic.Publisher;
 
 import ctu.nengoros.network.Topic;
+import ctu.nengoros.network.node.infrastructure.rosparam.impl.PrivateRosparam;
+import ctu.nengoros.network.node.infrastructure.rosparam.manager.ParamList;
 import ctu.nengoros.network.node.observer.stats.ProsperityObserver;
-import ctu.nengoros.rosparam.impl.PrivateRosparam;
-import ctu.nengoros.rosparam.manager.ParamList;
 
 /**
  * Defines ROS node with inputs and outputs with main purpose of use in the Hybrid 
@@ -17,7 +17,7 @@ import ctu.nengoros.rosparam.manager.ParamList;
  * @author Jaroslav Vitku
  *
  */
-public abstract class AbstractHannsNode extends AbstractNodeMain {
+public abstract class AbstractHannsNode extends AbstractNodeMain implements HannsNode{
 	
 		
 	/**
@@ -98,7 +98,7 @@ public abstract class AbstractHannsNode extends AbstractNodeMain {
 	
 	/**
 	 * Register parameters that are available for this node. 
-	 * TOTO: the {@link ctu.nengoros.rosparam.manager.ParamList} should be able
+	 * TOTO: the {@link ctu.nengoros.network.node.infrastructure.rosparam.manager.ParamList} should be able
 	 * to parse the Nodes parameters from the XML file.
 	 */
 	protected abstract void registerParameters();

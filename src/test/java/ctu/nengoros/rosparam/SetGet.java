@@ -6,9 +6,9 @@ import org.junit.Test;
 import org.ros.node.NodeMain;
 
 import ctu.nengoros.RosRunner;
-import ctu.nengoros.nodes.RosCommunicationTest;
-import ctu.nengoros.rosparam.Jrosparam;
-import ctu.nengoros.rosparam.RosparamInt;
+import ctu.nengoros.network.node.infrastructure.rosparam.Jrosparam;
+import ctu.nengoros.network.node.infrastructure.rosparam.RosparamInt;
+import ctu.nengoros.network.node.testsuit.RosCommunicationTest;
 
 /**
  * Test the Jrosparam functionalities
@@ -19,7 +19,7 @@ import ctu.nengoros.rosparam.RosparamInt;
 public class SetGet extends RosCommunicationTest{
 
 	RosRunner r;
-	public static final String rp = "ctu.nengoros.rosparam.node.RosparamNode";
+	public static final String rp = "ctu.nengoros.network.node.infrastructure.rosparam.node.RosparamNode";
 	/**
 	 * Starts new instance of Jrosparam - commandline version 
 	 * @return running instance, or the test failed already

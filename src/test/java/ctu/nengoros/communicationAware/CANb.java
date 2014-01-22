@@ -7,8 +7,8 @@ import org.ros.namespace.GraphName;
 import org.ros.node.ConnectedNode;
 import org.ros.node.topic.Publisher;
 
-import ctu.nengoros.nodes.CommunicationAwareNode;
-import ctu.nengoros.nodes.topicParticipant.ParticipantPublisher;
+import ctu.nengoros.network.node.testsuit.CommunicationAwareNode;
+import ctu.nengoros.network.node.testsuit.topicParticipant.ParticipantPublisher;
 
 /**
  * Publisher, which does not have to be connected somewhere.

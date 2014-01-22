@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import ctu.nengoros.RosRunner;
 import ctu.nengoros.demoTests.nodeTesters.PublisherTestNode;
-import ctu.nengoros.nodes.RosCommunicationTest;
+import ctu.nengoros.network.node.testsuit.RosCommunicationTest;
 
 public class PublisherTests extends RosCommunicationTest {
 	

@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.ros.namespace.GraphName;
 import org.ros.node.ConnectedNode;
 
-import ctu.nengoros.nodes.CommunicationAwareNode;
+import ctu.nengoros.network.node.testsuit.CommunicationAwareNode;
 
 /**
  * No communication needs to be established

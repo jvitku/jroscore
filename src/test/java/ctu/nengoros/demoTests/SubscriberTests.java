@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import ctu.nengoros.RosRunner;
 import ctu.nengoros.demoTests.nodeTesters.SubscriberTestNode;
-import ctu.nengoros.nodes.RosCommunicationTest;
+import ctu.nengoros.network.node.testsuit.RosCommunicationTest;
 
 public class SubscriberTests extends RosCommunicationTest{
 

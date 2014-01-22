@@ -6,16 +6,18 @@ import org.junit.Test;
 import org.ros.node.NodeMain;
 
 import ctu.nengoros.RosRunner;
-import ctu.nengoros.nodes.RosCommunicationTest;
-import ctu.nengoros.rosparam.node.PrivateRosparamNode;
+import ctu.nengoros.network.node.infrastructure.rosparam.Jrosparam;
+import ctu.nengoros.network.node.infrastructure.rosparam.RosparamInt;
+import ctu.nengoros.network.node.infrastructure.rosparam.node.PrivateRosparamNode;
+import ctu.nengoros.network.node.testsuit.RosCommunicationTest;
 
 public class PrivateRosParam extends RosCommunicationTest{
 
 	RosRunner r;
-	public static String dummy = "ctu.nengoros.rosparam.node.DummyNode";
-	public static String pr = "ctu.nengoros.rosparam.node.PrivateRosparamNode";
+	public static String dummy = "ctu.nengoros.network.node.infrastructure.rosparam.node.DummyNode";
+	public static String pr = "ctu.nengoros.network.node.infrastructure.rosparam.node.PrivateRosparamNode";
 	
-	public static String rp = "ctu.nengoros.rosparam.node.RosparamNode";
+	public static String rp = "ctu.nengoros.network.node.infrastructure.rosparam.node.RosparamNode";
 
 	/**
 	 * Starts new instance of Jrosparam - commandline version 

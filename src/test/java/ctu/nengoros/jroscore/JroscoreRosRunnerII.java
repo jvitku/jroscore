@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import ctu.nengoros.RosRunner;
-import ctu.nengoros.nodes.RosCommunicationTest;
+import ctu.nengoros.network.node.testsuit.RosCommunicationTest;
 
 /**
  * The same test as the JroscoreRosRunner.
