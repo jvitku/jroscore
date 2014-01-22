@@ -1,4 +1,4 @@
-package ctu.nengoros.fixparams;
+package ctu.nengoros.network.node.infrastructure.rosparam;
 
 /**
  * This class does the similar job as  org.ros.internal.loader.CommandLineLoader()
