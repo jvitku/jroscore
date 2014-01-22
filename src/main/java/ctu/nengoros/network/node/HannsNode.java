@@ -17,6 +17,16 @@ package ctu.nengoros.network.node;
  */
 public interface HannsNode {
 	
+	
+	/**
+	 * Each ROS node has name which is in a namespace. Together with own 
+	 * namespace, each name is unique in the ROS network. This name
+	 * can be used e.g. for file logging.
+	 * 
+	 * @return unique name in the current ROS network 
+	 */
+	public String getFullName();
+	
 	/**
 	 * Get array of parameter descriptions, each HANNS Node should be able
 	 * to return this in order to simplify its usage.

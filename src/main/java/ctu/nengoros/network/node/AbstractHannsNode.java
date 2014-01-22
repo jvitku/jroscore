@@ -9,6 +9,7 @@ import ctu.nengoros.network.Topic;
 import ctu.nengoros.network.node.infrastructure.rosparam.impl.PrivateRosparam;
 import ctu.nengoros.network.node.infrastructure.rosparam.manager.ParamList;
 import ctu.nengoros.network.node.observer.stats.ProsperityObserver;
+import ctu.nengoros.util.SL;
 
 /**
  * Defines ROS node with inputs and outputs with main purpose of use in the Hybrid 
@@ -25,6 +26,7 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Hann
 	 */
 	public static final String name = "AbstractHannsNode"; // redefine the nodes name
 	public final String me = "["+name+"] ";
+	public String fullName;					// this name should be unique in the ROS network and set in the onStart()
 	public static final String s = "/";
 	public static final String conf = "conf"+s;
 	public static final String io = "io"+s;
@@ -50,12 +52,14 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Hann
 	/**
 	 * Logging
 	 */
-	// whether to log (into the console)
-	public static final String shouldLog = "shouldLog";
-	public static final boolean DEF_LOG = true;
-	protected boolean willLog = DEF_LOG;
+	// whether to log into the file, if not (default) the console is used
+	//public static final String shouldLog = "shouldLog";
+	public static final String logToFileConf = "logToFile";
+	public static final boolean DEF_LTF = false;
+	protected boolean logToFile = DEF_LTF;
+	protected SL logger;	// logger which logs data to file if chosen, if not, the ROS logger is used
 	
-	// how often to log data (into the console)
+	// how often to log data (into the console), -1 means no logging
 	public static final int DEF_LOGPERIOD = 100; // how often to log? 
 	public static final String logPeriodConf = "logPeriod";
 	protected int logPeriod = DEF_LOGPERIOD;
@@ -124,8 +128,11 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Hann
 	 * @param what what to print out to the ROS console
 	 */
 	protected void myLog(String what){
-		if(this.willLog)
+		if(this.logToFile){
+			
+		}else{
 			log.info(what);
+		}
 	}
 
 	/**
@@ -136,11 +143,10 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Hann
 	 * @param newVal new one
 	 */
 	protected void logParamChange(String message, double oldVal, double newVal){
-		if(!this.willLog)
-			return;
 		if(oldVal==newVal)
 			return;
-		log.info(message+" Value is being changed from: "+oldVal+" to "+newVal);
+		if(this.logPeriod>=0)
+			log.info(message+" Value is being changed from: "+oldVal+" to "+newVal);
 	}
 	
 	/**
@@ -201,5 +207,7 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Hann
 	 * @return true in case that the node is ready
 	 */
 	protected abstract boolean isReady();
-	
+
+	@Override
+	public String getFullName() { return this.fullName; }
 }
