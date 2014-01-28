@@ -32,8 +32,8 @@ import java.io.IOException;
  * @author Jaroslav Vitku
  */
 public class SL {
-	
-	
+
+
 	// default level to be used for logging if not changed
 	public static final int DEFLEVEL = 10; 	// default level used for logging
 
@@ -95,7 +95,7 @@ public class SL {
 		this.useConsole = useConsole;
 		this.level = defaultLevel;
 		this.write = true;
-		
+
 		if(!this.useConsole){
 			this.initFile();
 		}
@@ -191,7 +191,7 @@ public class SL {
 	public void errl(String s){
 		this.write("ERROR: "+s+"\n",ERRORS);
 	}
-	
+
 
 	/**
 	 * Prints out warning without newline
@@ -201,7 +201,7 @@ public class SL {
 	public void warn(String s){
 		this.write("WARNING: "+s,WARN);
 	}
-	
+
 
 	/**
 	 * Prints out warning
@@ -212,7 +212,7 @@ public class SL {
 	public void warnl(String s){
 		this.write("WARNING: "+s+"\n",WARN);
 	}
-	
+
 	/**
 	 * Static equivalent of {@link #p(String)} which prints only into console. 
 	 * @param s String to be printed out with the default level
@@ -247,7 +247,7 @@ public class SL {
 	public static void serrl(String s){
 		swrite("ERROR: "+s+"\n",ERRORS);
 	}
-	
+
 	/**
 	 * Static equivalent of {@link #warnl(String)} which prints only into console
 	 * @param s String to be printed with 'WARNING:' appended at the beginning and newline appended at the end.
@@ -295,12 +295,12 @@ public class SL {
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Helper stuff goes here -----------------------------
 	 */
-	
+
 
 	/**
 	 * Convert array of integers to readable format
@@ -335,7 +335,7 @@ public class SL {
 		}
 		return out+"]";
 	}
-	
+
 	public static String toStr(float[] array){
 		String out = "[";
 		for(int i=0; i<array.length; i++){
@@ -347,7 +347,30 @@ public class SL {
 		}
 		return out+"]";
 	}
-	
+
+	/**
+	 * This returns the String representation of a given 2D float array. 
+	 * The array is displayed according to the Matlab convention: x ~ val[i] is
+	 * column and y ~ val[:][j] is a row. 
+	 * @param array array to be displayed as String
+	 * @return human-readable String representation of a given array 
+	 */
+	public static String toStr(float[][] array){
+		String out = "[";
+		for(int j=0; j<array.length; j++){
+			for(int i=0; i<array[0].length; i++){
+				if(i==0){
+					out = out +array[j][i];
+				}else{
+					out = out + ", "+array[j][i];	
+				}
+			}
+			if(j<array.length-1)
+				out = out+"\n";
+		}
+		return out+"]";
+	}
+
 	public static String toStr(double[] array){
 		String out = "[";
 		for(int i=0; i<array.length; i++){
@@ -371,7 +394,7 @@ public class SL {
 		}
 		return out+"]";
 	}
-	
-	
+
+
 }
 
