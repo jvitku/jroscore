@@ -1,6 +1,7 @@
 package ctu.nengoros.network.node;
 
-import ctu.nengoros.network.common.exceptions.StartupDelayException;
+import ctu.nengoros.network.node.synchedStart.SynchedStartInterface;
+
 
 /**
  * Each HANNS node should be equipped with the following functionalities:
@@ -17,18 +18,7 @@ import ctu.nengoros.network.common.exceptions.StartupDelayException;
  * @author Jaroslav Vitku
  *
  */
-public interface HannsNode {
-	
-	/**
-	 * There can be problem with synchronizing various ROS nodes with a rest 
-	 * of the infrastructure. This method should be called before any attempt 
-	 * to use the HannsNode. This method should return after fail
-	 * 
-	 * @throws StartupDelayException is thrown if the predefined maximum
-	 * waiting time is exceeded, which probably means that the node could not be 
-	 * started 
-	 */
-	public void awaitReady() throws StartupDelayException;
+public interface HannsNode extends SynchedStartInterface{
 	
 	/**
 	 * Each ROS node has name which is in a namespace. Together with own 
@@ -55,15 +45,6 @@ public interface HannsNode {
 	 * @return each line could correspond to one parameter explained
 	 */
 	public String listParams();
-
-	/**
-	 * Return the average value of prosperity of the algorithm
-	 * in the current architecture. This value defines how successful 
-	 * the algorithm is (according to some chosen measure). 
-	 * @return value defining how successful the algorithm is
-	 * according to some selected measure
-	 */
-	public float getProsperity();
 
 	/**
 	 * Defines how important is the solution found by the 

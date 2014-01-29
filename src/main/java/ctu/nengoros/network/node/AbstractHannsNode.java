@@ -18,9 +18,8 @@ import ctu.nengoros.util.SL;
  * @author Jaroslav Vitku
  *
  */
-public abstract class AbstractHannsNode extends AbstractNodeMain implements HannsNode{
+public abstract class AbstractHannsNode extends AbstractNodeMain implements ProsperityHannsNode{
 	
-		
 	/**
 	 * ROS node configuration
 	 */
@@ -169,20 +168,8 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Hann
 				std_msgs.Float32MultiArray._TYPE);
 	}
 	
-	/**
-	 * This method should use the {@link #prospPublisher} initialized by the
-	 * {@link #buildProsperityPublisher(ConnectedNode)} to publish 
-	 * its value(s) of prosperity over the ROS network.
-	 */
-	protected abstract void publishProsperity();
-	
-	/**
-	 * This method should be called before direct usage of any method of the node.
-	 * Methods are directly used typically in tests. Direct call of method can 
-	 * try to use a ROS communication (publisher/subscriber) which is not initialized
-	 * yet. This method should ensure that all parts of the node are initializes.
-	 */
-	public void awaitInited(){
+	@Override
+	public void awaitReady(){
 		int slept = 0;
 		while(!this.isReady()){
 			
@@ -198,15 +185,6 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Hann
 			}
 		}
 	}
-	
-	/**
-	 * Should indicate whether the node is prepared for use. Typically, all
-	 * components (probably initialized in the {@link #onStart(ConnectedNode)} method)
-	 * are non-null. This is used by the method {@link #awaitInited()}, which should be 
-	 * called externally before attempting to use of the node.
-	 * @return true in case that the node is ready
-	 */
-	protected abstract boolean isReady();
 
 	@Override
 	public String getFullName() { return this.fullName; }
