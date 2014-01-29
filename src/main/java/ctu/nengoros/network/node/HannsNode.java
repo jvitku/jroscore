@@ -1,5 +1,7 @@
 package ctu.nengoros.network.node;
 
+import ctu.nengoros.network.common.exceptions.StartupDelayException;
+
 /**
  * Each HANNS node should be equipped with the following functionalities:
  * <ul>
@@ -17,6 +19,16 @@ package ctu.nengoros.network.node;
  */
 public interface HannsNode {
 	
+	/**
+	 * There can be problem with synchronizing various ROS nodes with a rest 
+	 * of the infrastructure. This method should be called before any attempt 
+	 * to use the HannsNode. This method should return after fail
+	 * 
+	 * @throws StartupDelayException is thrown if the predefined maximum
+	 * waiting time is exceeded, which probably means that the node could not be 
+	 * started 
+	 */
+	public void awaitReady() throws StartupDelayException;
 	
 	/**
 	 * Each ROS node has name which is in a namespace. Together with own 
