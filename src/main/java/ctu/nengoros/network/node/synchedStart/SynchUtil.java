@@ -1,17 +1,13 @@
 package ctu.nengoros.network.node.synchedStart;
 
 /**
- * Object that can be in two states: ready/not ready. 
+ * Parent for SynchedUnit and SynchedStart 
  * 
  * @author Jaroslav Vitku
  *
  */
 public interface SynchUtil {
 
-	public boolean isReady();
-
-	public void setReady(boolean ready);
-
-	public String getName();
+	public String getFullName();
 	
 }

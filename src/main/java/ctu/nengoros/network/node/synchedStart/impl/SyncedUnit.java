@@ -103,7 +103,7 @@ public abstract class SyncedUnit implements SyncedUnitInterface{
 	}
 	
 	@Override
-	public synchronized String getName(){ return this.name; }
+	public synchronized String getFullName(){ return this.name; }
 	
 	
 	private boolean allChildsReady(){

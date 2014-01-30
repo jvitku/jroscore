@@ -169,9 +169,9 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Pros
 	}
 	
 	@Override
-	public void awaitReady(){
+	public void awaitStarted(){
 		int slept = 0;
-		while(!this.isReady()){
+		while(!this.isStarted()){
 			
 			try {
 				Thread.sleep(waitTime);
@@ -179,7 +179,7 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Pros
 			
 			slept += waitTime;
 			if(slept>maxWait){
-				System.err.println("AbstractHannsNode: Error: waited too long "+(maxWait)
+				System.err.println(me+this.getFullName()+"Error: waited too long "+(maxWait)
 						+ "to node to be initialized, exiting!");
 				return;
 			}

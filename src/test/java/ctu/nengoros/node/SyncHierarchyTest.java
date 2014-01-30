@@ -8,22 +8,6 @@ import ctu.nengoros.network.node.synchedStart.impl.SyncedUnit;
 
 public class SyncHierarchyTest {
 
-	/*
-	public static void main(String[] args){
-		System.out.println(" will init some hierarchy of Units and test if it works");
-		SyncHierarchyTest st = new SyncHierarchyTest();
-
-		System.out.println("test A");
-		st.testA();
-		System.out.println("test B");
-		st.testB();
-		System.out.println("test C");
-		st.testC();
-		
-		System.out.println("done");
-	}*/
-	
-
 	@Test
 	public void testA(){
 		Something nochilds = new Something(); 
@@ -122,6 +106,11 @@ public class SyncHierarchyTest {
 		
 		public Something(boolean synchronous) {
 			super(synchronous);
+		}
+
+		@Override
+		public String getFullName() {
+			return "me";
 		}
 	}
 	

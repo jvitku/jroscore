@@ -24,18 +24,16 @@ public class StaetupSynchTest {
 		d.setMaxWaitTime(100);
 		
 		try {
-			d.awaitReady();		// should throw
+			d.awaitStarted();		// should throw
 			fail();
 		} catch (StartupDelayException e) {
 			//e.printStackTrace();
 		}
 		
-		assertFalse(d.isReady());
-		d.setReady(true);
-		assertTrue(d.isReady());
+		assertFalse(d.isStarted());
+		d.setStarted();
+		assertTrue(d.isStarted());
 		
-		d.setReady(false);
-		assertTrue(d.isReady());	// cannot discard the ready state
 	}
 	
 	@Test
@@ -44,19 +42,17 @@ public class StaetupSynchTest {
 		Dummy d = new Dummy("nochilds");
 		d.setLogginEnabled(true);
 		
-		assertFalse(d.isReady());
-		d.setReady(true);
-		assertTrue(d.isReady());
+		assertFalse(d.isStarted());
+		d.setStarted();
+		assertTrue(d.isStarted());
 		
 		try {
-			d.awaitReady();	// should return ok
+			d.awaitStarted();	// should return ok
 		} catch (StartupDelayException e) {
 			e.printStackTrace();
 			fail();
 		}
 		
-		d.setReady(false);
-		assertTrue(d.isReady());	// cannot discard the ready state
 	}
 	
 	@Test
@@ -67,20 +63,18 @@ public class StaetupSynchTest {
 		Dummy ch = new Dummy("child1");
 		d.addChild(ch);
 		
-		assertFalse(d.isReady());
-		assertFalse(ch.isReady());
-		d.setReady(true);			// the parent is ready, but the child is not
-		assertFalse(d.isReady());
-		assertFalse(ch.isReady());
+		assertFalse(d.isStarted());
+		assertFalse(ch.isStarted());
+		d.setStarted();			// the parent is ready, but the child is not
+		assertFalse(d.isStarted());
+		assertFalse(ch.isStarted());
 		
-		ch.setReady(true);			// setting child to ready state now sets both to ready
-		assertTrue(d.isReady());
-		assertTrue(ch.isReady());
+		ch.setStarted();			// setting child to ready state now sets both to ready
+		assertTrue(d.isStarted());
+		assertTrue(ch.isStarted());
 		
-		d.setReady(false);
-		ch.setReady(false);
-		assertTrue(d.isReady());	// cannot discard the ready state
-		assertTrue(ch.isReady());	// cannot discard the ready state
+		assertTrue(d.isStarted());	// cannot discard the ready state
+		assertTrue(ch.isStarted());	// cannot discard the ready state
 	}
 	
 	@Test
@@ -93,31 +87,25 @@ public class StaetupSynchTest {
 		d.addChild(ch);
 		d.addChild(chh);
 		
-		assertFalse(d.isReady());
-		assertFalse(ch.isReady());
-		assertFalse(chh.isReady());
+		assertFalse(d.isStarted());
+		assertFalse(ch.isStarted());
+		assertFalse(chh.isStarted());
 		
-		d.setReady(true);			// the parent is ready, but the child is not
-		assertFalse(d.isReady());
-		assertFalse(ch.isReady());
-		assertFalse(chh.isReady());
+		d.setStarted();			// the parent is ready, but the child is not
+		assertFalse(d.isStarted());
+		assertFalse(ch.isStarted());
+		assertFalse(chh.isStarted());
 		
-		ch.setReady(true);			// all childs have to be ready
-		assertFalse(d.isReady());
-		assertTrue(ch.isReady());
-		assertFalse(chh.isReady());
+		ch.setStarted();			// all childs have to be ready
+		assertFalse(d.isStarted());
+		assertTrue(ch.isStarted());
+		assertFalse(chh.isStarted());
 		
-		chh.setReady(true);
-		assertTrue(d.isReady());
-		assertTrue(ch.isReady());
-		assertTrue(chh.isReady());
+		chh.setStarted();
+		assertTrue(d.isStarted());
+		assertTrue(ch.isStarted());
+		assertTrue(chh.isStarted());
 		
-		d.setReady(false);
-		chh.setReady(false);
-		ch.setReady(false);
-		assertTrue(d.isReady());	// cannot discard the ready state
-		assertTrue(ch.isReady());	// cannot discard the ready state
-		assertTrue(chh.isReady());	// cannot discard the ready state
 	}
 
 	@Test
@@ -130,35 +118,29 @@ public class StaetupSynchTest {
 		d.addChild(ch);
 		d.addChild(chh);
 		
-		assertFalse(d.isReady());
-		assertFalse(ch.isReady());
-		assertFalse(chh.isReady());
+		assertFalse(d.isStarted());
+		assertFalse(ch.isStarted());
+		assertFalse(chh.isStarted());
 
-		assertFalse(d.isReady());
-		assertFalse(ch.isReady());
-		assertFalse(chh.isReady());
+		assertFalse(d.isStarted());
+		assertFalse(ch.isStarted());
+		assertFalse(chh.isStarted());
 		
-		ch.setReady(true);			// all childs have to be ready
-		assertFalse(d.isReady());
-		assertTrue(ch.isReady());
-		assertFalse(chh.isReady());
+		ch.setStarted();			// all childs have to be ready
+		assertFalse(d.isStarted());
+		assertTrue(ch.isStarted());
+		assertFalse(chh.isStarted());
 		
-		chh.setReady(true);
-		assertFalse(d.isReady());	// here: parent is not ready: setReady not called
-		assertTrue(ch.isReady());
-		assertTrue(chh.isReady());
+		chh.setStarted();
+		assertFalse(d.isStarted());	// here: parent is not ready: setReady not called
+		assertTrue(ch.isStarted());
+		assertTrue(chh.isStarted());
 		
-		d.setReady(true);
-		assertTrue(d.isReady());
-		assertTrue(ch.isReady());
-		assertTrue(chh.isReady());
+		d.setStarted();
+		assertTrue(d.isStarted());
+		assertTrue(ch.isStarted());
+		assertTrue(chh.isStarted());
 		
-		d.setReady(false);
-		chh.setReady(false);
-		ch.setReady(false);
-		assertTrue(d.isReady());	// cannot discard the ready state
-		assertTrue(ch.isReady());	// cannot discard the ready state
-		assertTrue(chh.isReady());	// cannot discard the ready state
 	}
 	
 	@Test
@@ -180,64 +162,64 @@ public class StaetupSynchTest {
 		ch02.addChild(ch12);
 		ch02.addChild(ch13);
 		
-		assertFalse(d.isReady());
-		assertFalse(ch01.isReady());
-		assertFalse(ch02.isReady());
-		assertFalse(ch11.isReady());
-		assertFalse(ch12.isReady());
-		assertFalse(ch13.isReady());
+		assertFalse(d.isStarted());
+		assertFalse(ch01.isStarted());
+		assertFalse(ch02.isStarted());
+		assertFalse(ch11.isStarted());
+		assertFalse(ch12.isStarted());
+		assertFalse(ch13.isStarted());
 		
-		ch01.setReady(true);
-		assertFalse(d.isReady());
-		assertFalse(ch01.isReady());
-		assertFalse(ch02.isReady());
-		assertFalse(ch11.isReady());
-		assertFalse(ch12.isReady());
-		assertFalse(ch13.isReady());
+		ch01.setStarted();
+		assertFalse(d.isStarted());
+		assertFalse(ch01.isStarted());
+		assertFalse(ch02.isStarted());
+		assertFalse(ch11.isStarted());
+		assertFalse(ch12.isStarted());
+		assertFalse(ch13.isStarted());
 		
-		ch11.setReady(true);			// one branch ready
-		assertFalse(d.isReady());
-		assertTrue(ch01.isReady());	//
-		assertFalse(ch02.isReady());
-		assertTrue(ch11.isReady());	//
-		assertFalse(ch12.isReady());
-		assertFalse(ch13.isReady());
+		ch11.setStarted();			// one branch ready
+		assertFalse(d.isStarted());
+		assertTrue(ch01.isStarted());	//
+		assertFalse(ch02.isStarted());
+		assertTrue(ch11.isStarted());	//
+		assertFalse(ch12.isStarted());
+		assertFalse(ch13.isStarted());
 		
-		d.setReady(true);			// parent ready
-		assertFalse(d.isReady());
-		assertTrue(ch01.isReady());
-		assertFalse(ch02.isReady());
-		assertTrue(ch11.isReady());
-		assertFalse(ch12.isReady());
-		assertFalse(ch13.isReady());
+		d.setStarted();			// parent ready
+		assertFalse(d.isStarted());
+		assertTrue(ch01.isStarted());
+		assertFalse(ch02.isStarted());
+		assertTrue(ch11.isStarted());
+		assertFalse(ch12.isStarted());
+		assertFalse(ch13.isStarted());
 		
-		ch13.setReady(true);			// parent ready
-		assertFalse(d.isReady());
-		assertTrue(ch01.isReady());
-		assertFalse(ch02.isReady());
-		assertTrue(ch11.isReady());
-		assertFalse(ch12.isReady());
-		assertTrue(ch13.isReady());	//
+		ch13.setStarted();			// parent ready
+		assertFalse(d.isStarted());
+		assertTrue(ch01.isStarted());
+		assertFalse(ch02.isStarted());
+		assertTrue(ch11.isStarted());
+		assertFalse(ch12.isStarted());
+		assertTrue(ch13.isStarted());	//
 		
-		ch12.setReady(true);			// parent ready
-		assertFalse(d.isReady());
-		assertTrue(ch01.isReady());
-		assertFalse(ch02.isReady());
-		assertTrue(ch11.isReady());
-		assertTrue(ch12.isReady());
-		assertTrue(ch13.isReady());	//
+		ch12.setStarted();			// parent ready
+		assertFalse(d.isStarted());
+		assertTrue(ch01.isStarted());
+		assertFalse(ch02.isStarted());
+		assertTrue(ch11.isStarted());
+		assertTrue(ch12.isStarted());
+		assertTrue(ch13.isStarted());	//
 		
-		ch02.setReady(true);			// parent ready
-		assertTrue(d.isReady());	//
-		assertTrue(ch01.isReady());
-		assertTrue(ch02.isReady());//
-		assertTrue(ch11.isReady());
-		assertTrue(ch12.isReady());
-		assertTrue(ch13.isReady());	
+		ch02.setStarted();			// parent ready
+		assertTrue(d.isStarted());	//
+		assertTrue(ch01.isStarted());
+		assertTrue(ch02.isStarted());//
+		assertTrue(ch11.isStarted());
+		assertTrue(ch12.isStarted());
+		assertTrue(ch13.isStarted());	
 		
 		d.setLogginEnabled(true);
 		try {
-			d.awaitReady();
+			d.awaitStarted();
 		} catch (StartupDelayException e) {
 			e.printStackTrace();
 			fail();
@@ -252,7 +234,7 @@ public class StaetupSynchTest {
 		public Dummy(String name){ this.name = name;	}
 		
 		@Override
-		public String getName() { return this.name;		}
+		public String getFullName() { return this.name;		}
 	}
 	
 	

@@ -22,6 +22,10 @@ package ctu.nengoros.network.node.synchedStart;
  */
 public interface SyncedUnitInterface extends SynchUtil{
 	
+	public boolean isReady();
+
+	public void setReady(boolean ready);
+	
 	/**
 	 * Make me and all childs not ready (except those set to asynchronous - alwaysready)
 	 */

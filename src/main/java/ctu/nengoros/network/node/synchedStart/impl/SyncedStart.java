@@ -15,7 +15,7 @@ public abstract class SyncedStart implements SynchedStartInterface{
 	public static final boolean DEF_LOG = false;	// log about waiting?
 	public static final int DEF_MAXWAIT = 7000;		// default max time to wait
 	public static final int WAITTIME = 10;			// sleep for?
-	public final boolean DEF_READY = false;	// ready after startup?
+	public final boolean DEF_READY = false;			// ready after startup?
 
 	private boolean logging = DEF_LOG;
 	private int maxWait = DEF_MAXWAIT;
@@ -31,7 +31,7 @@ public abstract class SyncedStart implements SynchedStartInterface{
 	}
 
 	@Override
-	public synchronized boolean isReady() {
+	public synchronized boolean isStarted() {
 
 		if(this.ready && this.readyDefinite)
 			return true;
@@ -44,12 +44,7 @@ public abstract class SyncedStart implements SynchedStartInterface{
 	}
 
 	@Override
-	public synchronized void setReady(boolean ready) {
-		if(this.ready && !ready){
-			System.err.println(me+"ERROR: will not disable the "
-					+ "current ready state! Staying ready");
-			return;
-		}
+	public synchronized void setStarted() {
 		if(childs.size()==0){
 			this.readyDefinite = true;
 		}
@@ -76,19 +71,19 @@ public abstract class SyncedStart implements SynchedStartInterface{
 
 	private boolean allChildsReady(){
 		for(int i=0; i<childs.size(); i++)
-			if(!childs.get(i).isReady())
+			if(!childs.get(i).isStarted())
 				return false;
 		this.readyDefinite = true;
 		return true;
 	}
 
 	@Override
-	public void awaitReady() throws StartupDelayException {
+	public void awaitStarted() throws StartupDelayException {
 		int waited = 0;
 		if(this.logging)
 			System.out.print("\n waiting for the ROS message to be received");
 
-		while(!this.isReady()){
+		while(!this.isStarted()){
 			try {
 				Thread.sleep(WAITTIME);
 			} catch (InterruptedException e) { e.printStackTrace(); }
@@ -98,7 +93,7 @@ public abstract class SyncedStart implements SynchedStartInterface{
 
 			waited +=WAITTIME;
 			if(waited > maxWait){
-				throw new StartupDelayException("\n\n"+me+" "+this.getName()+
+				throw new StartupDelayException("\n\n"+me+" "+this.getFullName()+
 						" not ready fast enough. "
 						+ "ROS communication probably broken, giving up!");
 			}

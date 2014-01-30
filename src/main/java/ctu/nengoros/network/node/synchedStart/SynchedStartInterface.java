@@ -29,7 +29,7 @@ public interface SynchedStartInterface extends SynchUtil{
 	 * @param enabled enable logging to console?
 	 */
 	public void setLogginEnabled(boolean enabled);
-	
+
 	/**
 	 * There can be problem with synchronizing various ROS nodes with a rest 
 	 * of the infrastructure. This method should be called before any attempt 
@@ -40,21 +40,32 @@ public interface SynchedStartInterface extends SynchUtil{
 	 * waiting time is exceeded, which probably means that the node could not be 
 	 * started 
 	 */
-	public void awaitReady() throws StartupDelayException;
+	public void awaitStarted() throws StartupDelayException;
+
+	/**
+	 * Node is started and ready?
+	 * @return true if the Node is started (and therefore ready for usage)
+	 */
+	public boolean isStarted();
+
+	/**
+	 * After the node is started ok, call this method to indicate it.
+	 */
+	public void setStarted();
 	
 	/**
 	 * Get maximum wait time for this object to be ready
-	 * @return max time in milliseconds which the method {@link #awaitReady()} will wait
+	 * @return max time in milliseconds which the method {@link #awaitStarted()} will wait
 	 */
 	public int getMaxWaitTime();
-	
+
 	/**
-	 * Set the maximum wait time for the method {@link #awaitReady()} to wait for node
+	 * Set the maximum wait time for the method {@link #awaitStarted()} to wait for node
 	 * to be ready
 	 * @param ms milliseconds to wait
 	 */
 	public void setMaxWaitTime(int ms);
-	
+
 	/**
 	 * enables to create tree of units
 	 * unit is ready if all childs are ready
@@ -62,6 +73,6 @@ public interface SynchedStartInterface extends SynchUtil{
 	 * @param child
 	 */
 	public void addChild(SynchedStartInterface child);
-	
+
 	public void removeChild(SynchedStartInterface child);
 }

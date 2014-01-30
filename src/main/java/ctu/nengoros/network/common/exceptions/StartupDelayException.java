@@ -6,7 +6,7 @@ package ctu.nengoros.network.common.exceptions;
  * {@link org.ros.node.AbstractNodeMain#onStart(org.ros.node.ConnectedNode)}
  * is not called fast enough, e.g. because of waiting for the TimeProvider.</p>
  * 
- * <p>The method {@link ctu.nengoros.network.node.HannsNode#awaitReady()} should return
+ * <p>The method {@link ctu.nengoros.network.node.HannsNode#awaitStarted()} should return
  * in some reasonable time (e.g. 7 seconds), if the predefined max wait time 
  * is exceeded, this exception can be thrown.</p> 
  * 
