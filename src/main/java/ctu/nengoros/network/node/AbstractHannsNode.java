@@ -6,14 +6,19 @@ import org.ros.node.ConnectedNode;
 import org.ros.node.topic.Publisher;
 
 import ctu.nengoros.network.Topic;
+import ctu.nengoros.network.common.exceptions.StartupDelayException;
 import ctu.nengoros.network.node.infrastructure.rosparam.impl.PrivateRosparam;
 import ctu.nengoros.network.node.infrastructure.rosparam.manager.ParamList;
 import ctu.nengoros.network.node.observer.stats.ProsperityObserver;
+import ctu.nengoros.network.node.synchedStart.impl.StartupManager;
 import ctu.nengoros.util.SL;
 
 /**
- * Defines ROS node with inputs and outputs with main purpose of use in the Hybrid 
- * Artificial Neural Network Systems (HANNS) framework.
+ * <p>Defines ROS node with inputs and outputs with main purpose of use in the Hybrid 
+ * Artificial Neural Network Systems (HANNS) framework.</p>
+ * 
+ * <p>Note that this serves just as a helper for maintaining algorithms as ROS nodes, arbitrary
+ * ROS node should be still supported by the NengoROS simulator.</p> 
  *  
  * @author Jaroslav Vitku
  *
@@ -46,7 +51,7 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Pros
 	protected ParamList paramList;			// parameter storage
 
 	// waiting for the node to be ready
-	public static final int maxWait = 7000, waitTime=10;
+	public StartupManager startup = new StartupManager();
 	
 	/**
 	 * Logging
@@ -81,6 +86,9 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Pros
 	 * Main entry point to the ROS node. The initialization is made here, 
 	 * the functionality of the node is called asynchronously by incoming 
 	 * ROS messages.
+	 * 
+	 * Note: the {@link StartupManager#setFullName(String)} should be called 
+	 * from here.
 	 * 
 	 * @param connectedNode publisher/subscriber/log factory
 	 */
@@ -121,18 +129,6 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Pros
 	 * @param connectedNode ROS factory for registering publishers/subscribers
 	 */
 	protected abstract void buildConfigSubscribers(ConnectedNode connectedNode);
-	
-	/**
-	 * Log to ROS network at any time, but only if the logging is allowed.
-	 * @param what what to print out to the ROS console
-	 */
-	protected void myLog(String what){
-		if(this.logToFile){
-			
-		}else{
-			log.info(what);
-		}
-	}
 
 	/**
 	 * Log only if allowed, and if the value is changed
@@ -167,25 +163,13 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Pros
 		prospPublisher =connectedNode.newPublisher(topicProsperity, 
 				std_msgs.Float32MultiArray._TYPE);
 	}
-	
-	@Override
-	public void awaitStarted(){
-		int slept = 0;
-		while(!this.isStarted()){
-			
-			try {
-				Thread.sleep(waitTime);
-			} catch (InterruptedException e) { e.printStackTrace(); }
-			
-			slept += waitTime;
-			if(slept>maxWait){
-				System.err.println(me+this.getFullName()+"Error: waited too long "+(maxWait)
-						+ "to node to be initialized, exiting!");
-				return;
-			}
-		}
-	}
 
 	@Override
 	public String getFullName() { return this.fullName; }
+	
+	@Override
+	public void awaitStarted() throws StartupDelayException{
+		startup.awaitStarted();
+	}
+
 }

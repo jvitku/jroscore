@@ -1,6 +1,6 @@
 package ctu.nengoros.network.node;
 
-import ctu.nengoros.network.node.synchedStart.SyncedStartInterface;
+import ctu.nengoros.network.common.exceptions.StartupDelayException;
 
 
 /**
@@ -18,7 +18,16 @@ import ctu.nengoros.network.node.synchedStart.SyncedStartInterface;
  * @author Jaroslav Vitku
  *
  */
-public interface HannsNode extends SyncedStartInterface{
+public interface HannsNode{
+	
+	/**
+	 * The StartupManager could be used here.
+	 * @throws StartupDelayException thrown if the startup delay time exceeds
+	 * some predefined time (probably some ROS handshake problem)
+	 * 
+	 * @see ctu.nengoros.network.node.synchedStart.impl.StartupManager#awaitStarted()
+	 */
+	public void awaitStarted() throws StartupDelayException;
 	
 	/**
 	 * Each ROS node has name which is in a namespace. Together with own 

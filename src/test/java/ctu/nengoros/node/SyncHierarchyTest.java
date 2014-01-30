@@ -112,6 +112,11 @@ public class SyncHierarchyTest {
 		public String getFullName() {
 			return "me";
 		}
+
+		@Override
+		public void setFullName(String name) {
+			//noop
+		}
 	}
 	
 }

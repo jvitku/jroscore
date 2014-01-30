@@ -23,7 +23,6 @@ import ctu.nengoros.network.common.exceptions.StartupDelayException;
  */
 public interface SyncedStartInterface extends SynchUtil{
 
-
 	/**
 	 * The object is able to log waiting, which is disabled by default.
 	 * @param enabled enable logging to console?
@@ -49,7 +48,7 @@ public interface SyncedStartInterface extends SynchUtil{
 	public boolean isStarted();
 
 	/**
-	 * After the node is started ok, call this method to indicate it.
+	 * After the node is started OK, call this method to indicate it.
 	 */
 	public void setStarted();
 	
