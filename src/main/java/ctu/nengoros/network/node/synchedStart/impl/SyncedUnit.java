@@ -120,5 +120,8 @@ public abstract class SyncedUnit implements SyncedUnitInterface{
 			childs.get(i).discardChildsReady();
 	}
 	
+	@Override
+	public void setFullName(String name){ this.name = name; }
+	
 	
 }
