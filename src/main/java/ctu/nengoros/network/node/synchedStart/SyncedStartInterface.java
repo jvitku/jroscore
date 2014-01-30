@@ -21,7 +21,7 @@ import ctu.nengoros.network.common.exceptions.StartupDelayException;
  * 
  * @author Jaroslav Vitku
  */
-public interface SynchedStartInterface extends SynchUtil{
+public interface SyncedStartInterface extends SynchUtil{
 
 
 	/**
@@ -72,7 +72,7 @@ public interface SynchedStartInterface extends SynchUtil{
 	 * or if flag "alwaysReady" is on 
 	 * @param child
 	 */
-	public void addChild(SynchedStartInterface child);
+	public void addChild(SyncedStartInterface child);
 
-	public void removeChild(SynchedStartInterface child);
+	public void removeChild(SyncedStartInterface child);
 }

@@ -3,14 +3,14 @@ package ctu.nengoros.network.node.synchedStart.impl;
 import java.util.ArrayList;
 
 import ctu.nengoros.network.common.exceptions.StartupDelayException;
-import ctu.nengoros.network.node.synchedStart.SynchedStartInterface;
+import ctu.nengoros.network.node.synchedStart.SyncedStartInterface;
 
 /**
- * Basic implementation of the SynchedStartInterface.
+ * Basic implementation of the SyncedStartInterface.
  *  
  * @author Jaroslav Vitku
  */
-public abstract class SyncedStart implements SynchedStartInterface{
+public abstract class SyncedStart implements SyncedStartInterface{
 
 	public static final boolean DEF_LOG = false;	// log about waiting?
 	public static final int DEF_MAXWAIT = 7000;		// default max time to wait
@@ -22,12 +22,12 @@ public abstract class SyncedStart implements SynchedStartInterface{
 	private volatile boolean readyDefinite = false;	// have to check childs?
 	private volatile boolean ready = this.DEF_READY;
 
-	private ArrayList<SynchedStartInterface> childs;
+	private ArrayList<SyncedStartInterface> childs;
 
 	private final String me = "[SyncedStart] "; 
 
 	public SyncedStart(){
-		this.childs = new ArrayList<SynchedStartInterface>();
+		this.childs = new ArrayList<SyncedStartInterface>();
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public abstract class SyncedStart implements SynchedStartInterface{
 	}
 
 	@Override
-	public synchronized void addChild(SynchedStartInterface child) {
+	public synchronized void addChild(SyncedStartInterface child) {
 		if(childs.contains(child)){
 			System.err.println(me+"addChild: child aleary registered!");
 			return;
@@ -61,7 +61,7 @@ public abstract class SyncedStart implements SynchedStartInterface{
 	}
 
 	@Override
-	public synchronized void removeChild(SynchedStartInterface child) {
+	public synchronized void removeChild(SyncedStartInterface child) {
 		if(!childs.contains(child)){
 			System.err.println(me+"removeChild: child not found!");
 			return;
