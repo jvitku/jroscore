@@ -21,7 +21,7 @@ import ctu.nengoros.network.common.exceptions.StartupDelayException;
  * 
  * @author Jaroslav Vitku
  */
-public interface SyncedStartInterface extends SynchUtil{
+public interface StartupManager extends SynchUtil{
 
 	/**
 	 * The object is able to log waiting, which is disabled by default.
@@ -42,15 +42,11 @@ public interface SyncedStartInterface extends SynchUtil{
 	public void awaitStarted() throws StartupDelayException;
 
 	/**
-	 * Node is started and ready?
-	 * @return true if the Node is started (and therefore ready for usage)
+	 * Node with all its children is started and ready?
+	 * 
+	 * @return true if the Node (including all its children) is started (and therefore ready for usage)
 	 */
-	public boolean isStarted();
-
-	/**
-	 * After the node is started OK, call this method to indicate it.
-	 */
-	public void setStarted();
+	public boolean allStarted();
 	
 	/**
 	 * Get maximum wait time for this object to be ready
@@ -71,7 +67,7 @@ public interface SyncedStartInterface extends SynchUtil{
 	 * or if flag "alwaysReady" is on 
 	 * @param child
 	 */
-	public void addChild(SyncedStartInterface child);
+	public void addChild(StartupManager child);
 
-	public void removeChild(SyncedStartInterface child);
+	public void removeChild(StartupManager child);
 }

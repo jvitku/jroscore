@@ -1,6 +1,7 @@
 package ctu.nengoros.network.node;
 
 import ctu.nengoros.network.common.exceptions.StartupDelayException;
+import ctu.nengoros.network.node.synchedStart.impl.StartedObject;
 
 
 /**
@@ -18,25 +19,17 @@ import ctu.nengoros.network.common.exceptions.StartupDelayException;
  * @author Jaroslav Vitku
  *
  */
-public interface HannsNode{
+public interface HannsNode extends StartedObject{
 	
 	/**
-	 * The StartupManager could be used here.
+	 * The BasicStartupManager could be used here for indicating that this Node and 
+	 * all its components were successfully started.
 	 * @throws StartupDelayException thrown if the startup delay time exceeds
 	 * some predefined time (probably some ROS handshake problem)
 	 * 
-	 * @see ctu.nengoros.network.node.synchedStart.impl.StartupManager#awaitStarted()
+	 * @see ctu.nengoros.network.node.synchedStart.impl.BasicStartupManager#awaitStarted()
 	 */
 	public void awaitStarted() throws StartupDelayException;
-	
-	/**
-	 * Each ROS node has name which is in a namespace. Together with own 
-	 * namespace, each name is unique in the ROS network. This name
-	 * can be used e.g. for file logging.
-	 * 
-	 * @return unique name in the current ROS network 
-	 */
-	public String getFullName();
 	
 	/**
 	 * Get array of parameter descriptions, each HANNS Node should be able

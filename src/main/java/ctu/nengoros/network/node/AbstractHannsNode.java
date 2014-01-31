@@ -10,7 +10,8 @@ import ctu.nengoros.network.common.exceptions.StartupDelayException;
 import ctu.nengoros.network.node.infrastructure.rosparam.impl.PrivateRosparam;
 import ctu.nengoros.network.node.infrastructure.rosparam.manager.ParamList;
 import ctu.nengoros.network.node.observer.stats.ProsperityObserver;
-import ctu.nengoros.network.node.synchedStart.impl.StartupManager;
+import ctu.nengoros.network.node.synchedStart.StartupManager;
+import ctu.nengoros.network.node.synchedStart.impl.BasicStartupManager;
 import ctu.nengoros.util.SL;
 
 /**
@@ -51,7 +52,7 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Pros
 	protected ParamList paramList;			// parameter storage
 
 	// waiting for the node to be ready
-	public StartupManager startup = new StartupManager();
+	public StartupManager startup = new BasicStartupManager(this);
 	
 	/**
 	 * Logging
@@ -87,7 +88,7 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Pros
 	 * the functionality of the node is called asynchronously by incoming 
 	 * ROS messages.
 	 * 
-	 * Note: the {@link StartupManager#setFullName(String)} should be called 
+	 * Note: the {@link BasicStartupManager#setFullName(String)} should be called 
 	 * from here.
 	 * 
 	 * @param connectedNode publisher/subscriber/log factory
@@ -163,13 +164,11 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Pros
 		prospPublisher =connectedNode.newPublisher(topicProsperity, 
 				std_msgs.Float32MultiArray._TYPE);
 	}
-
-	@Override
-	public String getFullName() { return this.fullName; }
 	
 	@Override
 	public void awaitStarted() throws StartupDelayException{
 		startup.awaitStarted();
 	}
+	
 
 }
