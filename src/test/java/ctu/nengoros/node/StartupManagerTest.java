@@ -17,25 +17,24 @@ public class StartupManagerTest {
 		
 		n.getStartupManager().addChild(c.getStartupManager());// define the hierarchy
 		
-		assertFalse(n.isReady());
+		assertFalse(n.isStarted());
 		assertFalse(n.getStartupManager().allStarted());
-		assertFalse(c.isReady());
+		assertFalse(c.isStarted());
 		assertFalse(c.getStartupManager().allStarted());	// nobody ready
 		
 		c.setup();
 		
-		assertFalse(n.isReady());
+		assertFalse(n.isStarted());
 		assertFalse(n.getStartupManager().allStarted());
-		assertTrue(c.isReady());							// 
+		assertTrue(c.isStarted());							// 
 		assertTrue(c.getStartupManager().allStarted());		// c and all his childs ready
 		
 		n.setup();
 
-		assertTrue(n.isReady());
+		assertTrue(n.isStarted());
 		assertTrue(n.getStartupManager().allStarted());		// all happy, hierarchy can be used now
-		assertTrue(c.isReady());						 
+		assertTrue(c.isStarted());						 
 		assertTrue(c.getStartupManager().allStarted());
-		
 	}
 	
 	
@@ -72,7 +71,7 @@ public class StartupManagerTest {
 		 * Provide information that the object is setup
 		 */
 		@Override
-		public boolean isReady() {
+		public boolean isStarted() {
 			return this.x !=null;
 		}
 

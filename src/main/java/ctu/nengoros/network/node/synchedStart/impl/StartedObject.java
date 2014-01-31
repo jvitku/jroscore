@@ -14,7 +14,7 @@ public interface StartedObject {
 	/**
 	 * StartedObject should be able to indicate whether is ready to be used. 
 	 * This method can return true or false at any time. The object is said to be 
-	 * prepared for usage if the {@link #isReady()} returns true for this object
+	 * prepared for usage if the {@link #isStarted()} returns true for this object
 	 * and for all its children. This value is returned by the method 
 	 * {@link StartupManager#allStarted()} or used by the method 
 	 * {@link StartupManager#awaitStarted()}.
@@ -22,7 +22,7 @@ public interface StartedObject {
 	 * @return true if all things are initialized OK and this object can be used
 	 * @see StartupManager#awaitStarted()
 	 */
-	public boolean isReady();
+	public boolean isStarted();
 	
 	/**
 	 * Return the owned manager (for usage of e.g. 

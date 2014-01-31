@@ -65,7 +65,7 @@ public class BasicStartupManager implements StartupManager{
 	@Override
 	public synchronized boolean allStarted() {
 		// if all childs are ready (or there are none) and my Object is ready-> true
-		return this.allChildsReady() && o.isReady();
+		return this.allChildsReady() && o.isStarted();
 	}
 
 	@Override

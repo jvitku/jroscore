@@ -31,7 +31,6 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Pros
 	 */
 	public static final String name = "AbstractHannsNode"; // redefine the nodes name
 	public final String me = "["+name+"] ";
-	public String fullName;					// this name should be unique in the ROS network and set in the onStart()
 	public static final String s = "/";
 	public static final String conf = "conf"+s;
 	public static final String io = "io"+s;
@@ -170,5 +169,7 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Pros
 		startup.awaitStarted();
 	}
 	
-
+	protected String getFullName(ConnectedNode cn){
+		return cn.getResolver().getNamespace()+s+cn.getName();
+	}
 }

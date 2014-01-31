@@ -217,7 +217,8 @@ public class StaetupSynchTest {
 		assertTrue(ch02.allStarted());//
 		assertTrue(ch11.allStarted());
 		assertTrue(ch12.allStarted());
-		assertTrue(ch13.allStarted());	
+		assertTrue(ch13.allStarted());
+		
 		
 		d.setLogginEnabled(true);
 		try {
@@ -243,7 +244,7 @@ private class Dummy implements StartedObject, StartupManager{
 	public String getFullName() { return this.name;		}
 
 	@Override
-	public boolean isReady() {
+	public boolean isStarted() {
 		return x!=null;
 	}
 
