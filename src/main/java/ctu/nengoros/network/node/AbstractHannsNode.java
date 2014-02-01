@@ -52,6 +52,7 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Pros
 
 	// waiting for the node to be ready
 	public StartupManager startup = new BasicStartupManager(this);
+	public String fullName = name;		// change this to hold your unique name
 	
 	/**
 	 * Logging
@@ -172,4 +173,7 @@ public abstract class AbstractHannsNode extends AbstractNodeMain implements Pros
 	protected String getFullName(ConnectedNode cn){
 		return cn.getResolver().getNamespace()+s+cn.getName();
 	}
+
+	@Override
+	public StartupManager getStartupManager() { return this.startup; }
 }

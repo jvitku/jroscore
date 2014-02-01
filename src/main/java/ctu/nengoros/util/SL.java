@@ -318,6 +318,31 @@ public class SL {
 		}
 		return out+"]";
 	}
+	
+	public static String toStr(boolean[] array){
+		String out = "[";
+		for(int i=0; i<array.length; i++){
+			if(i==0){
+				out = out +array[i];
+			}else{
+				out = out + ", "+array[i];	
+			}
+		}
+		return out+"]";
+	}
+	
+	public static String toStr(Boolean[] array){
+		String out = "[";
+		for(int i=0; i<array.length; i++){
+			if(i==0){
+				out = out +array[i];
+			}else{
+				out = out + ", "+array[i];	
+			}
+		}
+		return out+"]";
+	}
+
 
 	/**
 	 * Convert array of Doubles to readable format
@@ -348,6 +373,18 @@ public class SL {
 		return out+"]";
 	}
 
+	public static String toStr(Float[] array){
+		String out = "[";
+		for(int i=0; i<array.length; i++){
+			if(i==0){
+				out = out +array[i];
+			}else{
+				out = out + ", "+array[i];	
+			}
+		}
+		return out+"]";
+	}
+	
 	/**
 	 * This returns the String representation of a given 2D float array. 
 	 * The array is displayed according to the Matlab convention: x ~ val[i] is
