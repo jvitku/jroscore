@@ -1,5 +1,6 @@
 package ctu.nengoros.network.node;
 
+import ctu.nengoros.network.common.Resettable;
 import ctu.nengoros.network.common.exceptions.StartupDelayException;
 import ctu.nengoros.network.node.synchedStart.impl.StartedObject;
 
@@ -19,7 +20,7 @@ import ctu.nengoros.network.node.synchedStart.impl.StartedObject;
  * @author Jaroslav Vitku
  *
  */
-public interface HannsNode extends StartedObject{
+public interface HannsNode extends StartedObject, Resettable{
 	
 	/**
 	 * The BasicStartupManager could be used here for indicating that this Node and 

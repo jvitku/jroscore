@@ -8,18 +8,24 @@ package ctu.nengoros.network.common;
  *
  */
 public interface Resettable {
-	
+
 	/**
-	 * Should re-initialize main components of the simulation, 
-	 * but preserve learned data (models) 
+	 * <p>Should re-initialize main components of the simulation, 
+	 * but preserve learned data (models)</p>
+	 * 
+	 *  <p>Typically, the soft reset could be called between particular episodes 
+	 * in episodical learning.</p>
 	 * 
 	 * @param randomize whether to randomize the initial state
 	 */
 	public void softReset(boolean randomize);
-	
+
 	/**
-	 * Hard reset should restart all running components and
-	 * delete all data collected so far (e.g. erase models learned).
+	 * <p>Hard reset should restart all running components and
+	 * delete all data collected so far (e.g. erase models learned).</p>
+	 * 
+	 * <p>Typically, the hard reset could be called between different
+	 * simulations, where all knowledge learned so far should be discarded.</p>  
 	 * 
 	 * @param randomize randomize new values?
 	 */
