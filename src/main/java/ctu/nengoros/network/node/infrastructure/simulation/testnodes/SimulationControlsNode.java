@@ -1,4 +1,4 @@
-package ctu.nengoros.network.node.infrastructure.simulation;
+package ctu.nengoros.network.node.infrastructure.simulation.testnodes;
 
 import org.apache.commons.logging.Log;
 import org.ros.namespace.GraphName;
@@ -7,6 +7,8 @@ import org.ros.node.ConnectedNode;
 import org.ros.node.topic.Publisher;
 
 import ctu.nengoros.network.common.exceptions.StartupDelayException;
+import ctu.nengoros.network.node.infrastructure.simulation.SimulationController;
+import ctu.nengoros.network.node.infrastructure.simulation.SimulationControls;
 import ctu.nengoros.network.node.synchedStart.StartupManager;
 import ctu.nengoros.network.node.synchedStart.impl.BasicStartupManager;
 import ctu.nengoros.network.node.synchedStart.impl.StartedObject;
@@ -21,11 +23,11 @@ import ctu.nengoros.network.node.synchedStart.impl.StartedObject;
  * @author Jaroslav Vitku
  *
  */
-public class SimulationMaster extends AbstractNodeMain implements StartedObject{
+public class SimulationControlsNode extends AbstractNodeMain implements StartedObject, SimulationControls{
 
 	private boolean started = false;
 
-	public static final String name = "SimulationMaster"; // redefine the nodes name
+	public static final String name = "SimulationControlsNode"; // redefine the nodes name
 	public final String me = "["+name+"] ";
 	// waiting for the node to be ready
 	public StartupManager startup = new BasicStartupManager(this);
@@ -34,20 +36,20 @@ public class SimulationMaster extends AbstractNodeMain implements StartedObject{
 	protected Log log;
 	protected Publisher<std_msgs.String> commandPublisher;
 
+	private SimulationController controller;
+	
 	@Override
 	public void onStart(ConnectedNode connectedNode) {
 		log = connectedNode.getLog();
-		this.registerRosCommunication(connectedNode);
+		//this.registerRosCommunication(connectedNode);
+		
+		this.controller = new SimulationController(name, log, connectedNode);
 
 		System.out.println(name+" node started!");
 		this.started = true;
 	}
-
-	/**
-	 * Publish ROS message which tells to all (subscribed) nodes to call 
-	 * {@link ctu.nengoros.network.common.Resettable#softReset(boolean)}.  
-	 * @param randomize the randomization is set to default value for now
-	 */
+/*
+	@Override
 	public void callHardReset(boolean randomize){
 
 		log.info(me+"Publishind SoftReset to all subscribed nodes.");
@@ -56,12 +58,8 @@ public class SimulationMaster extends AbstractNodeMain implements StartedObject{
 		fl.setData(Messages.HARD_RESET);
 		commandPublisher.publish(fl);
 	}
-
-	/**
-	 * Publish ROS message which tells to all (subscribed) nodes to call 
-	 * {@link ctu.nengoros.network.common.Resettable#hardReset(boolean)}.  
-	 * @param randomize the randomization is set to default value for now
-	 */
+	
+	@Override
 	public void callSoftReset(boolean randomize){
 
 		log.info(me+"Publishind SoftReset to all subscribed nodes.");
@@ -75,7 +73,7 @@ public class SimulationMaster extends AbstractNodeMain implements StartedObject{
 		commandPublisher =connectedNode.newPublisher(Messages.SIMULATOR_TOPIC,
 				std_msgs.String._TYPE);
 	}
-
+*/
 	@Override
 	public GraphName getDefaultNodeName() { return GraphName.of(name); }
 
@@ -90,6 +88,26 @@ public class SimulationMaster extends AbstractNodeMain implements StartedObject{
 	
 	public void awaitStarted() throws StartupDelayException{
 		startup.awaitStarted();
+	}
+	@Override
+	public void callHardReset(boolean randomize) {
+		try {
+			this.startup.awaitStarted();
+		} catch (StartupDelayException e) {
+			e.printStackTrace();
+		}
+		//System.out.println("calling hard reset");
+		this.controller.callHardReset(randomize);
+	}
+	@Override
+	public void callSoftReset(boolean randomize) {
+		try {
+			this.startup.awaitStarted();
+		} catch (StartupDelayException e) {
+			e.printStackTrace();
+		}
+		//System.out.println("calling soft reset");
+		this.controller.callSoftReset(randomize);
 	}
 
 }

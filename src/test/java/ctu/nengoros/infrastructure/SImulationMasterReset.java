@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import ctu.nengoros.RosRunner;
 import ctu.nengoros.network.common.exceptions.StartupDelayException;
-import ctu.nengoros.network.node.infrastructure.simulation.SimulationMaster;
 import ctu.nengoros.network.node.infrastructure.simulation.testnodes.ConfigurableHannsNode;
+import ctu.nengoros.network.node.infrastructure.simulation.testnodes.SimulationControlsNode;
 import ctu.nengoros.network.node.testsuit.RosCommunicationTest;
 
 public class SImulationMasterReset extends RosCommunicationTest{
@@ -18,17 +18,17 @@ public class SImulationMasterReset extends RosCommunicationTest{
 	@Test
 	public void testReset(){
 		RosRunner masterNode =super.runNode(
-				"ctu.nengoros.network.node.infrastructure.simulation.SimulationMaster");		
+				"ctu.nengoros.network.node.infrastructure.simulation.testnodes.SimulationControlsNode");		
 		RosRunner slaveNode =super.runNode(
 				"ctu.nengoros.network.node.infrastructure.simulation.testnodes.ConfigurableHannsNode");
 
-		SimulationMaster master = null;
+		SimulationControlsNode master = null;
 		ConfigurableHannsNode node = null;
 
-		if(!(masterNode.getNode() instanceof SimulationMaster))
+		if(!(masterNode.getNode() instanceof SimulationControlsNode))
 			fail("Wrong class launched");
 		else
-			master = (SimulationMaster)masterNode.getNode();
+			master = (SimulationControlsNode)masterNode.getNode();
 
 		if(!(slaveNode.getNode() instanceof ConfigurableHannsNode))
 			fail("Wrong class launched");
@@ -53,7 +53,7 @@ public class SImulationMasterReset extends RosCommunicationTest{
 
 		// wait for publishers/subscribers to be operational
 		sleep(100);					// TODO communicationAware startup 
-
+		
 		master.callHardReset(false);
 		// wait for message to be delivered
 		sleep(100);					// TODO use services instead of pub/sub
