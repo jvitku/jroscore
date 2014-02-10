@@ -44,7 +44,7 @@ public abstract class AbstractConfigurableHannsNode extends AbstractHannsNode im
 					System.err.println(me+"Received simulator command hardReset, resetting node now.");
 					hardReset(DEF_RANDOMIZE);
 				}else if(data.equalsIgnoreCase(Messages.SOFT_RESET)){
-					System.err.println(me+"Received simulator command hardReset, resetting node now.");
+					System.err.println(me+"Received simulator command softReset, resetting node now.");
 					softReset(DEF_RANDOMIZE);
 				}
 			}

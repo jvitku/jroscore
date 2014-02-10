@@ -38,42 +38,24 @@ public class SimulationControlsNode extends AbstractNodeMain implements StartedO
 
 	private SimulationController controller;
 	
+	private ConnectedNode connectedNode;
+	
 	@Override
 	public void onStart(ConnectedNode connectedNode) {
 		log = connectedNode.getLog();
 		//this.registerRosCommunication(connectedNode);
+		this.connectedNode = connectedNode;
 		
 		this.controller = new SimulationController(name, log, connectedNode);
 
 		System.out.println(name+" node started!");
 		this.started = true;
 	}
-/*
-	@Override
-	public void callHardReset(boolean randomize){
-
-		log.info(me+"Publishind SoftReset to all subscribed nodes.");
-		System.out.println(me+"Publishind SoftReset to all subscribed nodes.");
-		std_msgs.String fl = commandPublisher.newMessage();
-		fl.setData(Messages.HARD_RESET);
-		commandPublisher.publish(fl);
+	
+	public String getNamespace(){
+		return connectedNode.getResolver().getNamespace().toString();
 	}
 	
-	@Override
-	public void callSoftReset(boolean randomize){
-
-		log.info(me+"Publishind SoftReset to all subscribed nodes.");
-		System.out.println(me+"Publishind SoftReset to all subscribed nodes.");
-		std_msgs.String fl = commandPublisher.newMessage();
-		fl.setData(Messages.SOFT_RESET);
-		commandPublisher.publish(fl);
-	}
-
-	private void registerRosCommunication(ConnectedNode connectedNode){
-		commandPublisher =connectedNode.newPublisher(Messages.SIMULATOR_TOPIC,
-				std_msgs.String._TYPE);
-	}
-*/
 	@Override
 	public GraphName getDefaultNodeName() { return GraphName.of(name); }
 

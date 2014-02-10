@@ -6,6 +6,12 @@ import org.ros.node.ConnectedNode;
 import ctu.nengoros.network.node.AbstractConfigurableHannsNode;
 import ctu.nengoros.network.node.observer.stats.ProsperityObserver;
 
+/**
+ * Simple ROS node that can be reseted over the ROS network.
+ * 
+ * @author Jaroslav Vitku
+ *
+ */
 public class ConfigurableHannsNode extends AbstractConfigurableHannsNode{
 
 	private String name = "name";
@@ -13,9 +19,13 @@ public class ConfigurableHannsNode extends AbstractConfigurableHannsNode{
 	
 	public boolean softResetted = false;
 	public boolean hardResetted = false;
+	
+	private ConnectedNode connectedNode;
 
 	@Override
 	public void onStart(ConnectedNode connectedNode) {
+		this.connectedNode = connectedNode;
+		
 		this.registerSimulatorCommunication(connectedNode);
 		
 		System.out.println(name+" node started!");
@@ -39,6 +49,11 @@ public class ConfigurableHannsNode extends AbstractConfigurableHannsNode{
 		this.softResetted = true;
 	}
 
+
+	public String getNamespace(){
+		return connectedNode.getResolver().getNamespace().toString();
+	}
+	
 	@Override
 	public void hardReset(boolean randomize) {
 		System.out.println("hard reseet called!");
