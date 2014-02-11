@@ -11,11 +11,16 @@ public class Messages {
 
 	public static final String SIMULATOR_TOPIC = "simulation";
 
+	// randomize after reset?
+	public static final String HARD_RESETR = "hardResetRandom";
+
+	public static final String SOFT_RESETR = "softResetRandom";
+	
 	public static final String HARD_RESET = "hardReset";
 
 	public static final String SOFT_RESET = "softReset";
 
-	public static final String[] COMMANDS = new String[]{HARD_RESET, SOFT_RESET};
+	public static final String[] COMMANDS = new String[]{HARD_RESET, SOFT_RESET, HARD_RESETR, SOFT_RESETR};
 
 	/**
 	 * Check if a given command is recognized (if is contained in the {@link #COMMANDS}. 

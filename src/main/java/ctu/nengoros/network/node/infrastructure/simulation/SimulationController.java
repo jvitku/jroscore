@@ -17,33 +17,39 @@ public class SimulationController implements SimulationControls{
 	// own publisher for controlling the simulation (e.g. reset)
 	protected Publisher<std_msgs.String> commandPublisher;	
 	protected Log log;
-	
+
 	private final String me;
-	
+
 	public SimulationController(String name, Log log, 
 			ConnectedNode connectedNode){
 		this.me = "["+name+"] ";
 		this.log = log;
 		this.registerRosCommunication(connectedNode);
 	}
-	
+
 	@Override
 	public void callHardReset(boolean randomize){
 
 		log.info(me+"Publishing HardReset to all subscribed nodes.");
 		System.out.println(me+"Publishing HardReset to all subscribed nodes.");
 		std_msgs.String fl = commandPublisher.newMessage();
-		fl.setData(Messages.HARD_RESET);
+		if(randomize)
+			fl.setData(Messages.HARD_RESETR);
+		else
+			fl.setData(Messages.HARD_RESET);
 		commandPublisher.publish(fl);
 	}
-	
+
 	@Override
 	public void callSoftReset(boolean randomize){
 
 		log.info(me+"Publishind SoftReset to all subscribed nodes.");
 		System.out.println(me+"Publishing SoftReset to all subscribed nodes.");
 		std_msgs.String fl = commandPublisher.newMessage();
-		fl.setData(Messages.SOFT_RESET);
+		if(randomize)
+			fl.setData(Messages.SOFT_RESETR);
+		else
+			fl.setData(Messages.SOFT_RESET);
 		commandPublisher.publish(fl);
 	}
 
@@ -51,5 +57,5 @@ public class SimulationController implements SimulationControls{
 		commandPublisher =connectedNode.newPublisher(Messages.SIMULATOR_TOPIC,
 				std_msgs.String._TYPE);
 	}
-	
+
 }

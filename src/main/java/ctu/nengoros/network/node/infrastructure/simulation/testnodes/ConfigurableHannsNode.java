@@ -19,6 +19,7 @@ public class ConfigurableHannsNode extends AbstractConfigurableHannsNode{
 	
 	public boolean softResetted = false;
 	public boolean hardResetted = false;
+	public boolean randomized = false;
 	
 	private ConnectedNode connectedNode;
 
@@ -47,6 +48,7 @@ public class ConfigurableHannsNode extends AbstractConfigurableHannsNode{
 	public void softReset(boolean randomize) {
 		System.out.println("soft reseet called!");
 		this.softResetted = true;
+		this.randomized = randomize;
 	}
 
 
@@ -56,8 +58,9 @@ public class ConfigurableHannsNode extends AbstractConfigurableHannsNode{
 	
 	@Override
 	public void hardReset(boolean randomize) {
-		System.out.println("hard reseet called!");
+		System.out.println("hard reset called!");
 		this.hardResetted = true;
+		this.randomized = randomize;
 	}
 
 	@Override

@@ -17,11 +17,11 @@ public class SImulationMasterReset extends RosCommunicationTest{
 	 */
 	@Test
 	public void testReset(){
-		RosRunner masterNode =super.runNode(
-				"ctu.nengoros.network.node.infrastructure.simulation.testnodes.SimulationControlsNode");		
+				
 		RosRunner slaveNode =super.runNode(
 				"ctu.nengoros.network.node.infrastructure.simulation.testnodes.ConfigurableHannsNode");
-
+		RosRunner masterNode =super.runNode(
+				"ctu.nengoros.network.node.infrastructure.simulation.testnodes.SimulationControlsNode");
 		SimulationControlsNode master = null;
 		ConfigurableHannsNode node = null;
 
@@ -49,6 +49,7 @@ public class SImulationMasterReset extends RosCommunicationTest{
 
 		assertFalse(node.hardResetted);
 		assertFalse(node.softResetted);
+		assertFalse(node.randomized);
 
 		// wait for publishers/subscribers to be operational
 		sleep(100);					// TODO communicationAware startup 
@@ -58,12 +59,26 @@ public class SImulationMasterReset extends RosCommunicationTest{
 		sleep(100);					// TODO use services instead of pub/sub
 		assertTrue(node.hardResetted);
 		assertFalse(node.softResetted);
-
+		assertFalse(node.randomized);
+		
+		master.callHardReset(true);
+		sleep(100);
+		assertTrue(node.hardResetted);
+		assertFalse(node.softResetted);
+		assertTrue(node.randomized);
+		
 		master.callSoftReset(false);
 		sleep(100);
 		assertTrue(node.hardResetted);
 		assertTrue(node.softResetted);
-
+		assertFalse(node.randomized);
+		
+		master.callSoftReset(true);
+		sleep(100);
+		assertTrue(node.hardResetted);
+		assertTrue(node.softResetted);
+		assertTrue(node.randomized);
+		
 		masterNode.stop();
 		slaveNode.stop();
 	}

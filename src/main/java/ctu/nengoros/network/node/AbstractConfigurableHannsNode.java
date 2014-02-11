@@ -19,8 +19,6 @@ import ctu.nengoros.network.node.infrastructure.simulation.Messages;
  */
 public abstract class AbstractConfigurableHannsNode extends AbstractHannsNode implements ConfigurableHannsNode{
 
-	public static final boolean DEF_RANDOMIZE = true;
-	
 	@Override
 	public void registerSimulatorCommunication(ConnectedNode connectedNode) {
 		/**
@@ -33,19 +31,25 @@ public abstract class AbstractConfigurableHannsNode extends AbstractHannsNode im
 			@Override
 			public void onNewMessage(std_msgs.String message) {
 				String data = message.getData();
-				
+
 				if(!Messages.commandIsRecognized(data)){
 					System.err.println(me+"Simulator command not recognized, ignoring! "
 							+ "Command was: "+data);
 					return;
 				}
-				
+
 				if(data.equalsIgnoreCase(Messages.HARD_RESET)){
-					System.err.println(me+"Received simulator command hardReset, resetting node now.");
-					hardReset(DEF_RANDOMIZE);
+					System.err.println(me+"Received simulator command hardReset(false), resetting node now.");
+					hardReset(false);
+				}else if(data.equalsIgnoreCase(Messages.HARD_RESETR)){
+					System.err.println(me+"Received simulator command hardReset(true), resetting node now.");
+					hardReset(true);
 				}else if(data.equalsIgnoreCase(Messages.SOFT_RESET)){
-					System.err.println(me+"Received simulator command softReset, resetting node now.");
-					softReset(DEF_RANDOMIZE);
+					System.err.println(me+"Received simulator command softReset(false), resetting node now.");
+					softReset(false);
+				}else if(data.equalsIgnoreCase(Messages.SOFT_RESETR)){
+					System.err.println(me+"Received simulator command softReset(true), resetting node now.");
+					softReset(true);
 				}
 			}
 		});
