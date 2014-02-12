@@ -8,25 +8,13 @@ import ctu.nengoros.network.common.Resettable;
  * about it (e.g. to provide the prosperity value). 
  * 
  * Observer can be also any visualization algorithm.
+ * 
+ * Add method void observe(params) and call it each simulation step in order to observe.
  *  
  * @author Jaroslav Vitku
  *
  */
 public interface Observer extends Resettable {
-	
-	/**
-	 * Similar to the 
-	 * {@link org.hanns.rl.discrete.learningAlgorithm.LearningAlgorithm#performLearningStep(int, float, int[], int)},
-	 * but this does not produce any RL action, nor RL-learning. This just 
-	 * logs or visualizes agents behavior if conditions are met. 
-	 * 
-	 * @param prevAction previous action
-	 * @param reward reward received from the previous action
-	 * @param currentState current state
-	 * @param futureAction action selected by the ASM to be executed in the following step
-	 */
-	// this has to be domain specific (not RL all the time)
-	//public void observe(int prevAction, float reward, int[] currentState, int futureAction);
 	
 	/**
 	 * Turn on/off the visualization (logging)
