@@ -1,9 +1,12 @@
 package ctu.nengoros.network.node.infrastructure.simulation.testnodes;
 
+import java.util.LinkedList;
+
 import org.ros.namespace.GraphName;
 import org.ros.node.ConnectedNode;
 
 import ctu.nengoros.network.node.AbstractConfigurableHannsNode;
+import ctu.nengoros.network.node.observer.Observer;
 import ctu.nengoros.network.node.observer.stats.ProsperityObserver;
 
 /**
@@ -95,5 +98,8 @@ public class ConfigurableHannsNode extends AbstractConfigurableHannsNode{
 	public ProsperityObserver getProsperityObserver() {
 		return null;
 	}
+
+	@Override
+	public LinkedList<Observer> getObservers() { return null; }
 
 }

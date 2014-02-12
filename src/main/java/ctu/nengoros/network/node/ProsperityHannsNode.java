@@ -1,6 +1,10 @@
 package ctu.nengoros.network.node;
 
+import java.util.LinkedList;
+
 import org.ros.node.ConnectedNode;
+
+import ctu.nengoros.network.node.observer.Observer;
 
 /**
  * Hanns node with support of prosperity publishing.
@@ -28,5 +32,13 @@ public interface ProsperityHannsNode extends HannsNode{
 	 * its value(s) of prosperity over the ROS network.
 	 */
 	public void publishProsperity();
+	
+	/**
+	 * Get list of observers, all these observers are ran each simulation step.
+	 * To register new observer, just call {@link #getObservers()}.add(myObserver).
+	 * @return LinkedList of observers. Note that custom observer has to implement
+	 * an interface that is expected by a particular node (has custom method observe(?)). 
+	 */
+	public LinkedList<Observer> getObservers();
 
 }
