@@ -36,7 +36,7 @@ public abstract class AbsProsperityObserver implements ProsperityObserver{
 	}
 
 	@Override
-	public void setShouldVis(boolean visualize) {this.shouldVis = visualize; }
+	public void setShouldVis(boolean visualize) { this.shouldVis = visualize; }
 
 	@Override
 	public boolean getShouldVis() { return this.shouldVis; }
@@ -58,6 +58,5 @@ public abstract class AbsProsperityObserver implements ProsperityObserver{
 	public ProsperityObserver[] getChilds() {
 		return null;
 	}
-
 
 }

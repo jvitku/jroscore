@@ -25,7 +25,8 @@ public interface Observer extends Resettable {
 	 * @param currentState current state
 	 * @param futureAction action selected by the ASM to be executed in the following step
 	 */
-	public void observe(int prevAction, float reward, int[] currentState, int futureAction);
+	// this has to be domain specific (not RL all the time)
+	//public void observe(int prevAction, float reward, int[] currentState, int futureAction);
 	
 	/**
 	 * Turn on/off the visualization (logging)
