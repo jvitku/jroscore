@@ -1,7 +1,8 @@
 package ctu.nengoros.util;
 
 import java.io.File;
-
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 /**
@@ -85,6 +86,32 @@ public class SL {
 
 
 	/**
+	 * Delete all data from my log file.
+	 */
+	public void cleanupFile(){
+		if(this.flog==null){
+			System.err.println("My File Logger not inited, ignoring request for cleanup!");
+			return;
+		}
+		
+		try {
+			FileOutputStream writer = new FileOutputStream(name);
+			writer.write((new String()).getBytes());
+			writer.close();
+			
+			// reopen fileWriter
+			flog.close();
+			flog = new FileWriter(file,false);
+			
+		} catch (FileNotFoundException e) {
+			System.err.println("My File not found, ignoring request for cleanup!");
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
 	 * Actual initialization. 
 	 * @param name name of the logger, or/and name of the file to write
 	 * @param useConsole use console? if false, the file will be written
@@ -107,7 +134,7 @@ public class SL {
 		// try to create new file writer with given name
 		try {
 			// append-true: append strings to the end of existing file
-			flog= new FileWriter(file,false);
+			flog = new FileWriter(file,false);
 		}
 		catch (IOException e) { e.printStackTrace(); }
 	}
@@ -136,12 +163,12 @@ public class SL {
 	private void write(String s, int lev){
 		if(write){
 			// if the message is important enough
-			if(lev<=this.level){
+			if(lev <= this.level){
 
 				if(useConsole)
 					System.out.print(/*"l"+lev+"| "+*/s);
 				else
-					try{ 
+					try{
 						flog.write(/*"l"+lev+"| "+*/s);
 						flog.flush();
 					}
