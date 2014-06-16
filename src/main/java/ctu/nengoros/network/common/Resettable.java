@@ -32,3 +32,4 @@ public interface Resettable {
 	public void hardReset(boolean randomize);
 
 }
+
