@@ -8,7 +8,7 @@ package ctu.nengoros.network.node.discreteSync;
  * @author Jaroslav Vitku
  *
  */
-public interface SetOfMessages {
+public interface SetOfMessages extends ReceivedEvaluator{
 	
 	/**
 	 * Register new message identified by it's topic and type  
@@ -27,7 +27,7 @@ public interface SetOfMessages {
 	 * @param type
 	 * @throws NengoROSSync throw in case of attempt to register arrival of non-existing message
 	 */
-	public void registerMessageArival(String topic, String type) throws NengoROSSync;
+	public void registerMessageArival(String topic, String type);// throws NengoROSSync;
 	
 
 	/**
