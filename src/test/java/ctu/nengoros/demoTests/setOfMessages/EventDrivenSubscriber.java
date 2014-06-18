@@ -7,6 +7,8 @@ import org.ros.node.AbstractNodeMain;
 import org.ros.node.ConnectedNode;
 import org.ros.node.topic.Subscriber;
 
+import ctu.nengoros.network.node.infrastructure.rosparam.impl.PrivateRosparam;
+
 /**
  * Demo node: subscribe to a given topic and write received array-of-integer messages into the log ROS-console.
  * 
@@ -15,51 +17,51 @@ import org.ros.node.topic.Subscriber;
  */
 public class EventDrivenSubscriber extends AbstractNodeMain{
 	
-	// topic used for communication 
-	protected final java.lang.String topicIn = "hanns/demonodes/A";
+	// topic used for input messages 
+	protected final java.lang.String DEF_TOPICA = "topicA";
+	protected final java.lang.String DEF_TOPICB = "topicB";
 	
-	// configured also in python/nef/templates/demoSubscriber.py 
-	private final int dataLength = 7;
+	public final java.lang.String topicAConf = "topicA";
+	public final java.lang.String topicBConf = "topicB";
 	
-	/**
-	 * Default name of the ROS node
-	 */
+	private String topicA, topicB;
+	
 	@Override
 	public GraphName getDefaultNodeName() { return GraphName.of("EventDrivenSubscriber"); }
 
-	/**
-	 * Method called after launching the node. 
-	 * After exiting this method, the node will stop working.
-	 */
 	@Override
 	public void onStart(final ConnectedNode connectedNode) {
-
+		
 		System.out.println("Node started, initializing!");
 		final Log log = connectedNode.getLog();
-
-		// subscribe to given topic
-		Subscriber<std_msgs.Float32MultiArray> subscriber = 
-				connectedNode.newSubscriber(topicIn, std_msgs.Float32MultiArray._TYPE);
 		
-		subscriber.addMessageListener(new MessageListener<std_msgs.Float32MultiArray>() {
-			// print messages to console
+		// read remapping arguments
+		PrivateRosparam r = new PrivateRosparam(connectedNode);
+		topicA = r.getMyString(topicAConf, 	DEF_TOPICA);
+		topicB = r.getMyString(topicBConf,	DEF_TOPICB);
+
+		Subscriber<std_msgs.Float32> subscriberA = 
+				connectedNode.newSubscriber(topicA, std_msgs.Float32._TYPE);
+		Subscriber<std_msgs.Float32> subscriberB = 
+				connectedNode.newSubscriber(topicB, std_msgs.Float32._TYPE);
+		
+		subscriberA.addMessageListener(new MessageListener<std_msgs.Float32>() {
 			@Override
-			public void onNewMessage(std_msgs.Float32MultiArray message) {
-				float[] data = message.getData();
-				if(data.length != dataLength)
-					log.error("Received message has unexpected length of"+data.length+"!");
-				else
-					log.info("Received these data: "+toAr(data));
+			public void onNewMessage(std_msgs.Float32 message) {
+				float data = message.getData();
+				log.info("Received these data on INPUT A: "+data);
+			}
+		});
+		
+		subscriberB.addMessageListener(new MessageListener<std_msgs.Float32>() {
+			@Override
+			public void onNewMessage(std_msgs.Float32 message) {
+				float data = message.getData();
+				log.info("Received these data on INPUT B: "+data);
 			}
 		});
 
 		log.info("HEY! Node ready now!");
 	}
 
-	private String toAr(float[] f){
-		String out = "";
-		for(int i=0;i<f.length; i++)
-			out = out+"  "+f[i];
-		return out;		
-	}
 }

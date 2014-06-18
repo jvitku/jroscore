@@ -22,7 +22,7 @@ public class DelayPublisher extends AbstractNodeMain {
 	final int DEF_PERIOD = 10;
 	private int waittime;
 
-	public final String DEF_TOPIC = "hanns/demo"; 
+	public final String DEF_TOPIC = "topicA"; 
 	final String topicConf = "topic";
 	private String topic;
 
@@ -67,7 +67,7 @@ public class DelayPublisher extends AbstractNodeMain {
 				mess.setData(poc);								// set message data
 				publisher.publish(mess);						// send message
 				
-				log.info("Sending message no.:"+poc+", to the topic: "+topic);
+				log.info("Sending message no.: "+poc+", on the topic: "+topic);
 				poc++;
 				Thread.sleep(waittime);
 			}
