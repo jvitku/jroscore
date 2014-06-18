@@ -60,6 +60,10 @@ But, since this package depends only on **OUR VERSION** of [rosjava_core](https:
 Changelog
 ------------------
 
+### V0.0.11
+
+* Added `ctu.nengoros.network.node.discreteSync.PartiallyOrderedSet` for synchronization of incoming data messages
+
 ### V0.0.6
 
 * Started to integrate RL algorithms from DT, e.g. temporarily adding MyLogger here.
