@@ -1,7 +1,7 @@
 package ctu.nengoros.node.discreteSync;
 
-import static org.junit.Assert.*;
 
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 import ctu.nengoros.network.node.discreteSync.NengoROSSync;

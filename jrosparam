@@ -26,4 +26,4 @@ else
 	CL=build/classes
 fi
 
-java -cp $CL:$JAR ctu.nengoros.rosparam.Jrosparam $1 $2 $3 $4 $5
+java -cp $CL:$JAR ctu.nengoros.network.node.infrastructure.rosparam.Jrosparam $1 $2 $3 $4 $5
