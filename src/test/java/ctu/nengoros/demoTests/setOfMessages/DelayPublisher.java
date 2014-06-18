@@ -41,6 +41,7 @@ public class DelayPublisher extends AbstractNodeMain {
 
 		waittime = r.getMyInteger(periodConf, DEF_PERIOD);
 		topic = r.getMyString(topicConf,DEF_TOPIC);
+		//System.out.println
 
 		System.out.println("Will publish with this period: "+waittime);
 
