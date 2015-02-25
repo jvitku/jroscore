@@ -24,6 +24,33 @@ public class PrivateRosparam extends Rosparam implements PrivateRosparamInt{
 	}
 
 	@Override
+	public int[] getMyIntegerList(String key) throws Exception {
+		String str = pt.getString(absolutename.join(key));
+		String[] lst = str.split(",");
+		if(lst.length == 0)
+			throw new Exception("list with this key has length of zero: "+key);
+		
+		int[] list = new int[lst.length];
+		for(int i=0; i<lst.length; i++){
+			try{
+				list[i] = Integer.parseInt(lst[i]);
+			}catch(Exception e1){
+				throw e1;
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public int[] getMyIntegerList(String key, int[] def) {		
+		try{
+			return this.getMyIntegerList(key);
+		}catch(Exception e){
+			return def;
+		}
+	}
+	
+	@Override
 	public Integer getMyInteger(String key) throws Exception {
 		// try to get integer
 		try{
@@ -150,5 +177,7 @@ public class PrivateRosparam extends Rosparam implements PrivateRosparamInt{
 	public boolean hasPrivateParam(String key) {
 		return pt.has(absolutename.join(key));
 	}
+
+
 
 }

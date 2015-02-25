@@ -34,6 +34,19 @@ public class PrivateRosparamNode extends RosparamNode implements PrivateRosparam
 		this.awaitNodeReady();
 		return pr.getMyString(key);
 	}
+	
+
+	@Override
+	public int[] getMyIntegerList(String key) throws Exception {
+		this.awaitNodeReady();
+		return pr.getMyIntegerList(key);
+	}
+
+	@Override
+	public int[] getMyIntegerList(String key, int[] def) {
+		this.awaitNodeReady();
+		return pr.getMyIntegerList(key, def);
+	}
 
 	@Override
 	public Integer getMyInteger(String key) throws Exception {
@@ -100,6 +113,7 @@ public class PrivateRosparamNode extends RosparamNode implements PrivateRosparam
 			}
 		}
 	}
+
 }
 
 

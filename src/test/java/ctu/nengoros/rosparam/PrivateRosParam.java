@@ -194,6 +194,96 @@ public class PrivateRosParam extends RosCommunicationTest{
 		assertFalse(r.isRunning());
 	}
 	
+
+	@Test
+	public void privateParamsIntegerListParsing(){
+		Jrosparam j = startJrosparam();
+		assertTrue(r.isRunning());
+
+		RosRunner rr = super.runNode(
+				new String[]{pr, 
+						"__name:=testName",
+						"__ns:=namespace",
+						"_integerA:=10",
+						"_integerList:=10,11,12,34",
+						"_integerListWrong:=10,11,12,34.1"});
+
+		assertTrue(rr.isRunning());
+
+		PrivateRosparamNode d = (PrivateRosparamNode)rr.getNode();
+
+		assertTrue(d.getNumPrivateParams() == 3);
+
+		// get the string value of my integer (stored as string from cmdline)
+		try {
+			assertTrue(d.getMyString("integerA").equalsIgnoreCase("10"));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			fail();
+		}
+		// get the integer value
+		try {
+			assertTrue(d.getMyInteger("integerA") == 10);
+		} catch (Exception e) { e.printStackTrace(); fail(); }
+		
+		/////////////////////
+		//get list as a String
+		try {
+			assertTrue(d.getMyString("integerList").equalsIgnoreCase("10,11,12,34"));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			fail();
+		}
+		int[] list = {};
+		int[] correct = {10,11,12,34};
+		// get the integer value
+		try {
+			list = d.getMyIntegerList("integerList");
+		} catch (Exception e) { e.printStackTrace(); fail(); }
+		
+		// parse list and check expected values
+		assertTrue(list.length == correct.length);
+		for(int i=0; i<correct.length; i++){
+			assertTrue(list[i] ==correct[i]);
+		}
+		
+		//get list as a String
+		try {
+			assertTrue(d.getMyString("integerListWrong").equalsIgnoreCase("10,11,12,34.1"));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			fail();
+		}
+		int[] def = {101,111,121,340,1};
+		int[] caught = {};
+		// get the integer value
+		caught = d.getMyIntegerList("integerListWrong", def);
+		
+		// parse list and check expected values
+		assertTrue(caught.length == def.length);
+		for(int i=0; i<def.length; i++){
+			assertTrue(def[i] ==caught[i]);
+		}
+
+		// check parameter server
+		assertTrue(j.processCommand("numparams").equalsIgnoreCase("3"));
+		assertTrue(j.processCommand(new String[]{"get","/namespace/testName/integerA"}).equalsIgnoreCase("10"));
+		assertTrue(j.processCommand(new String[]{"get","/namespace/testName/integerList"}).equalsIgnoreCase("10,11,12,34"));
+		assertTrue(j.processCommand(new String[]{"get","/namespace/testName/integerListWrong"}).equalsIgnoreCase("10,11,12,34.1"));
+
+		// cannot find them like this:
+		assertTrue(j.processCommand(new String[]{"get","booleanD"}).equalsIgnoreCase(Jrosparam.notFound));
+
+		// parameters can be deleted all at once!
+		j.processCommand(new String[]{"delete","/namespace/testName/"});
+		assertTrue(j.processCommand("list").equalsIgnoreCase(Jrosparam.listEmpty));
+
+		rr.stop();
+		assertFalse(rr.isRunning());
+		r.stop();
+		assertFalse(r.isRunning());
+	}
+	
 	/**
 	 * The same with different namespace
 	 */
