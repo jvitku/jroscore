@@ -60,6 +60,8 @@ But, since this package depends only on **OUR VERSION** of [rosjava_core](https:
 Changelog
 ------------------
 
+* Added ability to parse `Integer` lists as commandline arrguments to rosjava nodes, example: `_myList:=10,11,12`
+
 ### V0.0.11
 
 * Added `ctu.nengoros.network.node.discreteSync.PartiallyOrderedSet` for synchronization of incoming data messages
