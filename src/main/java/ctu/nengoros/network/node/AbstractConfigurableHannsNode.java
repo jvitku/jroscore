@@ -39,16 +39,16 @@ public abstract class AbstractConfigurableHannsNode extends AbstractHannsNode im
 				}
 
 				if(data.equalsIgnoreCase(Messages.HARD_RESET)){
-					System.err.println(me+"Received simulator command hardReset(false), resetting node now.");
+					//System.err.println(me+"Received simulator command hardReset(false), resetting node now.");
 					hardReset(false);
 				}else if(data.equalsIgnoreCase(Messages.HARD_RESETR)){
-					System.err.println(me+"Received simulator command hardReset(true), resetting node now.");
+					//System.err.println(me+"Received simulator command hardReset(true), resetting node now.");
 					hardReset(true);
 				}else if(data.equalsIgnoreCase(Messages.SOFT_RESET)){
-					System.err.println(me+"Received simulator command softReset(false), resetting node now.");
+					//System.err.println(me+"Received simulator command softReset(false), resetting node now.");
 					softReset(false);
 				}else if(data.equalsIgnoreCase(Messages.SOFT_RESETR)){
-					System.err.println(me+"Received simulator command softReset(true), resetting node now.");
+					//System.err.println(me+"Received simulator command softReset(true), resetting node now.");
 					softReset(true);
 				}
 			}

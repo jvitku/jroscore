@@ -26,7 +26,7 @@ public class BasicStartupManager implements StartupManager{
 
 	public static final String DEF_NAME = "StartupManager";
 	public static final boolean DEF_LOG = false;	// log about waiting?
-	public static final int DEF_MAXWAIT = 7000;		// default max time to wait
+	public static final int DEF_MAXWAIT = 10000;		// default max time to wait
 	public static final int WAITTIME = 10;			// sleep for?
 	public final boolean DEF_READY = false;			// ready after startup?
 

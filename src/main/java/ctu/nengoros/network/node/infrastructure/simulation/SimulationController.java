@@ -31,7 +31,7 @@ public class SimulationController implements SimulationControls{
 	public void callHardReset(boolean randomize){
 
 		log.info(me+"Publishing HardReset to all subscribed nodes.");
-		System.out.println(me+"Publishing HardReset to all subscribed nodes.");
+		//System.out.println(me+"Publishing HardReset to all subscribed nodes.");
 		std_msgs.String fl = commandPublisher.newMessage();
 		if(randomize)
 			fl.setData(Messages.HARD_RESETR);
@@ -44,7 +44,7 @@ public class SimulationController implements SimulationControls{
 	public void callSoftReset(boolean randomize){
 
 		log.info(me+"Publishind SoftReset to all subscribed nodes.");
-		System.out.println(me+"Publishing SoftReset to all subscribed nodes.");
+		//System.out.println(me+"Publishing SoftReset to all subscribed nodes.");
 		std_msgs.String fl = commandPublisher.newMessage();
 		if(randomize)
 			fl.setData(Messages.SOFT_RESETR);
